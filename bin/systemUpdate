@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /tmp
+bb-wrapper -Syu --aur

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+find -iname "*.png" | parallel optipng -fix -strip all {}

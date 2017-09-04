@@ -1,0 +1,6 @@
+#!/bin/bash
+
+discPath="$1"
+discFile=${discPath##*/}
+
+fs-uae --fast_memory=0 --amiga-model=CD32 --cdrom-drive-0="/mnt/store/Emulation/Games/Commodore - Amiga CD32/${discFile}"

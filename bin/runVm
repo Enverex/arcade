@@ -1,0 +1,3 @@
+#!/bin/bash
+
+VBoxManage -q startvm "$1"

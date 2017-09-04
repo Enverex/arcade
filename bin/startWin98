@@ -1,0 +1,1 @@
+qemu-system-i386 -hda ~/qEmu/Windows98.img -boot c -m 512 -soundhw es1370 -localtime -vga cirrus -full-screen

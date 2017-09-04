@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#pacmd unload-module module-ladspa-sink
+#pacmd load-module module-ladspa-sink sink_name=ladspa_output.fastLookaheadLimiter label=fastLookaheadLimiter plugin=fast_lookahead_limiter_1913 control=10,0,0.9
+#pacmd load-module module-ladspa-sink sink_name=ladspa_output.dysonCompress label=dysonCompress master=ladspa_output.fastLookaheadLimiter plugin=dyson_compress_1403 control=-12,1,0.5,0.99
+#pacmd set-default-sink ladspa_output.dysonCompress
+
+pacmd unload-module module-ladspa-sink
+pacmd load-module module-ladspa-sink sink_name=compressor plugin=sc4_1882 label=sc4 control=0.9,5,63,-6,15,3,24
+pacmd set-default-sink compressor
+
+#pacmd unload-module module-ladspa-sink
+#pacmd load-module module-ladspa-sink  sink_name=ladspa_sink  plugin=dyson_compress_1403  label=dysonCompress  control=0,1,0.5,0.99
+#pacmd load-module module-ladspa-sink  sink_name=ladspa_normalized  master=ladspa_sink  plugin=fast_lookahead_limiter_1913  label=fastLookaheadLimiter  control=10,0,0.8
+#pacmd set-default-sink ladspa_normalized

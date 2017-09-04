@@ -1,0 +1,12 @@
+#!/bin/bash
+
+## RetroArch
+rm -rf ~/.config/retroarch/playlists/*
+cp -v /mnt/emerald/Files/RomScan/generated/XMB/* ~/.config/retroarch/playlists/
+
+## Attract Mode
+rm -rf ~/.attract/emulators
+rm -rf ~/.attract/romlists
+cp -rv /mnt/emerald/Files/RomScan/generated/AM/* ~/.attract/
+
+echo "Done"

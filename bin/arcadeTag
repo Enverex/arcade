@@ -1,0 +1,1 @@
+sudo su - arcade -c "/home/arcade/.bin/tagToGame $*"

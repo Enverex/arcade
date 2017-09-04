@@ -1,0 +1,25 @@
+#!/bin/bash
+
+gameName="$(basename "$1" .vec)"
+if [ -z "$1" ]; then
+	exit 255
+fi
+
+echo "input_overlay_enable = true
+input_overlay_opacity = 0.375000
+input_overlay_scale = 1.000000
+
+custom_viewport_width = 846
+custom_viewport_height = 1080
+custom_viewport_x = 0
+custom_viewport_y = 0
+
+aspect_ratio_index = 22
+
+video_scale_integer = true
+
+overlays = 1
+overlay0_overlay = \"vectrex/${gameName}.png\"
+overlay0_full_screen = false
+overlay0_descs = 0
+" > "/home/arcade/.config/retroarch/autovec/${gameName}.cfg"

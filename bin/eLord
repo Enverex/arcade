@@ -1,0 +1,417 @@
+#!/bin/bash
+#################################################################
+## eLord - Emulation Overlord
+## Wrapper/handler for all emulation platforms
+#################################################################
+
+export DISPLAY=:0
+
+cd ~
+
+emuPlatform="$1"
+emuGame="$2"
+emuArgs="${@:3}"
+
+romRoot='/mnt/store/Emulation/Games'
+
+if [ -z "$emuPlatform" ]; then
+	echo "==== ERROR: Missing platform name."
+	exit 2
+fi
+
+if [ -z "$emuGame" ]; then
+	echo "==== ERROR: Missing game."
+	exit 2
+fi
+
+function cleanName() {
+	echo "${1//[^a-zA-Z0-9.]/_}"
+}
+
+function genVectrexConfig {
+	if [ -z "$1" ]; then
+	        exit 255
+	fi
+
+gameName="$1"
+echo -en "Launching Game - Please Wait" | osd_cat -Acenter -pmiddle -cwhite -s2 -O6 -ublack -l1 -d3 -f"PacFontGood 36" &
+
+echo "
+input_overlay = /home/arcade/.config/retroarch/autovec/${gameName}.cfg
+input_overlay_enable = true
+input_overlay_opacity = 0.375000
+input_overlay_scale = 1.0
+
+#custom_viewport_width = "622"
+#custom_viewport_height = "750"
+#custom_viewport_x = "570"
+#custom_viewport_y = "30"
+#aspect_ratio_index = 22
+#video_scale_integer = true
+
+overlays = 1
+overlay0_overlay = /home/arcade/.config/retroarch/overlay/vectrex/${gameName}.png
+overlay0_full_screen = false
+overlay0_descs = 0
+" > "/home/arcade/.config/retroarch/autovec/${gameName}.cfg"
+}
+
+function setAAMode {
+	if [ "$1" == 'msaa' ]; then
+		nvidia-settings --assign=FSAA=10 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0
+	fi
+
+	if [ "$1" == 'fxaa' ]; then
+		nvidia-settings --assign=FXAA=1 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0
+	fi
+
+	if [ "$1" == 'off' ]; then
+		nvidia-settings --assign=FSAA=0 --assign=FXAA=0 --assign=FSAAAppControlled=1 --assign=FSAAAppEnhanced=1
+	fi
+}
+
+## RetroArch Multi-System Emulator (takes 1 argument: the core name)
+function raGame {
+	gameFile=$(basename "${emuGame}")
+	gameSafeName=$(cleanName "${gameFile}")
+
+	## Platform specific RA options (e.g. shader overrides)
+	if [ "$emuPlatform" = 'gamegear' ]; then
+		raExtraOps='--appendconfig /home/arcade/.config/retroarch/retroarch-gg.cfg'
+	elif [ "$emuPlatform" = 'gb' ]; then
+		raExtraOps='--appendconfig /home/arcade/.config/retroarch/retroarch-gb.cfg'
+	elif [ "$emuPlatform" = 'gbc' ]; then
+		raExtraOps='--appendconfig /home/arcade/.config/retroarch/retroarch-gbc.cfg'
+	elif [ "$emuPlatform" = 'gba' ]; then
+		raExtraOps='--appendconfig /home/arcade/.config/retroarch/retroarch-gba.cfg'
+	elif [ "$emuPlatform" = 'ngpc' ]; then
+		raExtraOps='--appendconfig /home/arcade/.config/retroarch/retroarch-ngpc.cfg'
+	elif [ "$emuPlatform" = 'psp' ]; then
+		raExtraOps='--appendconfig /home/arcade/.config/retroarch/retroarch-psp.cfg'
+	elif [ "$emuPlatform" = 'n64' ]; then
+		raExtraOps='--appendconfig /home/arcade/.config/retroarch/retroarch-noshader.cfg'
+	elif [ "$emuPlatform" = 'psx' ]; then
+		raExtraOps='--appendconfig /home/arcade/.config/retroarch/retroarch-noshader.cfg'
+	elif [ "$emuPlatform" = 'saturn' ]; then
+		raExtraOps='--appendconfig /home/arcade/.config/retroarch/retroarch-aa.cfg'
+	elif [ "$emuPlatform" = 'vectrex' ]; then
+		gameSafeName=$(basename "${gameSafeName}" .vec)
+		genVectrexConfig "${gameSafeName}"
+		raExtraOps="--appendconfig /home/arcade/.config/retroarch/retroarch-glow.cfg|/home/arcade/.config/retroarch/autovec/${gameSafeName}.cfg"
+	fi
+
+	retroarch -f ${raExtraOps} -L "/usr/lib/libretro/${1}_libretro.so" "${emuGame}"
+}
+
+function launchGem {
+	cd ~/Wine/Games/${emuGame}
+	gemrb -c gem.cfg
+}
+
+function doLights {
+	## This is a supervisor, don't do anything
+	if [ "$emuPlatform" = 'pc' ]; then
+		return
+	fi
+
+	lightControl off
+
+	if [ "$1" = 'game' ]; then
+		echo ''
+		lightControl emu $emuPlatform &
+	elif [ "$1" = 'attract' ]; then
+		lightControl random &
+	fi
+}
+
+## WHDLoaded Amiga Games
+function launchWhdLoad {
+	## Location of the different folders
+	EMUFOLDER="/mnt/store/Emulation"
+	AMIGAFOLDER="${EMUFOLDER}/Games/Commodore - Amiga"
+	TEMPLATEFOLDER="${EMUFOLDER}/Assets/RomScan/WHDLoad-Blank"
+	LOCALFOLDER="/mnt/store/EmuSystem/Amiga"
+	LIVESTORE="${LOCALFOLDER}/whdLoaded"
+
+	## Only one argument accepted which should be the name of the game (with file extension)
+	GAMEFILE=$(basename "$emuGame")
+
+	if ! [ -f "${AMIGAFOLDER}/${GAMEFILE}" ]; then
+			echo "Missing valid game archive name."
+			exit 1
+	fi
+
+	## Convert the game name to lowercase and remove spaces
+	SAFENAME=$(basename "${GAMEFILE}" .lha | tr '[A-Z]' '[a-z]' | sed 's/[^a-z0-9]//g')
+
+	## Check if the directory already exists, if it does then we don't really need to do anything
+	if ! [ -d "${LIVESTORE}/${SAFENAME}" ]; then
+			## Create the virtual hard-disk folder using the skeleton
+			mkdir -p "${LIVESTORE}"
+			cp -r "${TEMPLATEFOLDER}" "${LIVESTORE}/${SAFENAME}"
+
+			## Extract the WHDLoad game folder
+			mkdir -p "${LOCALFOLDER}/temp/${SAFENAME}"
+			cd "${LOCALFOLDER}/temp/${SAFENAME}"
+			7z x -y "${AMIGAFOLDER}/${GAMEFILE}"
+			rm *.info
+
+			## Move it to the game's own virtual disk
+			find -mindepth 1 -maxdepth 1 -type d -exec mv "{}" "${LIVESTORE}/${SAFENAME}/Game" \;
+			cd "${LIVESTORE}/${SAFENAME}/Game"
+
+			## Find the slave file
+			WHDSLAVE=$(find * -maxdepth 1 -iname "*.slave" | head -n1)
+
+			## Game specific slave options
+			if [ "${WHDSLAVE}" == 'Flashback.Slave' ]; then
+				EXTRAOPS="CUSTOM4=1"
+			fi
+
+			## Add the slave to the startup sequence
+			echo -e "\nWHDLoad ${WHDSLAVE} Preload ${EXTRAOPS}\nuae-configuration SPC_QUIT 1" >> ../S/Startup-Sequence
+	fi
+
+	cd ~
+	fs-uae --kickstart_file="${LOCALFOLDER}/A1200.rom" --hard_drive_0="${LIVESTORE}/${SAFENAME}" --hard_drive_0_priority=6 --hard_drive_1="${LOCALFOLDER}/WHDLoad-Saves"
+}
+
+function launchQuakeGame {
+	cd "${romRoot}/Quake"
+	retroarch -f -L /usr/lib/libretro/tyrquake_libretro.so $emuGame
+}
+
+function launchScummGame {
+	gameFolder=$(basename "${emuGame}")
+	cd "${romRoot}/PC - ScummVM/${gameFolder}"
+	if [ -f "RESIDUAL" ]; then
+		vmExe='residualvm'
+	else
+		vmExe='scummvm'
+	fi
+	${vmExe} --auto-detect
+}
+
+function launchDosGame {
+	dosPath="/mnt/store/EmuSystem/DOSBox"
+	dbConf="/home/arcade/.dosbox"
+	dbGameFolder=$(echo "$emuGame" | awk -F "/" '{print $1}')
+	dbGameExe=$(echo "$emuGame" | awk -F "/" '{print $2}')
+
+	## Default config is SoundBlaster 16, General Midi, SABR (5xBR) OpenGL scaling filter.
+
+	## Audio Options
+	dbMt32="-conf ${dbConf}/mt32.conf"
+	dbBasicSb="-conf ${dbConf}/soundblaster.conf"
+	dbGus="-conf ${dbConf}/gus.conf"
+	dbPcSpk="-conf ${dbConf}/pcspeaker.conf"
+	## Graphics Options
+	dbNoShader="-conf ${dbConf}/noshader.conf"
+	dbHqx="conf ${dbConf}/hqxshader.conf"
+	## Specific Processor Speeds
+	dbMaxCycles="-conf ${dbConf}/maxcycles.conf"
+	db486="-conf ${dbConf}/proc-486.conf"
+	db486se="-conf ${dbConf}/proc-486se.conf"
+	dbPentium="-conf ${dbConf}/proc-pentium.conf"
+	dbPentium2="-conf ${dbConf}/proc-pentium2.conf"
+
+	## Game specific settings
+	case ${dbGameFolder} in
+		Bloodwych )	dosExtraOps="${dbMaxCycles}" ;;
+		Daggerfall )	dosExtraOps="${db486se} ${dbMt32}" ;;
+		Flashback )	dosExtraOps="${dbMt32}" ;;
+		SkiOrDie )	dosExtraOps="${dbMt32}" ;;
+		Syndicate )	dosExtraOps="${dbMaxCycles} ${dbBasicSb}" ;;
+		LostVikings )	dosExtraOps="${dbMt32}" ;;
+	esac
+
+	SDL_AUDIODRIVER=pulse dosbox32 -exit -conf ${dbConf}/general.conf ${dosExtraOps} "${dosPath}/${emuGame}"
+}
+
+function launchDaphne() {
+	gameFolder=$(basename "${emuGame}")
+	daphneName="$(echo "${gameFolder}" | cut -d '(' -f2 | cut -d ')' -f1)"
+	daphne "${daphneName}" vldp -framefile "/mnt/store/Emulation/Games/Daphne/${gameFolder}/${daphneName}.txt" -fastboot -fullscreen -noissues -opengl -x 1280 -y 800 -noserversend -nocrc -ignore_aspect_ratio
+}
+
+function smartWine {
+	reqDir=${emuGame%/*}
+	reqExe=${emuGame##*/}
+
+	## Be quiet
+	#export WINEDEBUG='-all'
+
+	## Kill any old processes
+	wineserver -k
+
+	## Use virtual desktop if requested (typically fixes broken fullscreen games)
+	if ! [ -z "${useWineVd}" ]; then
+			vDesktop="explorer /desktop=wine,$(getNativeResolution)"
+			unset useWineVd
+	fi
+
+	wine32Loc="/mnt/store/Wine"
+	wine64Loc="/mnt/store/Wine64"
+
+	## Auto-detect the arch based on where the game is
+	if [ -d "${wine32Loc}/drive_c/${reqDir}" ]; then
+		echo "Running 32bit Wine"
+		#export WINEARCH='win32'
+		export WINEPREFIX="${wine32Loc}"
+		gameDir="${baseGameDir}/${reqDir}"
+		## KoKu xInput Override (do it here as it's 32bit only)
+		export LD_PRELOAD=/usr/lib/koku-xinput-wine.so
+	elif [ -d "${wine64Loc}/drive_c/${reqDir}" ]; then
+		echo "Running 64bit Wine"
+		#export WINEARCH='win64'
+		export WINEPREFIX="${wine64Loc}"
+	else
+		echo "==== ERROR: I cannot find the game directory for ${reqDir}."
+		return
+	fi
+
+	## Switch to the EXE's actual directory
+	cd "${WINEPREFIX}/drive_c/${reqDir}"
+
+	## Silence Wine and the program as we won't see the output anyway
+	wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
+
+	## Fix potentially broken screen resolution on game exit
+	#fixResolution
+}
+
+function launchWiiUGame {
+	setAAMode fxaa
+	gameFolder="$(basename "$emuGame")"
+	set -e
+	cd "${romRoot}/Nintendo - Wii U/${gameFolder}/code"
+	## Find the name of the game binary to run
+	wiiFile="$(find * -iname "*.rpx")"
+	set +e
+	cd /mnt/store/Wine64/drive_c/CEmu
+	WINEPREFIX="/mnt/store/Wine64" wine Cemu.exe -f -g "Z:\\mnt\\store\\Emulation\\Games\\Nintendo - Wii U\\${gameFolder}\\code\\${wiiFile}"
+	setAAMode off
+}
+
+function launchFuturePinball {
+	gameFile="$(basename "$emuGame")"
+	cd /mnt/store/Wine/drive_c/Games/FuturePinball
+	WINEPREFIX="/mnt/store/Wine" wine "Future Pinball.exe" /open "tables/${gameFile}" /play /exit
+}
+
+function smartLinux {
+	reqDir=${emuGame%/*}
+	reqExe=${emuGame##*/}
+	steamDir="${HOME}/.steam/steam"
+	baseGameDir="${HOME}/Games"
+
+	## Auto-locate the game we're trying to launch.
+	if [ -d "${baseGameDir}/${reqDir}" ]; then
+		gameDir="${baseGameDir}/${reqDir}"
+	elif [ -d "/mnt/store/Games/${reqDir}" ]; then
+		gameDir="/mnt/store/Games/${reqDir}"
+	elif [ -d "${baseGameDir}/Steam1/${reqDir}" ]; then
+		gameDir="${baseGameDir}/Steam1/${reqDir}"
+	elif [ -d "${baseGameDir}/Steam2/${reqDir}" ]; then
+		gameDir="${baseGameDir}/Steam2/${reqDir}"
+	else
+		echo "==== ERROR: I cannot find the game directory for ${reqDir}."
+		return
+	fi
+
+	## Switch to the EXE's actual directory
+	cd "${gameDir}"
+
+	## Help deal with shit games
+	export LC_ALL=C
+	export LANG=C
+
+	## Determine if 32 or 64bit (if it's a script then chances are it sets paths itself anyway)
+	#bitCheck=$(file "${reqExe}"  | grep 'ELF 32-bit')
+
+	## Include relevant libraries, Steam bypass comes first
+	#if ! [ -z "${bitCheck}" ]; then
+	#	export LD_LIBRARY_PATH="${homeDir}/Games/CRK32:.:../:./lib:./bin:./lib32:./i386:./x86:${homeDir}/.config/lib32:${steamDir}/ubuntu12_32/steam-runtime/i386/lib/i386-linux-gnu:${steamDir}/ubuntu12_32/steam-runtime/i386/usr/lib:${steamDir}/ubuntu12_32/steam-runtime/i386/usr/lib/i386-linux-gnu:/usr/lib32:$LD_LIBRARY_PATH"
+	#else
+	#	export LD_LIBRARY_PATH="${homeDir}/Games/CRK64:.:../:./lib:./bin:./lib64:./amd64:./x86_64:${homeDir}/.config/lib64:${steamDir}/ubuntu12_32/steam-runtime/amd64/lib/x86_64-linux-gnu:${steamDir}/ubuntu12_32/steam-runtime/amd64/usr/lib:${steamDir}/ubuntu12_32/steam-runtime/amd64/usr/lib/x86_64-linux-gnu:/usr/lib:$LD_LIBRARY_PATH"
+	#fi
+
+	## Silence the program as we won't see the output anyway
+	./"${reqExe}" $emuArgs >/dev/null 2>&1
+
+	## Fix potentially broken screen resolution on game exit
+	fixResolution
+}
+
+doLights game
+sudo cpupower frequency-set -g performance
+
+## Main Input Request Handling
+case $emuPlatform in
+	3do ) raGame 4do ;;
+	3ds ) citra-qt "$emuGame" $emuArgs ;;
+	amiga ) launchWhdLoad ;;
+	amigacd32 ) fs-uae --fast_memory=0 --amiga-model=CD32 --cdrom-drive-0="$emuGame" ;;
+	atari2600 ) raGame stella ;;
+	atari7800 ) raGame prosystem ;;
+	atarijaguar ) raGame virtualjaguar ;;
+	atarilynx ) raGame handy ;;
+	c64 ) x64 --fullscreen -soundrate 48000 -autostart-warp -autostart "$emuGame" ;;
+	colecovision ) raGame bluemsx ;;
+	daphne ) launchDaphne ;;
+	doom ) gzdoom -iwad "$emuGame" $emuArgs ;;
+	dos ) "$emuGame" ;;
+	dosbox ) launchDosGame ;;
+	dreamcast ) raGame redream ;;
+	futurepinball ) launchFuturePinball ;;
+	gamegear ) raGame genesis_plus_gx ;;
+	gb ) raGame gambatte ;;
+	gba ) raGame mgba ;;
+	gbc ) raGame gambatte ;;
+	gc ) dolphin-emu-nogui -e "$emuGame" ;;
+	gemrb ) launchGem ;;
+	linux ) smartLinux "$emuGame" $emuArgs ;;
+	mame ) raGame mame ;;
+	#mame ) sdlmame "$emuGame" ;;
+	mastersystem ) raGame genesis_plus_gx ;;
+	megadrive ) raGame genesis_plus_gx ;;
+	msx ) raGame bluemsx ;;
+	msx2 ) raGame bluemsx ;;
+	#n64 ) raGame mupen64plus ;;
+	n64 ) raGame parallel_n64 ;;
+	#n64 ) mupen64plus "$emuGame" ;;
+	nds ) raGame desmume ;;
+	nes ) raGame nestopia ;;
+	ngpc ) raGame mednafen_ngp ;;
+	odyssey2 ) raGame o2em ;;
+	pc ) "$emuGame" ;;
+	pcfx ) raGame mednafen_pcfx ;;
+	pico8 ) raGame picolove ;;
+	ps2 ) PCSX2 --nogui --noguiprompt --fullscreen "$emuGame" ;;
+	ps3 ) rpcs3 "/mnt/store/Emulation/Games/Sony - Playstation 3/${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
+	psp ) raGame ppsspp ;;
+	#psp ) ppsspp --fullscreen "$emuGame" ;;
+	psx ) raGame beetle_psx ;;
+	quake ) launchQuakeGame ;;
+	saturn ) raGame mednafen_saturn ;;
+	scummvm ) launchScummGame ;;
+	sega32x ) raGame picodrive ;;
+	segacd ) raGame genesis_plus_gx ;;
+	snes ) raGame snes9x ;;
+	system ) "$emuGame" ;;
+	turbografx16 ) raGame mednafen_supergrafx ;;
+	turbografxcd ) raGame mednafen_supergrafx ;;
+	vectrex ) raGame vecx ;;
+	videopacplus ) raGame o2em ;;
+	wii ) dolphin-emu-nogui -e "$emuGame" ;;
+	wiiu ) launchWiiUGame ;;
+	win ) smartWine "$emuGame" $emuArgs ;;
+	wonderswan ) raGame mednafen_wswan ;;
+	wonderswancolor ) raGame mednafen_wswan ;;
+	x68000 ) raGame px68k ;;
+esac
+
+sudo cpupower frequency-set -g powersave
+
+## Put lights back in epilepsy mode
+doLights attract

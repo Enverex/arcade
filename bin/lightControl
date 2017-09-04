@@ -1,0 +1,6 @@
+#!/bin/sh
+#killall -q python2
+#exit
+
+pkill -9 -f lightControl.py >/dev/null 2>&1
+nice -n 19 timeout 900s python2 ~/.bin/lightControl.py "$@" >/dev/null 2>&1

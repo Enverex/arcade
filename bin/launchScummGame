@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+gameFolder="/mnt/store/Emulation/Games/PC - ScummVM/${1}"
+cd "${gameFolder}"
+
+scummEngine=$(scummvm --auto-detect | tail -n1 | awk '{print $1}')
+
+scummvm -p '.' ${scummEngine}

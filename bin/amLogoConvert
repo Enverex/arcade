@@ -1,0 +1,7 @@
+#!/bin/bash -e
+## Convert all SVG logos into their PNG counterparts
+
+cd /home/arcade/.attract/layouts/arcade/logo
+for vectorImage in *.svg; do
+	svgToPng "${vectorImage}" "$(basename "${vectorImage}" .svg).png"
+done

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for oldProcess in $(ps aux | grep -v grep | grep /home/arcade/blink | awk '{print $2}'); do
+	kill -9 $oldProcess &
+done
+
+/home/arcade/blink/off.py

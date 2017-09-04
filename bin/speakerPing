@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#hcitool info 40:EF:4C:37:9D:FB
+l2ping 40:EF:4C:37:9D:FB -c 1

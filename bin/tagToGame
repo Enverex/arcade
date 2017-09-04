@@ -1,0 +1,48 @@
+#!/bin/bash
+## Launches something based on the detected NFC tag
+
+source /etc/environment
+source /etc/profile
+source /etc/bash.bashrc
+XDG_RUNTIME_DIR=/run/user/1000
+
+thisTag="$1"
+emuFolder="/mnt/store/Emulation/Games"
+echo "Card Detected: ${thisTag}" &
+
+## Red Tag
+if [ "$thisTag" == '045ec78a6f4081' ]; then
+	eCommand="Lord nes \"${emuFolder}/Nintendo - Nintendo Entertainment System/Super Mario Bros. (Europe) (Rev A).nes\""
+## Orange Tag
+elif [ "$thisTag" == '04a1dd8a6f4080' ]; then
+	eCommand="eLord snes \"${emuFolder}/Nintendo - Super Nintendo Entertainment System/Donkey Kong Country (USA) (Rev 2).sfc\""
+## Light Blue Tag
+elif [ "$thisTag" == '04407c8a6f4080' ]; then
+	eCommand="eLord psx \"${emuFolder}/Sony - Playstation/Kula World (Europe).cue\""
+## White Tag
+elif [ "$thisTag" == '' ]; then
+	eCommand="eLord wiiu \"${emuFolder}/Nintendo - WiiU/Mario Kart 8 [AMKE01]\""
+fi
+
+## Do stuff if it's a recognised tag
+if [[ $eCommand ]]; then
+	## Pause AttractMode
+	#kill -STOP $(pidof attract)
+	if [[ $(pidof attract) ]]; then
+		attractRun=1
+		killall attractWrap
+		killall attract
+	fi
+
+	## Show that we've detected a known card
+	lightControl cracktro &
+	speakText "Starting Game" &
+
+	$eCommand
+
+	## Unpause AttractMode (bit glitchy, just restart it for now)
+	#kill -CONT $(pidof attract)
+	if [[ $attractRun ]]; then
+		attractWrap &
+	fi
+fi

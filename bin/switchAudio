@@ -1,0 +1,96 @@
+#!/bin/bash
+## Switch to the requested audio device and move all
+## current audio streams to that device.
+
+useDevice="$1"
+
+## List of usable bluetooth audio devices
+declare -A macArray
+macArray[home]="40:EF:4C:37:9D:FB"
+macArray[mobile]="30:21:B8:C7:2B:84"
+macArray[headphones]="6C:5A:B5:7B:0B:27"
+
+## Use the most recent device is one hasn't been specified
+if [[ ! $useDevice ]]; then
+	useDevice=$(cat /var/tmp/lastAudioDevice)
+fi
+
+
+function disconnectAll {
+	disconnectList=''
+	for thisMac in "${macArray[@]}"; do
+		disconnectList+="disconnect ${thisMac}\n"
+	done
+	echo -e "${disconnectList}\nquit" | bluetoothctl
+	sleep 3
+}
+
+function doBtConnect {
+	## Try 3 times, check for a connection once a second for 8 seconds (because Bluetooth is finicky as hell)
+	for i in 1 2 3; do
+		echo -e "power on\nconnect $1\nquit" | bluetoothctl
+		for cCheck in 1 2 3 4 5 6 7 8; do
+			sleep 1
+			isConnected=$(echo -en "info $1\n" | bluetoothctl 2>&1 | grep -i "Connected: yes")
+			if [[ "${isConnected}" ]]; then
+				echo "Connected to Bluetooth device."
+				return 0
+			fi
+		done
+	done
+	return 250
+}
+
+function trySwitchSink {
+	tryCommand 5 "pactl set-default-sink $1"
+
+	pactl list short sink-inputs | while read stream; do
+		streamId=$(echo $stream|cut '-d ' -f1)
+		echo "[Moving Stream] $streamId"
+		pactl move-sink-input "$streamId" "$1"
+	done
+}
+
+function tryCommand() {
+	local n=0
+	local try=$1
+	local cmd="${@: 2}"
+	[[ $# -le 1 ]] && { echo "Usage $0 <retry_number> <Command>"; }
+
+	until [[ $n -ge $try ]]; do
+		$cmd && break || {
+			echo "Retrying..."
+			((n++))
+			sleep 1;
+		}
+
+	done
+}
+
+
+## Disconnect all known bluetooth audio devices
+disconnectAll
+
+
+## Bluetooth devices
+if [[ $useDevice == 'home' ]] || [[ $useDevice == 'mobile' ]] || [[ $useDevice == 'headphones' ]]; then
+	doBtConnect ${macArray[$useDevice]} && trySwitchSink bluez_sink.$(echo ${macArray[$useDevice]} | sed 's/:/_/g').a2dp_sink
+	switched=1
+
+## Graphics card HDMI output
+elif [[ $useDevice == 'projector' ]]; then
+	trySwitchSink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1
+	switched=1
+
+## Onboard analogue audio output (and 3.5mm headphone)
+elif [[ $useDevice == 'analog' ]]; then
+	trySwitchSink alsa_output.pci-0000_00_1b.0.analog-stereo
+	switched=1
+fi
+
+
+## Confirm that we did something
+if [[ $switched ]]; then
+	speakText "Audio switched to ${useDevice}."
+	echo $useDevice > /var/tmp/lastAudioDevice
+fi

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+while true; do
+	if mountpoint -q /mnt/store; then
+		killall mplayer
+		exit 1
+	else
+		sleep 1
+	fi
+done

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+targetSize=58
+overSampleMulti=5
+
+inputFile="$1"
+outputFile="$2"
+
+## Convert and supersample
+file "${inputFile}"
+inkscape -z -h $((${targetSize} * ${overSampleMulti})) -e "${outputFile}" "${inputFile}"
+file "${outputFile}"
+## Trim and resize
+mogrify -trim -resize "x${targetSize}" +repage "${outputFile}"
+file "${outputFile}"
+## Optimise
+optipng -o7 "${outputFile}"

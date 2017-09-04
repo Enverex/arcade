@@ -1,0 +1,4 @@
+#!/bin/bash
+
+lightControl flashred &
+sudo killWindow &

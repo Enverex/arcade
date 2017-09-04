@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "Squashing $1"
+pngquant --skip-if-larger --strip -f --ext .png "$1"

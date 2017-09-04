@@ -1,0 +1,28 @@
+#!/bin/sh
+
+export DISPLAY=:0
+
+function vncLoop {
+	vncProg='x11vnc'
+	while true; do
+		## Make sure we're the only copy
+		pkill ${vncProg}
+		sleep 1
+
+		## Make sure X is actually running first
+		if [[ $(pidof Xorg) ]]; then
+			echo "Running VNC."
+			${vncProg} -rfbauth /home/arcade/.config/x11vnc/passwd >/dev/null 2>&1
+		else
+			## X isn't running, abort
+			echo "X not detected, exiting."
+			exit
+		fi
+
+		## Don't loop too fast
+		sleep 5
+	done
+}
+
+export -f vncLoop
+flock -w 5 -x -n /tmp/vncLock -c vncLoop

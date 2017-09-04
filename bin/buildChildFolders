@@ -1,0 +1,45 @@
+#!/bin/bash
+
+rm /tmp/updateFailed.txt
+reset
+
+function doBuilds {
+	originalDir=$(pwd)
+
+	for packageFolder in *; do
+		echo "#======================================================================================================================================================#" | lolcat -F 0.3
+		echo "#======================================================================================================================================================#" | lolcat -F 0.3
+		figlet -c -w150 Building ${packageFolder}
+		echo "#======================================================================================================================================================#" | lolcat -F 0.3
+		echo "#======================================================================================================================================================#" | lolcat -F 0.3
+
+		## chdir and build the package
+		cd ${packageFolder}
+		makepkg -sfi --skippgpcheck --noconfirm --skipchecksums
+
+		## If the build failed, try again with a clean source folder
+		if ! [ "$?" -eq 0 ]; then
+			makepkg -Csfi --skippgpcheck --noconfirm --skipchecksums
+			if ! [ "$?" -eq 0 ]; then
+				echo "${packageFolder}" >> /tmp/updateFailed.txt
+			fi
+		fi
+
+		## Delete built packages
+		find -maxdepth 1 -iname "*.pkg.tar.gz" -delete
+
+		cd ${originalDir}
+	done
+}
+
+cd /mnt/store/Build/pkg-autobuild-deps
+doBuilds
+cd /mnt/store/Build/pkg-autobuild
+doBuilds
+
+echo -e "\n\n=== Failed builds...\n"
+cat /tmp/updateFailed.txt 2>/dev/null
+
+echo -e "\n\n ==== Builds complete.\n"
+
+

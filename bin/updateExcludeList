@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ls -1 /mnt/store/Build/pkg-autobuild > /tmp/exclude.list
+ls -1 /mnt/store/Build/pkg-autobuild-deps >> /tmp/exclude.list
+sudo bash -c "cat /tmp/exclude.list | sort -u | tr '\n' ' ' > /etc/pacman.exclude"
