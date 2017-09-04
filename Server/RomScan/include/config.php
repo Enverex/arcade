@@ -1,7 +1,7 @@
 <?php
 
 // Absolute path
-define('RS_PATH', '/mnt/store/Files/RomScan');
+define('RS_PATH', dirname(__FILE__, 2));
 
 // Defaults
 define('BACKUPS_CREATE', false);
@@ -35,7 +35,7 @@ $cpcPowerArray = null;
 $cliWidth = round(exec('tput cols') - (exec('tput cols') * 0.2)) - 10;
 
 // API Keys
-include('keys.php')
+require_once('include/keys.php');
 
 // Scraper Resources
 define('MAME_WANT',	RS_PATH.'/resources/mame.want');
