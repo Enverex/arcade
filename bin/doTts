@@ -1,4 +1,0 @@
-#!/bin/sh
-
-pico2wave -l en-GB -w /tmp/speak.wav "${1}"
-aplay /tmp/speak.wav &

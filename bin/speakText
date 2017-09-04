@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Speaking $*" &
+pico2wave -l en-GB -w /tmp/pico.wav "  $*"
+paplay /tmp/pico.wav
+rm /tmp/pico.wav

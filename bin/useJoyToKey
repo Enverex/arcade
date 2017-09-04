@@ -2,7 +2,7 @@
 
 ## Use requested keyboard, otherwise kill existing process
 if [ -n "$1" ]; then
-	doTts "Initialising keyboard emulation"
+	speakText "Initialising keyboard emulation"
 	antimicro --profile "/home/arcade/.controllers/${1}.gamecontroller.amgp" --hidden &
 else
 	killall antimicro -9

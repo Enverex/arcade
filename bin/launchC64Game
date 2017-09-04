@@ -1,3 +1,0 @@
-#!/bin/sh
-
-x64 --fullscreen -soundrate 48000 -autostart-warp -autostart "$1"

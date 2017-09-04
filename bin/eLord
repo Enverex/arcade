@@ -184,6 +184,7 @@ function launchQuakeGame {
 function launchScummGame {
 	gameFolder=$(basename "${emuGame}")
 	cd "${romRoot}/PC - ScummVM/${gameFolder}"
+	## 3D Game. Use residual engine instead.
 	if [ -f "RESIDUAL" ]; then
 		vmExe='residualvm'
 	else
