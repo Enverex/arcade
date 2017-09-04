@@ -1,0 +1,395 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<gameList>
+
+<game>
+	<name>3D Crazy Coaster</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/3D Crazy Coaster (USA).vec</path>
+	<desc>3D Crazy Coaster made use of vector graphics, presenting a three-dimensional playing environment. It was originally designed for use with CGE&#039;s Imager glasses. The user controlled the movements of a passenger in the lead car of a roller coaster as it plummets down steep hills and careers around sharp curves. One goal of the game was to keep the passenger&#039;s arms raised throughout the ride without being flung out.</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/3D Crazy Coaster (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>3D Mine Storm</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/3D Mine Storm (USA).vec</path>
+	<desc>Mine Storm is the built-in game that came with every Vectrex unit. It was also released in a 3-D version that required the use of the Vectrex 3D Imager and as a bug-free replacement cartridge called Mine Storm 2 Gameplay: Gameplay is similar to the arcade game Asteroids. The player moves around the screen shooting at star-shaped Mines of various sizes and mannerisms....</desc>
+	<publisher>GCE</publisher>
+	<developer>John Hall</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/3D Mine Storm (USA).png</image>
+	<genre>Action, Shooter, First-Person, Arcade</genre>
+	<rating>0.0</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>3D Narrow Escape</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/3D Narrow Escape (USA).vec</path>
+	<desc>The goal in 3D Narrow Escape is to successfully navigate a ship through the narrow, fast-moving passages of the warlord&#039;s fortress, destroy the defense forces and avoid space debris. The player&#039;s ship must also be maneuvered through small holes in a series of walls where fuel cells can be picked up to restore the ship&#039;s constantly decreasing fuel supply....</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/3D Narrow Escape (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Armor Attack</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Armor Attack (World).vec</path>
+	<desc>You will be driving a jeep through a maze (Top-Down View). Of course such mazes , as we all know, are often not very safe when they are in a video game. Tanks and Helicopters will appear on the screen, you will have to shoot them before they shoot you. If you are hit by enemy fire you will lose a life.</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Armor..Attack (World).png</image>
+	<genre>Action, General</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Art Master</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Art Master (USA).vec</path>
+	<desc>Lightpen is just what the title says: a light pen peripheral for Vectrex. It is intended for use with the included Art Master cartridge. While it is mainly a drawing utility (making sketches and animations), the third option Connect is intended for playing: the artist draws a sketch just as usual, but with a button press it is converted to unconnected dots....</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Art Master (USA).png</image>
+	<genre>Strategy</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Bedlam</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Bedlam (USA, Europe).vec</path>
+	<desc>Bedlam is a multi-directional shooter. The player controls a cannon in the center of the screen that can rotate 360°. Around the player is a star-shaped geometric form that changes from stage to stage. The corners of the star emit enemy ships that must be destroyed. The ships have different attack patterns, from ones that just travel in a straight line towards to ones which ar...</desc>
+	<publisher>Milton Bradley Ltd.</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Bedlam (USA, Europe).png</image>
+	<genre>Action, General</genre>
+	<rating>0.7</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Berzerk</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Berzerk (World).vec</path>
+	<desc>Maneuver your humanoid through the electrified mazes of robot filled rooms. You many kill off the first group of robots but initial success does not mean survival...future groups begin firing at your! Added danger lurks when Evil Otto enters. He can jump the maze walls and squash you if you linger too long!</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Berzerk (World).png</image>
+	<genre>Action, General</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Blitz! - Action Football</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Blitz! - Action Football (USA, Europe).vec</path>
+	<desc>Blitz! is a simulation of American football. Each player (which the game supports a simultaneous two player mode) controls one member of their team on offense and defense and the basic objective is to move the ball up the field to reach the opposition end zone. This is done using a series of &quot;downs&quot;, there being four downs available to move the ball ten yards forward....</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate></releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Blitz! - Action Football (USA, Europe).png</image>
+	<genre>Sports</genre>
+	<rating>0.0</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Clean Sweep</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Clean Sweep (World).vec</path>
+	<desc>Clean Sweep is an arcade action game similar to Pac-Man. Robbers have just blown up your bank scattering the money around the now maze like passages. You control a vacuum cleaner trying to recollect all of the money! Wandering about the maze trying to catch you are the bank robbers. If they do manage to catch you, you will lose one of your lives....</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Clean Sweep (World).png</image>
+	<genre>Action</genre>
+	<rating>0.3</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Cosmic Chasm</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Cosmic Chasm (World).vec</path>
+	<desc>Can you save the galaxy by blowing up the alien-inhabited planet...and get off the planet before you explode too? You must burrow deep inside finding yours way through the underground maze while battling the Planet Protectors. If you can get to the center, plant your one bomb and try to find your way out. It&#039;s only a matter of seconds before the planet goes BOOM!</desc>
+	<publisher>Milton Bradley Ltd.</publisher>
+	<developer>Cinematronics</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Cosmic Chasm (World).png</image>
+	<genre>Action, General</genre>
+	<rating>0.4</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Fortress of Narzod</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Fortress of Narzod (USA, Europe).vec</path>
+	<desc>You are in a hovercraft in a interestingly drawn land, Ahead is the Fortress of Narzod. From it&#039;s gate come many different foes, you will have to blast your way through to Narzod. You one of the worlds few remaining good wizards fighting the evil Narzod. He has surrounded himself in a powerful fortress guarded by minions of darkness and the fearsome Mystic Hurler....</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Fortress of Narzod (USA, Europe).png</image>
+	<genre>Action</genre>
+	<rating>0.7</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Heads-Up - Action Soccer</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Heads-Up - Action Soccer (USA).vec</path>
+	<desc>Heads Up Action Soccer is a football game played in a slightly tilted side view perspective for one or two players. The game offers three difficulty grades. To win the game, the player has to get the ball into the opponents goal as often as possible within a certain time frame, while avoiding getting any balls into their own goal....</desc>
+	<publisher>Milton Bradley Ltd.</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Heads-Up - Action Soccer (USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.7</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>HyperChase - Auto Race</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/HyperChase - Auto Race (World).vec</path>
+	<desc>A driving game on the Vectrex, it was one of the main games to take advantage of the Vectrex&#039;s analog stick.</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/HyperChase - Auto Race (World).png</image>
+	<genre>Racing / Driving</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Melody Master - Music Composition and Entertainment</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Melody Master - Music Composition and Entertainment (USA).vec</path>
+	<desc>MELODY MASTER is a high performance learning tool that&#039;s easy, educational and most of all...fun! Join the electronic revolution and let your own musical creativity come to life! State-of-the-art technology now makes it possible for you to read music, recognize notes by ear and create anything you can hear. Try to compose a hit song! Play and old favorite! Watch your musical dreams take shape and sound!</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Melody Master - Music Composition and Entertainment (USA).png</image>
+	<genre>Music</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Mine Storm</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Mine Storm (World).vec</path>
+	<desc>An alien force is laying mines through out the intergalactic lanes of travel! You are going to destroy those mines before they can harm innocents. You will be pitted against the following mines: Floating Mines: Simple mines that drift through space in the hope of colliding with ships. Fireball Mines: Not Surprisingly these hurl fire, which can be avoided or dispersed with a sho...</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Mine Storm (World).png</image>
+	<genre>Action</genre>
+	<rating>0.8</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Mine Storm II</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Mine Storm II (USA) (Rev 2).vec</path>
+	<desc>Mine Storm is the built-in game that came with every Vectrex unit. It was also released in a 3-D version that required the use of the Vectrex 3D Imager and Mine Storm 2 is a debugged version of Mine Storm. One of the built-in versions of Mine Storm had a glitch that made the game crash at level 13, so GCE decided to send a copy of Mine Storm 2 to gamers that wrote to the company and complained....</desc>
+	<publisher>GCE</publisher>
+	<developer>John Hall</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Mine Storm II (USA) (Rev 2).png</image>
+	<genre>Shooter</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Polar Rescue</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Polar Rescue (USA).vec</path>
+	<desc>Polar Rescue is an action game played from a first person point of view. You are the commander of a submarine on a rescue mission beneath the ice of the north pole. On each level your goal is to locate and rescue the survivors of an expedition. The waters you need to explore are quite dangerous; in addition to large chunks of ice and maelstroms, you will also need to deal with ...</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Polar Rescue (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Pole Position</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Pole Position (USA).vec</path>
+	<desc>Qualify for the Grand Prix and win the Pole Position, the number one starting spot. Then go flat out to beat the track record and finish a winner. Features treacherous curves, hair-raising near misses, and all the thrills of the popular video arcade game.</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Pole Position (USA).png</image>
+	<genre>Driving, Racing, Formula One</genre>
+	<rating>0.4</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Rip Off</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Rip Off (World).vec</path>
+	<desc>Guard several fuel cells in the center of the screen from thieving pirates! As the pirates swoop in from the sides you will be charged with the duty to control a tank (Space ship) that can shoot down the pirates. The pirates can destroy you by using their own crafts to crash into you, or with short distance lasers. The moment the pirates drag off your last fuel cell you lose.</desc>
+	<publisher>GCE</publisher>
+	<developer>Cinematronics, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Rip Off (World).png</image>
+	<genre>Action</genre>
+	<rating>0.7</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Scramble</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Scramble (USA, Europe).vec</path>
+	<desc>Scramble your fighter and take on the enemy! The base is heavily guarded and you must guide your ship through five levels of enemy defenses before you can destroy your objective.</desc>
+	<publisher>GCE</publisher>
+	<developer>Stern</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Scramble (USA, Europe).png</image>
+	<genre>Action, General</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Solar Quest</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Solar Quest (World).vec</path>
+	<desc>How many types of alien vessels will you be able to destroy? Seven different types are after you. You must first destroy them and then attempt to rescure the survivors before they float into the sun. Don&#039;t get your ship too close to the sun...it&#039;s high temperatures can destroy you.</desc>
+	<publisher>Milton Bradley Ltd.</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Solar Quest (World).png</image>
+	<genre>Action, Shooter, Scrolling</genre>
+	<rating>0.5</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Space Wars</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Space Wars (World).vec</path>
+	<desc>Who says there are no rule in intergalactic warfare. Pick your own--bounce, expanded universe, black hole--as you embark on a deadly dogfight.</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Space Wars (World).png</image>
+	<genre>Action, General</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Spike</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Spike (USA, Europe).vec</path>
+	<desc>The villain Spud has captured your girlfriend Molly! As the hero Spike you need to rescue her. She is being held in a cage at the top of the screen; you need to find the key to the cage, and climb your way to the top. The screen consists of a moving catwalk which has several floors and gaps in it you need to jump over. There is also a ladder which can be moved around allowing y...</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Spike (USA, Europe).png</image>
+	<genre>Action</genre>
+	<rating>0.5</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Spin ball</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Spin ball (USA).vec</path>
+	<desc>Spin Ball is a pinball simulation game. The games pinball table comes complete with a variety of bumpers, spinners, and other targets which can earn you varying amounts of points with several combinations possible for even more points. Bonuses can be earned as well, both in point form and also ball savers which block the chutes on the corners of the screen....</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Spin ball (USA).png</image>
+	<genre>Simulation</genre>
+	<rating>0.5</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Star Castle</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Star Castle (USA).vec</path>
+	<desc>The legend of the Start Castle is indeed famous--a mysterious fortress in a far away galaxy filled with incredible riches and surrounded by revolving wats of shimmering solid gold. Yet no one, until now, has ever actually seen the Castle--or lived to tell about it! As you approach, you are overwhelmed with the beauty of the Castle but you suddenly realize that the golden wats hide a deadly arsenal....</desc>
+	<publisher>GCE</publisher>
+	<developer>Cinematronics</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Star Castle (USA).png</image>
+	<genre>Action, General</genre>
+	<rating>0.5</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Star Ship</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Star Ship (Europe).vec</path>
+	<desc>Star Trek: The Motion Picture is a first-person shooter set in the Star Trek universe. The player controls a ship equipped with photon torpedoes, trying to eliminate as many enemy ships as possible. After destroying a sufficient amount of enemies, the player advances to the next level. The screen has two status bars, one for the amount of torpedoes left, and one for the remaining shield....</desc>
+	<publisher>GCE</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/GCE_Vectrex/Box/Star Ship.jpg</image>
+	<genre>Shooter</genre>
+	<rating>0.0</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Star Trek - The Motion Picture</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/Star Trek - The Motion Picture (USA).vec</path>
+	<desc>Star Trek: The Motion Picture is a first-person shooter set in the Star Trek universe. The player controls a ship equipped with photon torpedoes, trying to eliminate as many enemy ships as possible. After destroying a sufficient amount of enemies, the player advances to the next level. The screen has two status bars, one for the amount of torpedoes left, and one for the remaining shield....</desc>
+	<publisher>Milton Bradley Ltd.</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/Star Trek - The Motion Picture (USA).png</image>
+	<genre>Action</genre>
+	<rating>1.0</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>StarHawk</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/StarHawk (World).vec</path>
+	<desc>In StarHawk you zoom along a trench in a large sphere like object. All around space going vessels will fly past in set patterns. You will have the control of a target which you can move about the screen to blast those little fighters into oblivion, each will die in one hit. See how many you can shoot before you reach the end of the game.</desc>
+	<publisher>GCE</publisher>
+	<developer>Cinematronics, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/StarHawk (World).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>WebWarp</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/WebWarp (Europe).vec</path>
+	<desc>The player slips into the role of Hawk King. His mission is to search the Web of Fantasy for certain legendary creatures and collect them all. The Hawk King is controlled in a third person perspective, flying through the Web. The 20 creatures that can be captured are protected by drones, which can in turn be destroyed with the blaster weapon....</desc>
+	<publisher>Milton Bradley Ltd.</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/GCE_Vectrex/Box/WebWarp.jpg</image>
+	<genre>Action</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>WebWars</name>
+	<path>/mnt/store/Emulation/Games/GCE - Vectrex/WebWars (USA).vec</path>
+	<desc>Enter a galaxy of the future filled with adventure and danger--a galaxy unlike any you have imagined before. You became the Hawk King--a crature capable of incredible speed and power--as you attempt to capture the amazing creatures that inhabit the speeding Web of Fantasy. All 20 creatures are protected by guardians and the dreaded Cosmic Dragon and each will become progressively more difficult to capture....</desc>
+	<publisher>Milton Bradley Ltd.</publisher>
+	<developer>GCE</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/GCE_Vectrex/Box/WebWars (USA).png</image>
+	<genre>Action, General</genre>
+	<rating>0.5</rating>
+	<players>2</players>
+</game>
+
+</gameList>

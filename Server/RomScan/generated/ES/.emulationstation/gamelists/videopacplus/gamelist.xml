@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<gameList>
+
+<game>
+	<name>Air Battle</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Air Battle (Europe).bin</path>
+	<desc>Air Battle is a flight simulator set in the World War I era. The player controls a biplane from an inside-the-cockpit perspective. The player starts the game with the plane on ground. The plane will start moving and a flashing light will indicate when the plane has achieved enough speed to take-off. Once in the air, the player must try to take down the most enemy planes possibl...</desc>
+	<publisher>Philips Export B.V.</publisher>
+	<developer></developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Air Battle.jpg</image>
+	<genre>Action, Simulation</genre>
+	<rating>0.0</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Cosmic Conflict</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Cosmic Conflict (Europe).bin</path>
+	<desc>Press 1 on the alpha-numeric keyboard. You are now in command of the star fighter CENTURION and a legendary hero of the Earth Federation! The sighting instrumentation for your laser starburster is at the center of your screen. The number 15 at the lower left corner of the screen represents the number of enemy invasion transports, battle frigates and star fighters to be destroyed in this action....</desc>
+	<publisher>Magnavox</publisher>
+	<developer>Magnavox</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Cosmic Conflict.png</image>
+	<genre>Flight Simulator</genre>
+	<rating>0.7</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Freedom Fighters</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Freedom Fighters (Europe).bin</path>
+	<desc>Press 1 on the alpha-numeric keyboard. You are now on the flight deck of your Earth Federation starship. Your craft is displayed at the center of your TV screen. Player 1 is the pilot. Player 2 is the co-pilot. Player 1 uses the left hand control which directs your starship&#039;s conventional space drive system. Your ship will travel in the direction you move the joystick....</desc>
+	<publisher>Philips</publisher>
+	<developer>Philips</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Freedom Fighters.png</image>
+	<genre>Flight Simulator</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Helicopter Rescue</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Helicopter Rescue (Europe).bin</path>
+	<desc>Games back in the early 1980s often had descriptive titles. Helicopter Rescue is one of them: you have to use an helicopter to rescue stranded pilots in the desert and in the sea. The player controls the helicopter with the joystick, moving up to fly up and down to land. Once the helicopter is in the air, the player can choose to go left or right....</desc>
+	<publisher>Philips</publisher>
+	<developer>Philips</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Helicopter Rescue.png</image>
+	<genre>Flight Simulator</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Killer Bees</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Killer Bees (Europe).bin</path>
+	<desc>The Beebots from the insect civilization of BEM are invading the Earth, protected by swarms of Killer Bees, and it&#039;s up to a swarm of white bees to stop them. The player control the white bees swarm, trying to kill the Beebots by flying over them and stinging them. The longer the swarm flies over a Beebot, the slower it moves, until it finally stops and dies....</desc>
+	<publisher>Philips</publisher>
+	<developer>Philips</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Killer Bees.jpg</image>
+	<genre>Action, Shooter</genre>
+	<rating>0.9</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Loony Balloon</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Loony Balloon (Europe).bin</path>
+	<desc>Loony Balloon! is an Action game, developed and published by Magnavox, which was released in Europe in 1983.</desc>
+	<publisher>Philips</publisher>
+	<developer>Philips</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Loony Balloon.jpg</image>
+	<genre>Platform</genre>
+	<rating>0.0</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Neutron Star</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Neutron Star (Europe).bin</path>
+	<desc>Prototype An action game, where you are the astronaut in charge of a mission of great skill and courage!</desc>
+	<publisher>Philips</publisher>
+	<developer>Philips</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Neutron Star.png</image>
+	<genre>Shooter</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Nightmare</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Nightmare (Europe).bin</path>
+	<desc>In Nightmare the player controls a visitor to a haunted mansion. The goal is to escape from it through a constantly moving hatch in the attic. His job will be made harder by the ghosts who are still lingering around the house. The player has to climb three floors to reach the attic, and there is one ghost for each floor. The ghosts become invisible as they cross the house&#039;s walls....</desc>
+	<publisher>Philips</publisher>
+	<developer>Philips</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Nightmare.png</image>
+	<genre>Action, Adventure</genre>
+	<rating>0.0</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Norseman</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Norseman (Europe).bin</path>
+	<desc>In Norseman the player controls a Viking warrior trying to defend the magic Golden Viking Helmet. The screen shows a courtyard divided in hexagons. The player has to protect the Golden Viking Helmet, which is at the bottom of the screen, from the attack of five different kinds of enemies. Each wave of enemies is composed of 5 of them....</desc>
+	<publisher>Philips</publisher>
+	<developer>Philips</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Norseman.png</image>
+	<genre>Action, Adventure</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Pickaxe Pete</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Pickaxe Pete (Europe).bin</path>
+	<desc>Press any number on the numeric section of the Odyssey2 keyboard. Each number will generate a different playing field. The screen will display Pick Axe Pete in one of the caverns of the famous Misty Mountain Mine. Three doors leading to deeper parts of the mine are also displayed. Gold bearing rocks will burst through the doors at random intervals....</desc>
+	<publisher>Magnavox</publisher>
+	<developer>Magnavox</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Pickaxe Pete.png</image>
+	<genre>Platform</genre>
+	<rating>0.0</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Race + Spin-out + Cryptogram</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Race + Spin-out + Cryptogram (Europe).bin</path>
+	<desc>Three games are available in this compilation: Speedway! (selected by pressing &quot;1&quot;) is a vertical scrolling racing game against the clock. The player controls the car with the joystick, pushing up to accelerate it (the longer, the faster), left and right to control direction and down to break. The faster the car goes, the higher the score....</desc>
+	<publisher>Philips</publisher>
+	<developer>Philips</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Race + Spin-out + Cryptogram.png</image>
+	<genre>Racing</genre>
+	<rating>0.4</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Satellite Attack</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Satellite Attack (Europe).bin</path>
+	<desc>Commanding of one of Earth Federation&#039;s robot-controlled battle cruisers, the player must protect Earth from an invasion of unidentified flying objects. The ship is equipped with a laser cannon and a force field. The force field energy is drained when the ship&#039;s lasers are fired (by pressing the action button). The direction of the lasers is shown by a white dot in the force fi...</desc>
+	<publisher>Philips Export B.V.</publisher>
+	<developer></developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Satellite Attack.png</image>
+	<genre>Action</genre>
+	<rating>0.0</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Stone Sling</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Stone Sling (Europe).bin</path>
+	<desc>Stone Sling is an Action game, developed and published by Philips, which was released in Europe in 1981.</desc>
+	<publisher>Philips Export B.V.</publisher>
+	<developer>Philips</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Stone Sling.png</image>
+	<genre>Action</genre>
+	<rating>0.7</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Trans American Rally</name>
+	<path>/mnt/store/Emulation/Games/Philips - Videopac+/Trans American Rally (Europe).bin</path>
+	<desc>In Trans American Rally the object is to cover as large a distance as possible with the available fuel. As the name implies, the rally crosses the U.S.A., from the west coast to the east coast. The game has three stages: From Los Angeles to Denver, in straight highways through desert country. From Denver to Chicago, driving during the night, with lots of bends....</desc>
+	<publisher>Philips</publisher>
+	<developer>Philips</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Philips_Videopac_/Box/Trans American Rally.png</image>
+	<genre>Racing</genre>
+	<rating>0.0</rating>
+	<players>1</players>
+</game>
+
+</gameList>

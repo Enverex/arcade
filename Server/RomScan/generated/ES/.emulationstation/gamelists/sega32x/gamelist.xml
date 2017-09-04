@@ -1,0 +1,408 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<gameList>
+
+<game>
+	<name>After Burner Complete</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/After Burner Complete (Europe).32x</path>
+	<desc>After Burner is an aircraft shooter. The goal is simple: use your F-14 Tomcat and shoot as many enemies as you can. This aircraft has two weapons: lock-on missiles and Vulcan cannons (basically machine guns). In some versions there is an option to let the cannons shoot automatically all the time. The game is viewed from behind the plane with you fighting wave after wave of enemy fighters....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>SEGA Enterprises Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Sega_32X/Box/After Burner Complete.jpg</image>
+	<genre>Action</genre>
+	<rating>0.7</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>BC Racers</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/BC Racers (USA).32x</path>
+	<desc>BC Racers is a kart racing game starring characters from the Core Design&#039;s Chuck Rock series of games. Each of the racers in this game rides a prehistoric motorcycle with a side car. On each two-character team, one person drives the motorcycle, and the other fights off opponents using clubs, punches, kicks, etc. Graphics in BC Racers consist of a flat landscape decorated with s...</desc>
+	<publisher>Front Street Publishing</publisher>
+	<developer>Core Design Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/BC Racers (USA).png</image>
+	<genre>Racing / Driving</genre>
+	<rating>0.3</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Blackthorne</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Blackthorne (USA).32x</path>
+	<desc>The planet Tuul was a peaceful place, until the evil warrior Sarlac used the power of the Darkstone to take control. Blackthorne&#039;s father, the good King Vlaros, sent him to Earth just as his kingdom crumbled around him. Now, twenty years later, Blackthorne is grown and must return to Tuul to free it from the clutches of Sarlac. Blackthorne is a platform action game played from ...</desc>
+	<publisher>Interplay Productions, Inc.</publisher>
+	<developer>Blizzard Entertainment Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Blackthorne (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.8</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Brutal Unleashed - Above the Claw</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Brutal Unleashed - Above the Claw (USA).32x</path>
+	<desc>As with the original Brutal: Paws of Fury, the game involves a martial arts tournament set up by the Dalai Llama. A selection of 12 anthropomorphic animals are involved; choose from them for the cartoon-styled beat &#039;em up action. Characters each have their own fighting style, array of moves, and storyline. As you progress through the game, you unlock more moves for each character....</desc>
+	<publisher>GameTek, Inc.</publisher>
+	<developer>GameTek, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Brutal Unleashed - Above the Claw (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Cosmic Carnage</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Cosmic Carnage (Europe).32x</path>
+	<desc>Cosmic Carnage is a one-on-one fighting game set in outer space. The story begins as a prison barge is hijacked by it&#039;s cargo in an escape attempt. The resulting chaos caused the barge to crash into a military cruiser. The impact caused extensive damage to both ships. There were only 8 survivors, 4 from each ship. What&#039;s worse, there&#039;s only one escape pod....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>Almanic Corp.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Cosmic Carnage (Europe).png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Darxide</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Darxide (Europe) (En,Fr,De,Es).32x</path>
+	<desc>One of the last 32X games released (and exclusively in Europe), DarXide is a 3-D space shooter, inspired in part by the arcade gameplay of Asteroids. It is one of the few 32X games to used texture-mapped polygons. Players control a lone starship rushing to destroy oncoming asteroids and alien vessels before they annihilate defenseless human miners and colonies....</desc>
+	<publisher>SEGA Enterprises Ltd.</publisher>
+	<developer>Frontier Developments Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Darxide.png</image>
+	<genre>Action</genre>
+	<rating>0.5</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Doom</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Doom (Japan, USA).32x</path>
+	<desc>The Union Aerospace Corporation has been experimenting with teleportation technology on Mars&#039; moons Phobos and Deimos. After early successes, something goes wrong. It seems the scientists have opened a gateway straight to Hell. Phobos base is overrun with demonic creatures, and the whole of Deimos simply vanishes. A squad of marines is sent to Phobos, but all except one are quickly slaughtered....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>id Software, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Doom.png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>FIFA Soccer &#039;96</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/FIFA Soccer '96 (Europe) (En,Fr,De,Es,It,Sv).32x</path>
+	<desc>FIFA Soccer 96 is a football (soccer) simulation. The game includes eleven leagues from all around the world, ranging from the unknown players of the Malaysian league to the celebrated stars of the English and Italian leagues. 59 International teams are also featured, and it&#039;s possible to match the teams you want to against each other through friendlies, or you can also choose ...</desc>
+	<publisher>Electronic Arts, Inc.</publisher>
+	<developer>Extended Play Productions</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/FIFA Soccer '96 (Europe).png</image>
+	<genre>Simulation, Sports</genre>
+	<rating>0.7</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Golf Magazine 36 Great Holes Starring Fred Couples</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Golf Magazine 36 Great Holes Starring Fred Couples (Japan, USA).32x</path>
+	<desc>As the title implies, in 36 Great Holes the player takes control of 24 different digitized golfers – 12 males and 12 females – playing in 27 historic courses in the U.S. including Disney&#039;s Eagle Pines and Tidewater Golf Club, playing 36 authentic holes. There are seven different modes (Stroke Play, Tournament, Skins, Shoot-out, Scramble, Practice and Match Play) and three d...</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>Flashpoint Productions, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Golf Magazine 36 Great Holes Starring Fred Couples (Japan, USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.3</rating>
+	<players>8</players>
+</game>
+
+<game>
+	<name>Knuckles&#039; Chaotix</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Knuckles' Chaotix (Europe).32x</path>
+	<desc>Knuckles Chaotix is a spin-off of the Sonic the Hedgehog series of Genesis games. The starring character in this title is Knuckles the Echidna, who first appeared in Sonic the Hedgehog 3. Knuckles works at Carnival Island, an amusement park. It&#039;s his job to protect the park and make it a happy place for visitors. Dr. Robotnik, as usual, has an evil plan for the park....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>Sonic Team</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Knuckles' Chaotix (Europe).png</image>
+	<genre>Action</genre>
+	<rating>0.8</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Kolibri</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Kolibri (USA, Europe).32x</path>
+	<desc>Kolibri is a hummingbird hero in this side scrolling shooter. Deep inside the Earth&#039;s core, there is a crystal from another world. This crystal is the earth&#039;s life force, and essential to it&#039;s survival. One day, a dark crystal falls from the sky and damages the Earth&#039;s crystal. Desperate, the Earth&#039;s crystal rockets to the surface and empowers Kolibri with the abilities he needs to defeat the dark crystal....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>Novotrade Software Kft.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Kolibri (USA, Europe).png</image>
+	<genre>Action</genre>
+	<rating>0.8</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Metal Head</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Metal Head (Japan, USA) (En,Ja).32x</path>
+	<desc>It has been five years after the formation of the Worldwide Federation. Although war has been averted, terrorist cells around the world threaten the stability of the federation. To combat this menace, the Federation has created a bi-pedal armored tank known as the Metal Head. You are a Metal Head pilot, and you have to use all the weapons at your disposal to take out the terrorists....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>SEGA Enterprises Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Metal Head.png</image>
+	<genre>Action, Simulation</genre>
+	<rating>0.6</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Mortal Kombat II</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Mortal Kombat II (Japan, USA).32x</path>
+	<desc>The Mortal Kombat fighters, plus several new ones, return for a tournament held by the evil Shang Tsung of the Outworld. The action is one-on-one as before, and famed for its high level of violence and blood (other than the sanitised Nintendo version). There are 5 difficulty levels and optional credits, as well as the usual two player mode including same character duels....</desc>
+	<publisher>Acclaim Entertainment, Inc.</publisher>
+	<developer>Midway Games, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Mortal Kombat II.png</image>
+	<genre>Action</genre>
+	<rating>0.8</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Motocross Championship</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Motocross Championship (USA).32x</path>
+	<desc>Motocross Championship is the only dirtbike racing game for the 32X. The action takes place from a behind-the-bike perspective, and makes use of the 32X&#039;s hardware bitmap scaling to present a 3D graphical effect. Like the title suggests, the main game mode is a points based championship. You can compete in one of 3 motorcycle classes over 12 indoor and outdoor tracks....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>Artech Digital Entertainment, Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Motocross Championship (USA).png</image>
+	<genre>Racing / Driving, Sports</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>NBA Jam - Tournament Edition</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/NBA Jam - Tournament Edition (World).32x</path>
+	<desc>This game lets you play two-on-two arcade basketball with players from all the NBA teams. Gameplay is fast and action-packed, with few rules, no fouls, and deliberately unrealistic jamming. Players are rated on eight ability categories, from steals and blocks, to dunks and 3-pointers. Up to four human players can take part, each always controlling a single player for their team, and AI for missing players....</desc>
+	<publisher>Acclaim Entertainment, Inc.</publisher>
+	<developer>Midway Games, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/NBA Jam Tournament Edition (World).png</image>
+	<genre>Action, Sports</genre>
+	<rating>0.6</rating>
+	<players>4</players>
+</game>
+
+<game>
+	<name>NFL Quarterback Club</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/NFL Quarterback Club (World).32x</path>
+	<desc>One of the earliest in the NFL Quarterback series, this version features the standard game modes such as Exhibition, Season, Playoffs, etc. and features a full NFL license with players and their teams respective names and logos. One feature that is present in this game is the Quarterback Skills Challenge where the player can choose from 13 different quarterbacks such as John El...</desc>
+	<publisher>Acclaim Entertainment, Inc.</publisher>
+	<developer>Iguana Entertainment, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/NFL Quarterback Club (World).png</image>
+	<genre>Simulation, Sports</genre>
+	<rating>1.0</rating>
+	<players>4</players>
+</game>
+
+<game>
+	<name>Pitfall - The Mayan Adventure</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Pitfall - The Mayan Adventure (USA).32x</path>
+	<desc>Pitfall: The Mayan Adventure is a side-scrolling action game in which you play adventurer Pitfall Harry Jr in search of his father Pitfall Harry. You battle your way through the Mayan jungles, waterfalls, deserted mines and can bungee jump and boomerang your way to safety. There are 13 levels and the action is fast and gripping. You will need to be attentive—and quick. Or prepare to die.</desc>
+	<publisher>Activision, Inc.</publisher>
+	<developer>Activision, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Pitfall - The Mayan Adventure (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Primal Rage</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Primal Rage (USA, Europe).32x</path>
+	<desc>A meteor struck the Earth, and caused great chaos. Seven gods from ancient times awoke, and are now attempting to take control of the post-apocalyptic world. Primal Rage is a one-on-one fighting game featuring dinosaurs and giant apes as the fighters. The graphics are done with digitized stop-motion animation. Gameplay is similar to Mortal Kombat in that it is viewed from a sid...</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>Atari Games Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Primal Rage (USA, Europe).png</image>
+	<genre>Action</genre>
+	<rating>0.8</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>RBI Baseball &#039;95</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/RBI Baseball '95 (USA).32x</path>
+	<desc>This version is an updated follow-up to the R.B.I. series. Many of the same features from other baseball games are present and has three different game modes to choose from: exhibition, playoff, and home run derby, but what makes this version different from the others is a lack of MLB license, though it does feature a MLBPA license with top players of the time such as Roger Cle...</desc>
+	<publisher>Time Warner Interactive, Inc.</publisher>
+	<developer>Time Warner Interactive, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/RBI Baseball '95 (USA).png</image>
+	<genre>Simulation, Sports</genre>
+	<rating>0.5</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Space Harrier</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Space Harrier (Japan, USA).32x</path>
+	<desc>Run… fly… dodge those obstacles, but return fire on wave after wave of attacking aliens. Armed with a really big gun, you have to defend yourself against the alien hordes using your wits to navigate around the screen. But watch out for those end of level bosses! Originating in the arcades, Space Harrier is a third-person rail shooter with pseudo-3D graphics, set in the same world as Fantasy Zone....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>AM R&amp;D Dept. #2</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Space Harrier.png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Star Trek Starfleet Academy - Starship Bridge Simulator</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Star Trek Starfleet Academy - Starship Bridge Simulator (USA).32x</path>
+	<desc>Two years before the better-known computer game came this title, in which the aim is to successfully complete the space combat element of Starfleet training. You will fight Klingons, deal with repairs, and find yourself in all manner of dangerous situations, but try to stay within Starfleet directives. The game is viewed from the bridge of your vessel (there are 5 different one...</desc>
+	<publisher>Interplay Productions, Inc.</publisher>
+	<developer>Interplay Productions, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Star Trek Starfleet Academy - Starship Bridge Simulator (USA).png</image>
+	<genre>Simulation</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Star Wars Arcade</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Star Wars Arcade (USA).32x</path>
+	<desc>Star Wars Arcade is a 3D shoot &#039;em-up set in Episodes 4, 5, and 6 of the Star Wars saga. You take control of either an X-Wing or Y-Wing, and are put right in the middle of the space combat. In some levels, you have to shoot down a specific number of TIE fighters before time runs out. In other levels, your goal is to simply to make it to the end without getting blasted out of the sky....</desc>
+	<publisher>LucasArts, SEGA of America, Inc.</publisher>
+	<developer>SEGA Enterprises Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Star Wars Arcade (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.8</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>T-Mek</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/T-Mek (USA, Europe).32x</path>
+	<desc>T-Mek is essentially an updated Battlezone. You are a warrior battling in the T-Mek competition, a hugely popular event in the future. You control a hovercraft and try to blow up everyone else. The action is viewed from your perspective as you travel around the arena. You also have an overall view of where your opponents are. Terrain surfaces and characteristics vary in each battle....</desc>
+	<publisher>Time Warner Interactive, Inc.</publisher>
+	<developer>Atari Games Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/T-Mek (USA, Europe).png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Tempo</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Tempo (Japan, USA).32x</path>
+	<desc>Tempo is a grasshopper who lives on Planet Rythmia, the world of music. Unfortunately, the malevolent King Dirge is trying to steal all the rhythm from the planet. It&#039;s unclear as to how a creature with no appreciation for music became King, but it&#039;s up to Tempo to stop him! Tempo&#039;s game is a side scrolling platformer with 7 levels....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>Red Company Corporation, SEGA Enterprises Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Tempo.png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>The Amazing Spider-Man - Web of Fire</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Amazing Spider-Man, The - Web of Fire (USA).32x</path>
+	<desc>An electric plasma grid has left New York in a state of chaos, and only Spider-Man can save the city from total destruction. Responsible is the terrorist organisation HYDRA, which also sent out machines (similar to Gargoyles) into the city. The game features side-scrolling action in which Spider-Man has to take on various enemy types which want to kill him....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>BlueSky Software, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Amazing Spider-Man, The - Web of Fire (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.8</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Toughman Contest</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Toughman Contest (USA, Europe).32x</path>
+	<desc>Toughman Contest is a game based on the world famous boxing competition of the same name. You pick one of 24 fighters, compete in one of 5 locations from around the world, and re-create the Toughman tournament as seen on TV. The boxing action is viewed from behind the back of the fighter you control. Your fighter is rendered as an outline, so you can see what your opponent is up to and react accordingly....</desc>
+	<publisher>Electronic Arts, Inc.</publisher>
+	<developer>High Score Productions, Visual Concepts Entertainment, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Toughman Contest (USA, Europe).png</image>
+	<genre>Sports</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Virtua Fighter</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Virtua Fighter (Japan, USA).32x</path>
+	<desc>Virtua Fighter is considered one of the progenitors of one-on-one fighting games with fully 3D environments and characters. The fighters and arenas are rendered in flat-shaded polygons. Unlike many fighting games, Virtua Fighter focuses on gameplay based on actual fighting styles, rather than outrageous special moves and storylines....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>SEGA-AM2 Co., LTD.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Virtua Fighter.png</image>
+	<genre>Action</genre>
+	<rating>0.8</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Virtua Racing Deluxe</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/Virtua Racing Deluxe (USA).32x</path>
+	<desc>Virtua Racing Deluxe is an enhanced arcade-to-console conversion of Sega&#039;s 3D racing game. This game is primarily an arcade-style affair; Players compete in a 5 lap race with timed checkpoints. It&#039;s also possible to play with 2 players in a split-screen mode. The 32X version of Virtua Racing adds a couple of new features. There are now 3 different types of cars to drive, including a stock car and a prototype racer....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>SEGA Enterprises Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/Virtua Racing Deluxe (USA).png</image>
+	<genre>Racing / Driving</genre>
+	<rating>0.8</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>World Series Baseball Starring Deion Sanders</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/World Series Baseball Starring Deion Sanders (USA).32x</path>
+	<desc>This entry in the World Series Baseball video game franchise features a full MLBPA license, which allows it to have all 28 teams and 700 real-life players. There are three main game modes: Exhibition, Full season, and Playoff. Exhibition is useful for a quick game between any two teams of the player&#039;s choice. Full season allows the player to lead a team through an entire Major League Baseball season....</desc>
+	<publisher>SEGA of America, Inc.</publisher>
+	<developer>BlueSky Software, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/World Series Baseball Starring Deion Sanders (USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.8</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>WWF Raw</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/WWF Raw (World).32x</path>
+	<desc>WWF Raw is a professional wrestling game featuring up to twelve superstars (ten in the GameGear, eight in the GameBoy version) from the World Wrestling Federation: Bret &quot;Hit Man&quot; Hart, Bam Bam Bigelow, 1-2-3 Kid, Diesel, Doink, Lex Luger, Luna Vachon, Owen Hart, Razor Ramon, Shawn Michaels, Undertaker, and Yokozuna. In this game, player-controlled wrestlers attempt to pin the o...</desc>
+	<publisher>Acclaim Entertainment, Inc.</publisher>
+	<developer>Sculptured Software, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/WWF Raw (World).png</image>
+	<genre>Sports</genre>
+	<rating>0.8</rating>
+	<players>4</players>
+</game>
+
+<game>
+	<name>WWF WrestleMania - The Arcade Game</name>
+	<path>/mnt/store/Emulation/Games/Sega - 32X/WWF WrestleMania - The Arcade Game (USA).32x</path>
+	<desc>WrestleMania&#039;s one-player mode has the player choose one of eight wrestlers - Bam Bam Bigelow, Bret Hart, Doink the Clown, Lex Luger, Razor Ramon, Shawn Michaels, The Undertaker or Yokozuna. One unique feature is that each character can &quot;bleed&quot; his respective objects other than blood upon taking damage from most attacks in the Mortal Kombat sense....</desc>
+	<publisher>Midway</publisher>
+	<developer>Midway</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Sega_32X/Box/WWF WrestleMania - The Arcade Game (USA).png</image>
+	<genre>Action, Sports</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+</gameList>

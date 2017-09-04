@@ -1,0 +1,785 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<gameList>
+
+<game>
+	<name>32 in 1</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/32 in 1 (USA).a78</path>
+	<desc>This is simply a relabled 2600 32-in-1 cartridge. The games are all 2600 versions.</desc>
+	<publisher>Atari</publisher>
+	<developer>Atari</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/32 in 1 (USA).jpg</image>
+	<genre></genre>
+	<rating>0.0</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Ace of Aces</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Ace of Aces (USA).a78</path>
+	<desc>Ace of Aces is a 1st person, 2D flight simulation. You&#039;re onboard a British RAF Mosquito, maverick fighter bomber. Your mission ... stop enemy trains, intercept the terrible german V-1 buzz bombs, sink the german U-boats and down the Nazi bombers. Are you ready for this challenge?</desc>
+	<publisher>Accolade, Inc., Atari Corporation</publisher>
+	<developer>Artech</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Ace of Aces (USA).png</image>
+	<genre>Action, Simulation</genre>
+	<rating>0.7</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Alien Brigade</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Alien Brigade (USA).a78</path>
+	<desc>Alien Brigade is a side scrolling shooter similar to Operation Wolf. Aliens have arrived on earth and have brainwashed both soldiers and civilians in order to take over the world. Your job is to stop them! On each of the five levels you will have a different objective to complete, including saving civilians and destroying alien installations....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Alien Brigade (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Asteroids</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Asteroids (USA).a78</path>
+	<desc>Play the role of a spaceship pilot trapped in a gigantic asteroid cloud and pulverize incoming asteroids with the ship&#039;s photon cannon. When all asteroids are destroyed, the player can then move on to the next round. In addition to the asteroids, the player will also face an Alien Robot Saucer which shoots randomly across the screen....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Asteroids (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.9</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Ballblazer</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Ballblazer (USA).a78</path>
+	<desc>In the year 3037, the most competitive sport in the known universe is Ballblazer. For the first time ever, humans from the planet Earth have won the right to compete in the final round of the Ballblazer Championship, to fight for Earth&#039;s honor and the title Masterblazer! Ballblazer is a 3D futuristic soccer-like game, where the player (inside a Rotofoil) is set on a one-on-one 1,155 square playing field (the Grid)....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Lucasfilm Games LLC</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Ballblazer (USA).png</image>
+	<genre>Action, Sports</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Barnyard Blaster</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Barnyard Blaster (USA).a78</path>
+	<desc>You and your grandpa just put your life savings into buying a small farm a few acres for growing vegetables and raising horses, a place to get away from the battle of city life. But you discover that the entire farm is full of things that are determined to drive you away. Barnyard Blaster is a shooting gallery type game for use with the Atari XG-1 light gun or the joystick....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Barnyard Blaster (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Baseball</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Baseball (Europe).a78</path>
+	<desc>Baseball is an action game which can be played by two players or one player against the computer. The game allows you to bunt the ball or try for a homerun, steal bases, and throw several types of pitches from a fast ball to a curve ball. Several game variations are included which allow you to select whether the home or visiting team is at bat first, and whether or not a player...</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/RomScan/Atari_7800/Box/Baseball.jpg</image>
+	<genre>Action, Sports</genre>
+	<rating>0.0</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Basketbrawl</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Basketbrawl (USA).a78</path>
+	<desc>In a desperate attempt to stop inner-city gang wars, the city leaders organized a basketball league. The league is scheduled to play on three courts: a street, a junkyard, and a rooftop. The mayor figured that a friendly game of hoops would be a much more peaceful way to settle disputes. He was wrong. You can choose 1-on-1 or 2-on-2 game modes....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Basketbrawl (USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.7</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Centipede</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Centipede (USA).a78</path>
+	<desc>In Centipede, the player is trapped in the Enchanted Forest. Armed with only a magic wand to ward off the forest&#039;s insect denizens, all of which apparently are attacking in the player in continuous waves. The player must use the magic wand to shoot sparks at approaching insects to score points by pressing the controller button. Holding down the controller button will set the wand to rapid fire shots....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Centipede (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Choplifter!</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Choplifter! (USA).a78</path>
+	<desc>Choplifter! is a side-scrolling action/arcade game that puts you in command of an attack chopper. Your mission: Go behind enemy lines and rescue up to 16 hostages per level. Be careful, though, because tanks and enemy aircraft will try to stop you - and they won&#039;t stop shooting while you are rescuing those hostages! Originally released for Apple II home computers, Choplifter! w...</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Brøderbund Software, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Choplifter! (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.7</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Commando</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Commando (USA).a78</path>
+	<desc>Several levels await your super-tough Commando in this vertical scrolling game. Armed with only a standard rifle and a few grenades you must take on hordes of Nazis. Some are wandering around in the open, while others have picked out hiding places, which you must approach from certain angles. Trees, rivers and bridges create a varied combat-like terrain and must be incorporated into your thinking....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Capcom Co., Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Commando (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Crack&#039;ed</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Crack'ed (USA).a78</path>
+	<desc>As a professional ornithologist, you&#039;re thrilled to find out that some rare South American hornbills have nested in your &quot;old yolk tree.&quot; But while the hornbills are out feeding, a group of mischievous bluebirds, owls, and snakes begin raiding their nests and stealing eggs. Horrified, you get out your slingshot and begin hitting the marauding creatures....</desc>
+	<publisher>Atari</publisher>
+	<developer>Robert Neve</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Crack'ed (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.3</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Crossbow</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Crossbow (USA).a78</path>
+	<desc>In Crossbow, you and several friends are trying to cross many treacherous landscapes in order to retrieve stolen treasures from the castle of the Evil Master. All of the members of your party are unarmed, however you carry a crossbow. Using this, you need to shoot any obstacles or hostile enemies that may get in the way of your friends as they cross the screen....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Exidy, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Crossbow (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Dark Chambers</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Dark Chambers (USA).a78</path>
+	<desc>Dark Chambers is an arcade action game similar to Gauntlet. You are an explorer in an underground maze; your goal is to survive the 26 different levels and collect as many of the hidden treasures as you can. Hidden somewhere in each of the levels is an exit which will take you on to the next level. Trying to stop you from completing your quest are a wide variety of creatures, i...</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Dark Chambers (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Desert Falcon</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Desert Falcon (USA).a78</path>
+	<desc>Desert Falcon is an arcade style shooter. Many of the Pharaoh&#039;s great treasures are lost throughout the desert, and your goal is to steal as many as you can to earn points. The game features a scrolling, isometric point of view as you control your falcon through the various desert landscapes. The treasures you are after are guarded of course....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Desert Falcon (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.5</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Dig Dug</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Dig Dug (USA).a78</path>
+	<desc>Dig Dug is a 1-2 player arcade game in which you have to use your shovel to dig your way through the earth. Stopping you from doing this are two monsters, called Pooka and Fygar, who will continually chase you around. The only weapon that you carry is an air pump, which you can use to inflate the monsters to the point where they explode....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Namco Limited</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Dig Dug (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Donkey Kong</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Donkey Kong (USA).a78</path>
+	<desc>Released in the arcades in 1981, Donkey Kong was not only Nintendo&#039;s first real smash hit for the company, but marked the introduction for two of their most popular mascots: Mario (originally &quot;Jumpman&quot;) and Donkey Kong. Donkey Kong is a platform-action game that has Mario scale four different industrial themed levels (construction zone, cement factory, an elevator-themed level,...</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Ikegami Tsushinki Co., Ltd., Nintendo Co., Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Donkey Kong (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Donkey Kong Junior</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Donkey Kong Junior (USA).a78</path>
+	<desc>Mario has kidnapped Junior&#039;s Papa! Donkey Kong Jr. was originally released in the arcades in 1982 as a sequel to Donkey Kong. In this game, Mario plays the antagonist, finally having captured Donkey Kong, and has put the ape in a locked cage. As Donkey Kong Jr., players will have to make their way through four different levels (Vines, Springboard, Chains and Mario&#039;s Hideout) in...</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Nintendo Co., Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Donkey Kong Junior (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Double Dragon</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Double Dragon (USA).a78</path>
+	<desc>Set in a post-apocalyptic New York, Double Dragon is the story of Billy and Jimmy Lee, twin brothers trained in the fighting style of Sou-Setsu-Ken. Together, they manage a small martial arts training school, teaching their students in self-defense. One day, Billy&#039;s girlfriend, Marian, is kidnapped off the street by the &quot;Black Warriors&quot;, a savage street gang led by a man named Willy....</desc>
+	<publisher>Activision, Inc.</publisher>
+	<developer>Technos Japan Corp.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Double Dragon (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>F-18 Hornet</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/F-18 Hornet (USA).a78</path>
+	<desc>F-18 Hornet is a one-player fighter simulator in which the player pilots a Navy F-18/A Jet through a series of simulated combat situations including carrier take-offs and landings, bombings, strafings, and air combat. In each of four missions, you are confronted with a variety of opponents and must perform a series of combat objectives in order from the Naval Aviator rank.</desc>
+	<publisher>Absolute Entertainment, Inc.</publisher>
+	<developer>Absolute Entertainment, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/F-18 Hornet (USA).png</image>
+	<genre>Simulation</genre>
+	<rating>0.5</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Fatal Run</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Fatal Run (USA).a78</path>
+	<desc>In this post-apocalyptic driving/racing game you must travel to various towns delivering medicine, while on your way to a missile base which houses a rocket that can save the world. While driving through the 32 levels, you&#039;ll meet countless enemies who want to stop you from achieving your goal. Your car boasts many weapons to help you out, including dynamite, rockets, oil slicks, smoke screens, and machine guns....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Sculptured Software, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Fatal Run (USA).png</image>
+	<genre>Action, Racing / Driving</genre>
+	<rating>0.2</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Fight Night</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Fight Night (USA).a78</path>
+	<desc>Fight Night is a boxing game in which players box 11 different opponents on the way to the final match with the champ, Bronx Bomber. Each boxer has unique strengths and weaknesses, along with one specialised &quot;super punch&quot;. There are four different modes of play; the single-player Main Event and the multi-player Tournament (on disk/cartridge versions only), and also Training and Sparring modes....</desc>
+	<publisher>Accolade, Inc., Atari Corporation</publisher>
+	<developer>Sydney Development Corp.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Fight Night (USA).png</image>
+	<genre>Action, Sports</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Food Fight</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Food Fight (USA).a78</path>
+	<desc>You play as Charley trying to eat an ice cream cone. But first you must avoid the chefs that are out to get you: Angelo, Zorba, Oscar, and Jacques. Avoid the food thrown at you by the chefs to get the cone. You can also throw your own food at the chefs to slow them down.</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Food Fight (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Galaga</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Galaga (USA).a78</path>
+	<desc>Galaga is a vertical arcade shooter from Namco. You control a space fighter at the bottom of the screen, scrolling left and right in order to avoid oncoming bombs and kamikaze attacks from alien invaders--and to fire your own missiles to fight back! There are an infinite number of stages to progress through. Every third level is a &quot;challenge stage&quot; in which you have a free chan...</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Namco Limited</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Galaga (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Hat Trick</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Hat Trick (USA).a78</path>
+	<desc>Hat Trick is a two-on-two hockey game. Each player controls a goalie and a skater. The object is to shoot the puck into the opposing teams goal. Each game lasts two minutes.</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Bally Sente Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Hat Trick (USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Ikari Warriors</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Ikari Warriors (USA).a78</path>
+	<desc>Ikari Warriors is a vertically scrolling action game where one or two players fight their way through a variety of terrain, such as jungles, rivers, and ruins. Along the way different weapons can be found, including machine guns, grenades, and rocket launchers.</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>SNK Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Ikari Warriors (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Impossible Mission</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Impossible Mission (USA).a78</path>
+	<desc>You play a secret agent on a quest to stop the evil Professor Elvin Atombender, who is believed to be tampering with national security computers. You must penetrate Atombender&#039;s stronghold, avoid his deadly robot creations, and acquire various pieces of a password to use in the main control room. The robots, rooms, and puzzle pieces will be switched around when starting over which provides replay value.</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Epyx, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Impossible Mission (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.2</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Jinks</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Jinks (USA).a78</path>
+	<desc>Jinks added a largely new concept to the Breakout type games, offering much freer paddle movement (both horizontally and vertically), a horizontally scrolling screen and the ability to flip the triangular paddle as needed. The objective is to survive on the planet Jinks - an exploration mission on this resource-rich planet has gone wrong....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Diamond Software</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Jinks (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.2</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Joust</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Joust (USA).a78</path>
+	<desc>In Joust, players take control of a knight with a lance who rides their flying ostrich (or stork, for Player 2) to do battle against computer-controlled evil knights who ride atop vultures. Players must flap their steed&#039;s wings to hit the enemy from a higher jousting point to destroy the vulture and its rider. Once the enemy has been hit, an egg falls to one of the platforms below....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Williams Electronics Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Joust (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Karateka</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Karateka (USA).a78</path>
+	<desc>The evil Akuma has destroyed the protagonist&#039;s homeland, killed many of his friends and kidnapped the princess Mariko. Fortunately, the hero is skilled in martial arts, so his inevitable quest to reach Akuma&#039;s palace and rescue Mariko has a chance of success. Karateka is viewed from the side and features a succession of increasingly difficult opponents....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Broderbund</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Karateka (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Kung-Fu Master</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Kung-Fu Master (USA).a78</path>
+	<desc>Loosely based on a movie, Kung-Fu Master is a side scrolling action game for one or two players, who alternate turns. Mr. X has captured the pickpocket Sylvia and it is up to Thomas, a kung-fu master who owns a restaurant, to get her back. She is located on the top floor of Mr. X&#039;s castle and Thomas will need to fight his way to the top....</desc>
+	<publisher>Absolute Entertainment, Inc.</publisher>
+	<developer>Irem Corp.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Kung-Fu Master (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Mario Bros.</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Mario Bros. (USA).a78</path>
+	<desc>Mario and Luigi, the best plumbers in the world, have a real job on their hands. A host of characters have taken over the sewers, and the brothers must clear them out of the pipes. The platform puzzle which first introduced Luigi to the world has both single and multiplayer action with two differing game types, but with the same objective....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Nintendo Co., Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Mario Bros. (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Mat Mania Challenge</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Mat Mania Challenge (USA).a78</path>
+	<desc>Tie up those wrestling boots and climb into the Atari Wrestling Federation Championship ring. Based on the Technos coin-op of 1985, Mat Mania Challenge features two player head-to-head action, or a one player journey to the championship belt. Each match lasts three minutes. The object is to either outscore, pin, or get your opponent counted out....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>American Technos Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Mat Mania Challenge (USA).png</image>
+	<genre>Action, Sports</genre>
+	<rating>0.5</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Mean 18 Ultimate Golf</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Mean 18 Ultimate Golf (USA).a78</path>
+	<desc>This is it! A hush falls over the California countryside as you stand on the eighteenth hole of Pebble Beach. You’re five long feet from the hole and you have a one-stroke lead in the biggest tournament of your life. Your caddy hands you your lucky putter. You line up your shot, and swing. The ball rolls slowly toward the hole....</desc>
+	<publisher>Atari</publisher>
+	<developer>Accolade</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Mean 18 Ultimate Golf (USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.5</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Meltdown</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Meltdown (USA).a78</path>
+	<desc>Meltdown is an arcade action game similar to Reactor. On the screen you will see a representation of a nuclear reactor; numerous control rods are located in the center of the screen, with the reactor walls around the edges. Inside the reactor are numerous (and dangerous) particles which will damage the control rods if they collide....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Meltdown (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.2</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Midnight Mutants</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Midnight Mutants (USA).a78</path>
+	<desc>Midnight Mutants is an action game with adventure elements. You play the part of Jimmy visiting Grampa on Halloween. Unfortunately, on this Halloween Dr. Evil has returned from the grave and captured Grampa in a pumpkin, and now you have to save him! As Jimmy you&#039;ll need to explore Grampa&#039;s mansion and the surrounding lands in order to find items which can be used to defeat enemies (including Dr....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Radioactive Software</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Midnight Mutants (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Motor Psycho</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Motor Psycho (USA).a78</path>
+	<desc>MotorPsycho is similar in feel to Pole Position, but with motorcycles substituting the cars. The object is to complete each race within the alloted time while dodging other motorcycles. Ramps strewn throughout the track allow the motorcycle to jump over obstacles and the other motorcyclists. You can shift between high and low gears, but there are no brakes....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>BlueSky Software, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Motor Psycho (USA).png</image>
+	<genre>Racing / Driving</genre>
+	<rating>0.6</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Ms. Pac-Man</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Ms. Pac-Man (USA).a78</path>
+	<desc>In 1981, a sequel to Pac-Man was introduced in the form of his girlfriend, Ms. Pac-Man. This sequel continued on the &quot;eat the dots/avoid the ghosts&quot; gameplay of the original game, but added new features to keep the title fresh. Like her boyfriend, Ms. Pac-Man attempts to clear four various and challenging mazes filled with dots and ever-moving bouncing fruit while avoiding Inky...</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>General Computer Corporation, Midway</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Ms. Pac-Man (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Ninja Golf</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Ninja Golf (USA).a78</path>
+	<desc>Ninja Golf is an arcade action game which combines a golf game with a side scrolling fighting game. You are a ninja, and your goal is to survive nine holes of ninja golf! On each of the holes, you alternate between the golf and action parts. First you hit the ball by selecting the direction and distance from the overhead view on the bottom of the screen; next you will need to r...</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>BlueSky Software, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Ninja Golf (USA).png</image>
+	<genre>Action, Sports</genre>
+	<rating>0.4</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>One-on-One Basketball</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/One-on-One Basketball (USA).a78</path>
+	<desc>You&#039;re out on a dream court for a hot game of One-on-One. You&#039;re the Bird. Or you&#039;re Dr. J. And that&#039;s the last decision you&#039;ll have much time to make. You can play against the computer of challenge a friend. Your capabilities -- and your opponent&#039;s -- will be just like those of All-Stars Larry Bird and Julius (Dr. J) Erving. The computer knows their shooting percentages (guarded and unguarded) and their pet shots....</desc>
+	<publisher>Electronic Arts</publisher>
+	<developer>Atari</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/One-on-One Basketball (USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.5</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Pete Rose Baseball</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Pete Rose Baseball (USA).a78</path>
+	<desc>It&#039;s the last game of the World Series. You&#039;re in the 9th innings. Bases loaded. One out. And your up to bat. What do you do? Swing away? Wait for a walk? Go for the fences? It&#039;s all up to you, just like in real pro ball. Sure, we&#039;ll give you the options. And some tips. Like in pitching. Batting. And Fielding. But, it&#039;s you call ....</desc>
+	<publisher>Absolute Entertainment</publisher>
+	<developer>Robert Curtiss</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Pete Rose Baseball (USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.5</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Planet Smashers</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Planet Smashers (USA).a78</path>
+	<desc>Planet Smashers is a vertically scrolling shooter similar to Xevious. Power ups can be captured by destroying cargo ships. Power ups include improved weapons, shield restoration, and cloaking ability. Cargo ships also drop warp capsules that the player needs to collect in order to proceed to the level boss. One difference in this game that sets it apart from others of the same type is the Earth Shield....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Planet Smashers (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Pole Position II</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Pole Position II (USA).a78</path>
+	<desc>In the sequel to Pole Position, you are again driving an F-1 racer in a timed qualifying run, trying to achieve the pole position. Then it is off to the race, in hopes of taking that top spot. The difference in Pole Position II and it&#039;s predecessor is that now you have four tracks to select from.</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Namco Limited</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Pole Position II (USA).png</image>
+	<genre>Racing / Driving</genre>
+	<rating>0.4</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Rampage</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Rampage (USA).a78</path>
+	<desc>George, Lizzy and Ralph were just ordinary Americans, until an experiment went wrong, turning them into a Gorilla, Lizard and Werewolf respectively. Following this, the three of them plan to go round destroying buildings, and up to 3 human players can join in. Smashing at the edges of the buildings for long enough will make them collapse....</desc>
+	<publisher>Activision, Inc.</publisher>
+	<developer>Bally Midway Manufacturing Co., Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Rampage (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>RealSports Baseball</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/RealSports Baseball (USA).a78</path>
+	<desc>You smell the freshly cut grass as you walk out of the dark, cool tunnel into the hot afternoon sun. You hear the crack of leather on wood as the team&#039;s power hitter takes batting practice. Today&#039;s the day -- you&#039;re starting in the big leagues. After warming up in the bullpen, you&#039;re ready to take the mound. You get a few last-minute instructions from the pitching coach, and then it&#039;s time....</desc>
+	<publisher>Atari</publisher>
+	<developer>Atari</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/RealSports Baseball (USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.0</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Robotron - 2084</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Robotron - 2084 (USA).a78</path>
+	<desc>You are a mutant human, who by some freak of nature has the ability to shoot energy pulses from his body in eight different directions! Your job is simple: save humanity from their own creation -- the ROBOTRONS! The gameplay is pretty unique for the time. You can move and fire in any of eight directions. You get thrown in a room with various evil baddies strewn about, you&#039;ve go...</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Williams Electronic Games, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Robotron - 2084 (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.8</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Scrapyard Dog</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Scrapyard Dog (USA).a78</path>
+	<desc>In Scrapyard Dog you play the role of Louie, the junkyard guy, who&#039;s companion Scraps has been dognapped by the dastardly Mr. Big. Louie has bombs and cans at his disposal to use against the enemies, which include gangsters, rats, and mice. He can also use shields to protect himself on route to the sixteen checkpoints in the game. Louie must reach each checkpoint in a certain amount of time in order to save Scraps.</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>BlueSky Software, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Scrapyard Dog (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.2</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Sentinel</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Sentinel (Europe).a78</path>
+	<desc>Sentinel is a side scrolling action game. Several worlds have fallen victim of an alien attack, and you need to free them. To do this, a glowing orb called the Sentinel has been sent which can absorb the alien energy. As the Sentinel floats above the various, scrolling landscapes, you need to protect it from attacks by using the light gun to destroy enemies and enemy fire....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Atari Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Sentinel (Europe).png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Summer Games</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Summer Games (USA).a78</path>
+	<desc>Summer Games allows up to eight players to compete in a series of summer themed Olympic events. The gameplay is similar to the other entries in Epyx &quot;games&quot; series. Each player can choose a country to represent, and then takes turns competing in various events to see who will win the gold medal! The game allows you to compete in all of the events sequentially, choose a few even...</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Epyx, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Summer Games (USA).png</image>
+	<genre>Action, Sports</genre>
+	<rating>0.3</rating>
+	<players>4</players>
+</game>
+
+<game>
+	<name>Super Huey UH-IX</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Super Huey UH-IX (USA).a78</path>
+	<desc>Super Huey UH-IX is a helicopter simulation game. You are the pilot of the experimental helicopter UH-1XA and you need to test it out in several game modes. In the flight school mode, you can learn how to fly. The computer will guide you through takeoff, flight, and landing. In reality mode, you will need to fly a mission to locate and bomb an enemy base and return home safely....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Cosmi Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Super Huey UH-IX (USA).jpg</image>
+	<genre>Action, Simulation</genre>
+	<rating>0.1</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Super Skateboardin&#039;</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Super Skateboardin' (USA).a78</path>
+	<desc>Super Skateboardin&#039; is a game where a young skateboarder is hired by his dad&#039;s company to do what he does best, Skateboard. Your job is to navigate the many rooms of the factory and turn off all the electrical equipment in 15 minutes, or else the electricity bill will skyrocket. Your wage is based on how fast you complete the task, and you need that money to enter the Skateboarding Championship....</desc>
+	<publisher>Absolute Entertainment, Inc.</publisher>
+	<developer>Absolute Entertainment, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Super Skateboardin' (USA).png</image>
+	<genre>Action, Sports</genre>
+	<rating>0.2</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Tank Command</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Tank Command (USA).a78</path>
+	<desc>Tank Command is a vertically scrolling action game. You control a tank on a mission to capture the enemy flag as well as earn as many points as possible. To do this, you will need to blast your way through their defenses on three levels of increasing difficulty. Blocking your progress are enemy tanks, pillboxes, missiles, jeeps, infantry, huts, and more, all of which earn you points when destroyed....</desc>
+	<publisher>Froggo Games Corporation</publisher>
+	<developer>Froggo Games Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Tank Command (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Title Match Pro Wrestling</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Title Match Pro Wrestling (USA).a78</path>
+	<desc>Title Match is a wrestling game which can be played by one or two players. There are four different wrestlers you can choose from, and two modes of gameplay (one on one, or tag team). Each wrestler can kick, punch, and perform several moves such as the airplane spin, body slam, power lift, and more. Using the available moves you need to deplete your opponents energy and pin him...</desc>
+	<publisher>Absolute Entertainment, Inc.</publisher>
+	<developer>Absolute Entertainment, Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Title Match Pro Wrestling (USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.3</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Tomcat - The F-14 Fighter Simulator</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Tomcat - The F-14 Fighter Simulator (USA).a78</path>
+	<desc>Become a F-14 Naval Aviator undergoing seek and destroy missions while dodging and gunning enemy bogeys in deadly dogfights with your 20mm cannon and air-to-air missiles. Your cockpit comes with state of the art technology, courtesy of the U.S. Air Force: Display and main computer, Bogey Alert Indicator, G-Force Indicator, Electronic Counter Measures, and a Cannon Overheat Indi...</desc>
+	<publisher>Absolute Entertainment</publisher>
+	<developer>Dan Kitchen</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Tomcat - The F-14 Fighter Simulator (USA).png</image>
+	<genre>Action, Flight Simulator</genre>
+	<rating>0.1</rating>
+	<players>1</players>
+</game>
+
+<game>
+	<name>Touchdown Football</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Touchdown Football (USA).a78</path>
+	<desc>A very capable football simulation, given the year and technology. Call the plays, then run them using the keyboard or joystick. Digitized voices enhance the game, including the crowd, calling the numbers, and referee&#039;s calls.</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Imagic</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Touchdown Football (USA).png</image>
+	<genre>Sports</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Tower Toppler</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Tower Toppler (USA).a78</path>
+	<desc>You play a small green guy who needs to blow up eight towers, because their presence is somehow poisoning the water of planets which could potentially be ideal colonies. Unfortunately you need to get to the top of these towers to blow them up. You make your way up to the top of the tower via walkways around the outside of the towers....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Hewson Consultants Ltd.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Tower Toppler (USA).png</image>
+	<genre>Action, Strategy</genre>
+	<rating>0.7</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Water Ski</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Water Ski (USA).a78</path>
+	<desc>In Water Ski you are water skiing on the Pharonna River. You control both the boat and skier in this vertically scrolling action game. Your goal is to reach the finish line before time runs out and also to earn as many points as possible. The river is quite dangerous, and features many twists and turns along with rocks, logs and other obstacles....</desc>
+	<publisher>Froggo Games Corporation</publisher>
+	<developer>Froggo Games Corporation</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Water Ski (USA).png</image>
+	<genre>Action, Sports</genre>
+	<rating>0.2</rating>
+	<players></players>
+</game>
+
+<game>
+	<name>Winter Games</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Winter Games (USA).a78</path>
+	<desc>Another in the series of Epyx Olympic sports games. Compete in many different sporting events: Ski Jump, Hot Dog, Biathlon, Bobsled, Free Skating, Figure Skating, and more.</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Action Graphics</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Winter Games (USA).png</image>
+	<genre>Action, Sports</genre>
+	<rating>0.8</rating>
+	<players>4</players>
+</game>
+
+<game>
+	<name>Xenophobe</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Xenophobe (USA).a78</path>
+	<desc>Xenos. The very name strikes fear into every colonist&#039;s heart. A distress call is received from space stations orbiting your homeworld, then silence. A single ship escapes, piloted by a battered man who tells the tale of pods that hatch into acid-spitting Xenos. A small band of engineers has been dispatched to combat the Xeno threat before it takes over all the space stations and, eventually, your homeworld....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Bally Midway Manufacturing Co., Inc.</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Xenophobe (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.6</rating>
+	<players>2</players>
+</game>
+
+<game>
+	<name>Xevious</name>
+	<path>/mnt/store/Emulation/Games/Atari - 7800/Xevious (USA).a78</path>
+	<desc>A hundred thousand years ago, an ancient civilization prospered on our Earth, their product being GAMP (General Artificial Matrix Producer). In order to survive the Ice Age, most of the Earth&#039;s inhabitants have decided to leave it, finally settling on a planet called Xevious. A group of humans remained, becoming our own ancestors....</desc>
+	<publisher>Atari Corporation</publisher>
+	<developer>Namco Limited</developer>
+	<releasedate>19700101T000000</releasedate>
+	<image>/mnt/store/Emulation/Assets/Atari_7800/Box/Xevious (USA).png</image>
+	<genre>Action</genre>
+	<rating>0.4</rating>
+	<players>2</players>
+</game>
+
+</gameList>
