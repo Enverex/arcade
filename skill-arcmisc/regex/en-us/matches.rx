@@ -1,0 +1,2 @@
+switch audio to (?P<AudioDevice>.*)
+restart (?P<restartCommand>.*)

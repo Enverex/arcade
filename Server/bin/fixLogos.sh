@@ -7,4 +7,5 @@ function doFix {
 }
 
 export -f doFix
-find */Logos -type f -iname "*.png" -execdir bash -c 'doFix "$0"' {} \;
+cd /mnt/store/Emulation/Assets/RomScan
+find */Wheel -type f -iname "*.png" -execdir bash -c 'doFix "$0"' {} \;
