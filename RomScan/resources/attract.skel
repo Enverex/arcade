@@ -1,0 +1,102 @@
+sound
+	sound_volume         80
+	ambient_volume       80
+	movie_volume         20
+
+input_map
+	configure            Tab
+	back                 Escape
+	back                 Joy0 Button1
+	select               Return
+	select               LControl
+	select               Joy0 Button0
+	prev_letter          Joy0 Button4
+	prev_letter          PageUp
+	next_letter          Joy0 Button5
+	next_letter          PageDown
+	displays_menu        Joy0 Button3
+	filters_menu         Joy0 Button2
+	up                   Up
+	up                   Joy0 Up
+	up                   Joy0 PovYneg
+	down                 Down
+	down                 Joy0 Down
+	down                 Joy0 PovYpos
+	left                 Left
+	left                 Joy0 Left
+	left                 Joy0 PovXneg
+	right                Right
+	right                Joy0 Right
+	right                Joy0 PovXpos
+	default             back	exit
+	default             up	prev_game
+	default             down	next_game
+	default             left	prev_display
+	default             right	next_display
+
+general
+	language             en
+	exit_command         lightControl off
+	default_font         FreeSans
+	font_path            /usr/share/fonts/
+	screen_saver_timeout 120
+	displays_menu_exit   no
+	hide_brackets        no
+	startup_mode         default
+	confirm_favourites   no
+	confirm_exit         yes
+	mouse_threshold      10
+	joystick_threshold   40
+	window_mode          default
+	filter_wrap_mode     default
+	track_usage          yes
+	multiple_monitors    no
+	smooth_images        yes
+	accelerate_selection no
+	selection_speed_ms   50
+	scrape_snaps         yes
+	scrape_marquees      no
+	scrape_flyers        yes
+	scrape_wheels        yes
+	scrape_fanart        no
+	scrape_videos        no
+	scrape_overview      yes
+	video_decoder        software
+	menu_prompt          Displays Menu
+	menu_layout          maximus-menu
+
+saver_config
+	param                basic_movie Yes
+	param                blank_start_cmd 
+	param                blank_stop_cmd 
+	param                blank_time 120
+	param                image_collage Yes
+	param                movie_collage Yes
+	param                overlay_art wheel
+	param                preserve_ar Yes
+	param                rgb_movie No
+	param                sound No
+
+layout_config	maximus-menu
+	param                enable_arrow attract
+	param                enable_image arcadeius
+	param                enable_music none
+	param                enable_scanline none
+	param                system_text on
+
+intro_config
+	param                detect_aspect No
+	param                layout_rotation none
+	param                play_intro No
+	param                video_16x9 intro.mp4
+	param                video_3x4 intro_3x4.mp4
+	param                video_4x3 intro_4x3.mp4
+	param                video_9x16 intro_9x16.mp4
+	param                video_default intro.mp4
+
+
+plugin	UltraStik360
+	enabled              no
+
+plugin	ResFix
+	enabled              no

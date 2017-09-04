@@ -1,0 +1,20 @@
+## Duplicate Game Description Check
+SELECT gameId, gameMatchName, gamePlatform, gameDescription
+FROM games
+WHERE gameId IN
+	(
+    SELECT gameId FROM games INNER JOIN
+		(
+		SELECT gameDescription, gamePlatform
+		FROM games
+		WHERE gameDescription IS NOT NULL
+			AND gamePing > (UNIX_TIMESTAMP() - 3600)
+		GROUP BY gameDescription, gamePlatform
+		HAVING COUNT(gameID) > 1
+		) dup
+	ON (games.gameDescription = dup.gameDescription)
+		AND (games.gamePlatform = dup.gamePlatform)
+	WHERE games.gameDescription IS NOT NULL
+	AND gamePing > (UNIX_TIMESTAMP() - 3600)
+	)
+ORDER BY gamePlatform, gameDescription

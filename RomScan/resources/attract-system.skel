@@ -1,0 +1,17 @@
+<?php
+
+$systemFile = trim("
+
+executable		launchEmuGame
+args			{$setParts['dbname']} \"[romfilename]\"
+rompath			{$esRomPath}
+romext			{$platformExtList}
+system			{$setParts['amid']}
+info_source		thegamesdb.net
+artwork	flyer		".ASSET_ROOT."/Live/{$setParts['assets']}/Box
+artwork	snap		".ASSET_ROOT."/Live/{$setParts['assets']}/Snap
+artwork	wheel		".ASSET_ROOT."/Live/{$setParts['assets']}/Wheel
+
+");
+
+?>
