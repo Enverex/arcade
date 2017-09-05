@@ -1,3 +1,5 @@
-RomScan/include/keys.php
-RomScan/generated/*
+Server/RomScan/include/keys.php
+Server/RomScan/generated/*
+Server/RomScan/resources/launchboxDB.zip
+Server/RomScan/resources/Metadata.xml
 WHDLoad-Blank/S/WHDLoad.key

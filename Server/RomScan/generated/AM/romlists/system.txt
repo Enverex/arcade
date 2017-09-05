@@ -1,9 +1,0 @@
-Audio - Switch to HDMI Output;Audio - Switch to HDMI Output;system;;;;;;;;;;;;;
-Audio - Switch to Headphone Out;Audio - Switch to Headphone Out;system;;;;;;;;;;;;;
-Audio - Switch to Mocreo Speaker;Audio - Switch to Mocreo Speaker;system;;;;;;;;;;;;;
-Audio - Switch to Philips Headphones;Audio - Switch to Philips Headphones;system;;;;;;;;;;;;;
-Audio - Switch to Q Acoustics Speaker;Audio - Switch to Q Acoustics Speaker;system;;;;;;;;;;;;;
-Lights - Off;Lights - Off;system;;;;;;;;;;;;;
-Power - Off;Power - Off;system;;;;;;;;;;;;;
-Power - Reboot;Power - Reboot;system;;;;;;;;;;;;;
-Power - Restart XOrg;Power - Restart XOrg;system;;;;;;;;;;;;;
