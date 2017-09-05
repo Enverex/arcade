@@ -14,19 +14,21 @@ class MiscSystemSkills(MycroftSkill):
     def __init__(self):
 		super(MiscSystemSkills, self).__init__(name="MiscSystemSkills")
 
+
     def initialize(self):
 		switchAudioIntent = IntentBuilder("SwitchAudioIntent").require("AudioDevice").build()
 		self.register_intent(switchAudioIntent, self.handle_switchAudioIntent)
 
-    def initialize(self):
 		restartProgramIntent = IntentBuilder("restartProgramIntent").require("restartCommand").build()
 		self.register_intent(restartProgramIntent, self.handle_restartProgram)
+
 
     def handle_switchAudioIntent(self, message):
 		newAudioDevice = message.data.get('AudioDevice')
 		self.speak("Switching audio to " + newAudioDevice)
-		sleep(3)
+		time.sleep(3)
 		call('/home/arcade/.bin/switchAudio ' + newAudioDevice, shell=True)
+
 
     def handle_restartProgram(self, message):
 		restartProgramName = message.data.get('restartCommand')

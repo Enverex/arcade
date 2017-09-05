@@ -10,6 +10,11 @@ macArray[home]="40:EF:4C:37:9D:FB"
 macArray[mobile]="30:21:B8:C7:2B:84"
 macArray[headphones]="6C:5A:B5:7B:0B:27"
 
+## List of usable onboard audio devices
+declare -A cardArray
+cardArray[analog]="pci-0000_00_1b.0"
+cardArray[projector]="pci-0000_01_00.1"
+
 ## Use the most recent device is one hasn't been specified
 if [[ ! $useDevice ]]; then
 	useDevice=$(cat /var/tmp/lastAudioDevice)
@@ -17,12 +22,19 @@ fi
 
 
 function disconnectAll {
+	## Turn off onboard audio devices
+	for thisCard in "${cardArray[@]}"; do
+		pactl set-card-profile alsa_card.${thisCard} off
+	done
+
+	## Disconnect bluetooth audio devices
 	disconnectList=''
 	for thisMac in "${macArray[@]}"; do
 		disconnectList+="disconnect ${thisMac}\n"
 	done
 	echo -e "${disconnectList}\nquit" | bluetoothctl
-	sleep 3
+
+	sleep 2
 }
 
 function doBtConnect {
@@ -33,7 +45,8 @@ function doBtConnect {
 			sleep 1
 			isConnected=$(echo -en "info $1\n" | bluetoothctl 2>&1 | grep -i "Connected: yes")
 			if [[ "${isConnected}" ]]; then
-				echo "Connected to Bluetooth device."
+				echo "Connected to Bluetooth device. Attaching sink."
+				pactl set-card-profile bluez_card.$(echo $1 | sed 's/:/_/g') a2dp_sink
 				return 0
 			fi
 		done
@@ -42,7 +55,9 @@ function doBtConnect {
 }
 
 function trySwitchSink {
-	tryCommand 5 "pactl set-default-sink $1"
+	## Try each action a few times in case they're slow to wake up
+	tryCommand 5 "pactl set-card-profile $1"
+	tryCommand 5 "pactl set-default-sink $2"
 
 	pactl list short sink-inputs | while read stream; do
 		streamId=$(echo $stream|cut '-d ' -f1)
@@ -61,7 +76,7 @@ function tryCommand() {
 		$cmd && break || {
 			echo "Retrying..."
 			((n++))
-			sleep 1;
+			sleep 2;
 		}
 
 	done
@@ -74,23 +89,27 @@ disconnectAll
 
 ## Bluetooth devices
 if [[ $useDevice == 'home' ]] || [[ $useDevice == 'mobile' ]] || [[ $useDevice == 'headphones' ]]; then
-	doBtConnect ${macArray[$useDevice]} && trySwitchSink bluez_sink.$(echo ${macArray[$useDevice]} | sed 's/:/_/g').a2dp_sink
+	## Wait for bluetooth disconnects to complete
+	sleep 3
+	doBtConnect ${macArray[$useDevice]} && trySwitchSink "bluez_card.$(echo ${macArray[$useDevice]} | sed 's/:/_/g') a2dp_sink" "bluez_sink.$(echo ${macArray[$useDevice]} | sed 's/:/_/g').a2dp_sink"
 	switched=1
 
-## Graphics card HDMI output
+## Nvidia GPU HDMI output
 elif [[ $useDevice == 'projector' ]]; then
-	trySwitchSink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1
+	trySwitchSink "alsa_card.${cardArray[$useDevice]} output:hdmi-stereo-extra1" "alsa_output.${cardArray[$useDevice]}.hdmi-stereo-extra1"
 	switched=1
 
-## Onboard analogue audio output (and 3.5mm headphone)
+## Onboard analogue line-out (and front 3.5mm headphone)
 elif [[ $useDevice == 'analog' ]]; then
-	trySwitchSink alsa_output.pci-0000_00_1b.0.analog-stereo
+	trySwitchSink "alsa_card.${cardArray[$useDevice]} output:analog-stereo" "alsa_output.${cardArray[$useDevice]}.analog-stereo"
 	switched=1
 fi
 
 
-## Confirm that we did something
+## Confirm what we did
 if [[ $switched ]]; then
-	speakText "Audio switched to ${useDevice}."
-	echo $useDevice > /var/tmp/lastAudioDevice
+	newDevice=$(pactl list sinks | egrep "(device.vendor.name|device.product.name|bluez.alias)" | cut -d'=' -f2 | tr "\n" ' ' | sed -e 's/["]//g' | trim)
+	echo "$useDevice" > /var/tmp/lastAudioDevice
+	echo "Audio switched to ${newDevice}."
+	/home/arcade/.bin/speakText "Audio switched to ${newDevice}." &
 fi
