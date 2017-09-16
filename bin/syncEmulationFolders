@@ -1,8 +1,5 @@
 #!/bin/bash -e
 
-## Sync the main scripts
-rsync -arv --no-owner --no-group -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/Arcade-GIT /opt/
-
 ## Remove Old Configs
 rm -rf /home/arcade/.config/retroarch/playlists 2>/dev/null
 rm -rf /home/arcade/.attract/emulators 2>/dev/null

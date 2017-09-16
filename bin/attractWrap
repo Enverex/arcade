@@ -1,6 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
-export DISPLAY=:0
-lightControl random &
+set -a
+source /etc/environment
+source /etc/profile
+set +a
+
+for pid in $(pidof -x attractWrap); do if [ $pid != $$ ]; then kill -9 $pid; fi; done
 killall attract
-while true; do attract >/dev/null 2>&1; done
+
+/home/arcade/.bin/lightControl random &
+
+while true; do
+	attract >/dev/null 2>&1
+done

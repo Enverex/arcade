@@ -1,27 +1,54 @@
 #!/bin/bash
 ## Launches something based on the detected NFC tag
 
+if [ -z "$1" ]; then exit; fi
+echo "Card Detected: ${1}" &
+
 source /etc/environment
 source /etc/profile
 source /etc/bash.bashrc
+export DISPLAY=:0
 XDG_RUNTIME_DIR=/run/user/1000
-
-thisTag="$1"
+declare -A cardSerials
 emuFolder="/mnt/store/Emulation/Games"
-echo "Card Detected: ${thisTag}" &
+thisTag="$1"
 
-## Red Tag
-if [ "$thisTag" == '045ec78a6f4081' ]; then
-	eCommand="Lord nes \"${emuFolder}/Nintendo - Nintendo Entertainment System/Super Mario Bros. (Europe) (Rev A).nes\""
-## Orange Tag
-elif [ "$thisTag" == '04a1dd8a6f4080' ]; then
-	eCommand="eLord snes \"${emuFolder}/Nintendo - Super Nintendo Entertainment System/Donkey Kong Country (USA) (Rev 2).sfc\""
-## Light Blue Tag
-elif [ "$thisTag" == '04407c8a6f4080' ]; then
-	eCommand="eLord psx \"${emuFolder}/Sony - Playstation/Kula World (Europe).cue\""
-## White Tag
-elif [ "$thisTag" == '' ]; then
-	eCommand="eLord wiiu \"${emuFolder}/Nintendo - WiiU/Mario Kart 8 [AMKE01]\""
+
+######################################
+## Cards and their respective games ##
+######################################
+
+## Arcade
+cardSerials["0441d8faac5781"]="eLord mame mt_srage.zip"		## Streets of Rage
+cardSerials["0471a37aae4f80"]="eLord mame goldnaxe.zip"		## Golden Axe
+cardSerials["04416e7aae4f80"]="eLord mame galaga.zip"		## Galaga
+cardSerials["0410bf7aae4f81"]="eLord mame digdug.zip"		## Dig Dug
+cardSerials["04998d7aae4f80"]="eLord mame pacman.zip"		## Pacman
+cardSerials["0442d4faac5780"]="eLord mame 1944.zip"		## 1944 - The Loop Master
+cardSerials["044a8b7aae4f81"]="eLord mame outrun.zip"		## Out Run
+cardSerials["33badede"]="eLord mame ssf2t.zip"			## Super Street Fighter II Turbo
+cardSerials["04b9a27aae4f80"]="eLord mame joust.zip"		## Joust
+
+## Playstation
+cardSerials["0410bf7aae4f81"]="eLord psx \"Kula World (Europe).cue\""		## Kula World / Roll Away
+
+## Nintendo 64
+cardSerials["0430c1faac5780"]="eLord n64 \"Cruis'n USA (USA) (Rev B).n64\""	## Cruis'n USA
+cardSerials["0448cefaac5780"]="eLord n64 \"Mario Kart 64 (USA).n64\""		## Mario Kart 64
+cardSerials["0474ac7aae4f81"]="eLord n64 \"GoldenEye 007 (USA).n64\""		## GoldenEye
+
+## MegaDrive
+cardSerials["0459cdfaac5780"]="eLord megadrive \"Speedball 2 (Europe).md\""	## Out Run
+
+## Wii U
+cardSerials["0491a27aae4f80"]="eLord wiiu \"Mario Kart 8 [AMKE01]\""		## Mario Kart 8
+
+#####################################
+
+
+## Get the command from the array of cards
+if ! [ -z "${cardSerials[$thisTag]}" ]; then
+	eCommand="${cardSerials[${thisTag}]}"
 fi
 
 ## Do stuff if it's a recognised tag

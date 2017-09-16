@@ -72,9 +72,16 @@ function raGame {
 	elif [ "$emuPlatform" = 'psp' ]; then
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-psp.cfg"
 	elif [ "$emuPlatform" = 'n64' ]; then
+		emuGame="${gameFile}"
+		platformPath="${romRoot}/Nintendo - Nintendo 64/"
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-noshader.cfg"
 	elif [ "$emuPlatform" = 'psx' ]; then
+		emuGame="${gameFile}"
+		platformPath="${romRoot}/Sony - Playstation/"
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-noshader.cfg"
+	elif [ "$emuPlatform" = 'megadrive' ]; then
+		emuGame="${gameFile}"
+		platformPath="${romRoot}/Sega - Genesis/"
 	elif [ "$emuPlatform" = 'saturn' ]; then
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-aa.cfg"
 	elif [ "$emuPlatform" = 'vectrex' ]; then
@@ -83,7 +90,7 @@ function raGame {
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-glow.cfg|${homeRoot}/.config/retroarch/autovec/${gameSafeName}.cfg"
 	fi
 
-	retroarch -f ${raExtraOps} -L "/usr/lib/libretro/${1}_libretro.so" "${emuGame}"
+	retroarch -f ${raExtraOps} -L "/usr/lib/libretro/${1}_libretro.so" "${platformPath}${emuGame}"
 }
 
 function launchGem {
@@ -370,7 +377,7 @@ case $emuPlatform in
 	odyssey2 ) raGame o2em ;;
 	pc ) "$emuGame" ;;
 	pcfx ) raGame mednafen_pcfx ;;
-	pico8 ) raGame picolove ;;
+	pico8 ) pico8 -run "$emuGame" ;;
 	ps2 ) PCSX2 --nogui --noguiprompt --fullscreen "$emuGame" ;;
 	ps3 ) rpcs3 "/mnt/store/Emulation/Games/Sony - Playstation 3/${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
 	psp ) raGame ppsspp ;;
