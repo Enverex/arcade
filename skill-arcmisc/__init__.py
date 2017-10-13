@@ -41,8 +41,8 @@ class MiscSystemSkills(MycroftSkill):
 			restartCommand = "sudo reboot"
 		elif restartProgramName == 'chrome':
 			restartCommand = "chromium"
-		elif restartProgramName == 'quiet':
-			restartCommand = "killWindow; killall attractWrap; killall attract; killall chromium"
+		elif restartProgramName == 'blank':
+			restartCommand = "sudo systemctl restart lightdm"
 
 		if restartCommand:
 			self.speak("Executing")

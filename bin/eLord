@@ -15,6 +15,8 @@ emuArgs="${@:3}"
 romRoot='/mnt/store/Emulation/Games'
 homeRoot='/home/arcade'
 
+echo "Request for game ${emuGame}"
+
 if [ -z "$emuPlatform" ]; then
 	echo "==== ERROR: Missing platform name."
 	exit 2
@@ -71,6 +73,12 @@ function raGame {
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-ngpc.cfg"
 	elif [ "$emuPlatform" = 'psp' ]; then
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-psp.cfg"
+	elif [ "$emuPlatform" = 'mame' ]; then
+		emuGame="${gameFile}"
+		platformPath="${romRoot}/MAME/"
+	elif [ "$emuPlatform" = 'nes' ]; then
+		emuGame="${gameFile}"
+		platformPath="${romRoot}/Nintendo - Nintendo Entertainment System/"
 	elif [ "$emuPlatform" = 'n64' ]; then
 		emuGame="${gameFile}"
 		platformPath="${romRoot}/Nintendo - Nintendo 64/"
@@ -112,6 +120,18 @@ function doLights {
 	elif [ "$1" = 'attract' ]; then
 		lightControl random &
 	fi
+}
+
+function launchDolphin {
+	gameFile=$(basename "${emuGame}")
+
+	if [ "$1" = "gc" ]; then
+		gamePath="Nintendo - GameCube"
+	elif [ "$1" = "wii" ]; then
+		gamePath="Nintendo - Wii"
+	fi
+
+	dolphin-emu-nogui -e "${romRoot}/${gamePath}/${gameFile}"
 }
 
 ## WHDLoaded Amiga Games
@@ -230,7 +250,7 @@ function smartWine {
 	reqExe=${emuGame##*/}
 
 	## Be quiet
-	#export WINEDEBUG='-all'
+	export WINEDEBUG='-all'
 
 	## Kill any old processes
 	wineserver -k
@@ -328,13 +348,16 @@ function smartLinux {
 	#fi
 
 	## Silence the program as we won't see the output anyway
-	./"${reqExe}" $emuArgs >/dev/null 2>&1
+	#./"${reqExe}" $emuArgs >/dev/null 2>&1
+	./"${reqExe}" $emuArgs
 
 	## Fix potentially broken screen resolution on game exit
-	fixResolution
+	#fixResolution
 }
 
-doLights game
+#doLights game
+lightControl cracktro &
+sudo systemctl stop mycroft &
 sudo cpupower frequency-set -g performance
 
 ## Main Input Request Handling
@@ -359,7 +382,7 @@ case $emuPlatform in
 	gb ) raGame gambatte ;;
 	gba ) raGame mgba ;;
 	gbc ) raGame gambatte ;;
-	gc ) dolphin-emu-nogui -e "$emuGame" ;;
+	gc ) launchDolphin gc ;;
 	gemrb ) launchGem ;;
 	linux ) smartLinux "$emuGame" $emuArgs ;;
 	mame ) raGame mame ;;
@@ -394,7 +417,7 @@ case $emuPlatform in
 	turbografxcd ) raGame mednafen_supergrafx ;;
 	vectrex ) raGame vecx ;;
 	videopacplus ) raGame o2em ;;
-	wii ) dolphin-emu-nogui -e "$emuGame" ;;
+	wii ) launchDolphin wii ;;
 	wiiu ) launchWiiUGame ;;
 	win ) smartWine "$emuGame" $emuArgs ;;
 	wonderswan ) raGame mednafen_wswan ;;

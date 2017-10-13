@@ -1,4 +1,10 @@
 #!/bin/bash
 
+source /etc/environment
+source /etc/profile
+source /etc/bash.bashrc
+export DISPLAY=:0
+XDG_RUNTIME_DIR=/run/user/1000
+
 lightControl flashred &
 sudo killWindow &

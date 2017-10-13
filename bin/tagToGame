@@ -24,10 +24,27 @@ cardSerials["0471a37aae4f80"]="eLord mame goldnaxe.zip"		## Golden Axe
 cardSerials["04416e7aae4f80"]="eLord mame galaga.zip"		## Galaga
 cardSerials["0410bf7aae4f81"]="eLord mame digdug.zip"		## Dig Dug
 cardSerials["04998d7aae4f80"]="eLord mame pacman.zip"		## Pacman
-cardSerials["0442d4faac5780"]="eLord mame 1944.zip"		## 1944 - The Loop Master
+cardSerials["0442d4faac5780"]="eLord mame 1944.zip"		## 1944: The Loop Master
 cardSerials["044a8b7aae4f81"]="eLord mame outrun.zip"		## Out Run
 cardSerials["33badede"]="eLord mame ssf2t.zip"			## Super Street Fighter II Turbo
 cardSerials["04b9a27aae4f80"]="eLord mame joust.zip"		## Joust
+cardSerials["1385dbde"]="eLord mame ddonpach.zip"		## DoDonPachi
+cardSerials["049f6b7aae4f80"]="eLord mame ddragon.zip"		## Double Dragon
+cardSerials["0453a37aae4f80"]="eLord mame xmvsf.zip"		## X-Men vs Street Fighter
+cardSerials["040abafaac5781"]="eLord mame defender.zip"		## Defender
+cardSerials["c37cdfde"]="eLord mame wwfmania.zip"		## WWF: Wrestlemania
+cardSerials["048a667aae4f80"]="eLord mame btime.zip"		## Burger Time
+cardSerials["04bfcffaac5780"]="eLord mame tekken51.zip"		## Tekken 5.1
+
+## PC
+cardSerials["7333e2de"]="eLord win \"Games/PacManChampEdDX/PAC-MAN.exe\""				## Pac-Man Championship Edition DX
+cardSerials["04198f7aae4f80"]="eLord linux RocketLeague/run.sh"						## Rocket League
+cardSerials["0442cbfaac5781"]="eLord linux Broforce/Broforce.x86_64"					## Broforce
+cardSerials["04f2c8faac5780"]="eLord linux RVGL/rvgl"							## Re-Volt
+cardSerials["0459d0faac5780"]="eLord win \"Games/SonicRacingTransformed/ASN_App_PcDx9_Final.exe\""	## Sonic and All Stars Racing Transformed
+cardSerials["040d907aae4f80"]="eLord win \"Games/PES17/PES2017.exe\""					## Pro Evo Soccer 2017
+cardSerials["046bd0faac5780"]="eLord win \"Games/CastleCrashers/LAUYNCHER.exe\""			## Castle Crashers
+cardSerials["046bd0faac5780"]="eLord win \"Games/Tekken7/\""						## Tekken 7
 
 ## Playstation
 cardSerials["0410bf7aae4f81"]="eLord psx \"Kula World (Europe).cue\""		## Kula World / Roll Away
@@ -37,11 +54,20 @@ cardSerials["0430c1faac5780"]="eLord n64 \"Cruis'n USA (USA) (Rev B).n64\""	## C
 cardSerials["0448cefaac5780"]="eLord n64 \"Mario Kart 64 (USA).n64\""		## Mario Kart 64
 cardSerials["0474ac7aae4f81"]="eLord n64 \"GoldenEye 007 (USA).n64\""		## GoldenEye
 
+## NES
+cardSerials["536cdfde"]="eLord nes \"Contra (USA).nes\""			## Contra
+
+## GameCube
+cardSerials["043f637aae4f80"]="eLord gc \"Crazy Taxi.gcz\""			## Crazy Taxi
+
 ## MegaDrive
 cardSerials["0459cdfaac5780"]="eLord megadrive \"Speedball 2 (Europe).md\""	## Out Run
 
 ## Wii U
 cardSerials["0491a27aae4f80"]="eLord wiiu \"Mario Kart 8 [AMKE01]\""		## Mario Kart 8
+
+## Extra Software
+cardSerials["04d60652783f84"]="kodi"
 
 #####################################
 
@@ -62,10 +88,9 @@ if [[ $eCommand ]]; then
 	fi
 
 	## Show that we've detected a known card
-	lightControl cracktro &
-	speakText "Starting Game" &
+	speakText "Card Detected" &
 
-	$eCommand
+	eval $eCommand
 
 	## Unpause AttractMode (bit glitchy, just restart it for now)
 	#kill -CONT $(pidof attract)
