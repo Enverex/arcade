@@ -5,7 +5,6 @@
 #################################################################
 
 export DISPLAY=:0
-
 cd ~
 
 emuPlatform="$1"
@@ -27,6 +26,9 @@ if [ -z "$emuGame" ]; then
 	exit 2
 fi
 
+## Show OSD confirmation
+echo -en "Launching Game - Please Wait" | osd_cat -Acenter -pmiddle -cwhite -s2 -O6 -ublack -l1 -d3 -f"PacFontGood 36" &
+
 function cleanName() {
 	echo "${1//[^a-zA-Z0-9.]/_}"
 }
@@ -37,7 +39,6 @@ function genVectrexConfig {
 	fi
 
 	gameName="$1"
-	echo -en "Launching Game - Please Wait" | osd_cat -Acenter -pmiddle -cwhite -s2 -O6 -ublack -l1 -d3 -f"PacFontGood 36" &
 	echo "input_overlay = ${homeRoot}/.config/retroarch/autovec/${gameName}.cfg\ninput_overlay_enable = true\ninput_overlay_opacity = 0.375000\ninput_overlay_scale = 1.0\n#custom_viewport_width = 622\n#custom_viewport_height = 750\n#custom_viewport_x = 570\n#custom_viewport_y = 30\n#aspect_ratio_index = 22\n#video_scale_integer = true\noverlays = 1\noverlay0_overlay = ${homeRoot}/.config/retroarch/overlay/vectrex/${gameName}.png\noverlay0_full_screen = false\noverlay0_descs = 0" > "${homeRoot}/.config/retroarch/autovec/${gameName}.cfg"
 }
 
@@ -73,6 +74,9 @@ function raGame {
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-ngpc.cfg"
 	elif [ "$emuPlatform" = 'psp' ]; then
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-psp.cfg"
+	#elif [ "$emuPlatform" = 'colecovision' ]; then
+		## BlueMSX needs to be told explicitly which system to emulate
+	#	raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-core-coleco.cfg"
 	elif [ "$emuPlatform" = 'mame' ]; then
 		emuGame="${gameFile}"
 		platformPath="${romRoot}/MAME/"
@@ -90,7 +94,7 @@ function raGame {
 	elif [ "$emuPlatform" = 'megadrive' ]; then
 		emuGame="${gameFile}"
 		platformPath="${romRoot}/Sega - Genesis/"
-	elif [ "$emuPlatform" = 'saturn' ]; then
+	elif [ "$emuPlatform" = 'dreamcast' ]; then
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-aa.cfg"
 	elif [ "$emuPlatform" = 'vectrex' ]; then
 		gameSafeName=$(basename "${gameSafeName}" .vec)
@@ -98,6 +102,7 @@ function raGame {
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-glow.cfg|${homeRoot}/.config/retroarch/autovec/${gameSafeName}.cfg"
 	fi
 
+	echo "=== Running retroarch -f ${raExtraOps} -L \"/usr/lib/libretro/${1}_libretro.so\" \"${platformPath}${emuGame}\""
 	retroarch -f ${raExtraOps} -L "/usr/lib/libretro/${1}_libretro.so" "${platformPath}${emuGame}"
 }
 
@@ -108,9 +113,7 @@ function launchGem {
 
 function doLights {
 	## This is a supervisor, don't do anything
-	if [ "$emuPlatform" = 'pc' ]; then
-		return
-	fi
+	if [ "$emuPlatform" = 'pc' ]; then return; fi
 
 	lightControl off
 
@@ -183,9 +186,11 @@ function launchWhdLoad {
 	fi
 
 	cd ~
-	fs-uae --kickstart_file="${LOCALFOLDER}/A1200.rom" --hard_drive_0="${LIVESTORE}/${SAFENAME}" --hard_drive_0_priority=6 --hard_drive_1="${LOCALFOLDER}/WHDLoad-Saves"
+	## System specific options go here rather than the FS-UAE config otherwise it conflicts with CD32
+	fs-uae --kickstart_file="${LOCALFOLDER}/A1200.rom" --amiga_model="A1200/020" --fast_memory=8192 --hard_drive_0="${LIVESTORE}/${SAFENAME}" --hard_drive_0_priority=6 --hard_drive_1="${LOCALFOLDER}/WHDLoad-Saves"
 }
 
+## Integrate this into raGame?
 function launchQuakeGame {
 	cd "${romRoot}/Quake"
 	retroarch -f -L /usr/lib/libretro/tyrquake_libretro.so $emuGame
@@ -276,6 +281,8 @@ function smartWine {
 		echo "Running 64bit Wine"
 		#export WINEARCH='win64'
 		export WINEPREFIX="${wine64Loc}"
+		## KoKu xInput Override (do it here as it's 64bit only)
+		export LD_PRELOAD=/usr/lib/koku-xinput-wine64.so
 	else
 		echo "==== ERROR: I cannot find the game directory for ${reqDir}."
 		return
@@ -348,8 +355,7 @@ function smartLinux {
 	#fi
 
 	## Silence the program as we won't see the output anyway
-	#./"${reqExe}" $emuArgs >/dev/null 2>&1
-	./"${reqExe}" $emuArgs
+	./"${reqExe}" $emuArgs >/dev/null 2>&1
 
 	## Fix potentially broken screen resolution on game exit
 	#fixResolution
@@ -376,7 +382,7 @@ case $emuPlatform in
 	doom ) gzdoom -iwad "$emuGame" $emuArgs ;;
 	dos ) "$emuGame" ;;
 	dosbox ) launchDosGame ;;
-	dreamcast ) raGame redream ;;
+	dreamcast ) raGame reicast ;;
 	futurepinball ) launchFuturePinball ;;
 	gamegear ) raGame genesis_plus_gx ;;
 	gb ) raGame gambatte ;;
