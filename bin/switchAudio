@@ -111,5 +111,5 @@ if [[ $switched ]]; then
 	newDevice=$(pactl list sinks | egrep "(device.vendor.name|device.product.name|bluez.alias)" | cut -d'=' -f2 | tr "\n" ' ' | sed -e 's/["]//g' | trim)
 	echo "$useDevice" > /var/tmp/lastAudioDevice
 	echo "Audio switched to ${newDevice}."
-	/home/arcade/.bin/speakText "Audio switched to ${newDevice}." &
+	/home/arcade/.bin/speakText "Audio initialised." &
 fi

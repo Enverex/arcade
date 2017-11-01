@@ -91,6 +91,9 @@ function raGame {
 		emuGame="${gameFile}"
 		platformPath="${romRoot}/Sony - Playstation/"
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-noshader.cfg"
+	elif [ "$emuPlatform" = 'mastersystem' ]; then
+		emuGame="${gameFile}"
+		platformPath="${romRoot}/Sega - Master System/"
 	elif [ "$emuPlatform" = 'megadrive' ]; then
 		emuGame="${gameFile}"
 		platformPath="${romRoot}/Sega - Genesis/"
@@ -276,13 +279,13 @@ function smartWine {
 		export WINEPREFIX="${wine32Loc}"
 		gameDir="${baseGameDir}/${reqDir}"
 		## KoKu xInput Override (do it here as it's 32bit only)
-		export LD_PRELOAD=/usr/lib/koku-xinput-wine.so
+		if [ -z "${NOKOKU}" ]; then export LD_PRELOAD=/usr/lib/koku-xinput-wine.so; fi
 	elif [ -d "${wine64Loc}/drive_c/${reqDir}" ]; then
 		echo "Running 64bit Wine"
 		#export WINEARCH='win64'
 		export WINEPREFIX="${wine64Loc}"
 		## KoKu xInput Override (do it here as it's 64bit only)
-		export LD_PRELOAD=/usr/lib/koku-xinput-wine64.so
+		if [ -z "${NOKOKU}" ]; then export LD_PRELOAD=/usr/lib/koku-xinput-wine64.so; fi
 	else
 		echo "==== ERROR: I cannot find the game directory for ${reqDir}."
 		return
@@ -290,9 +293,10 @@ function smartWine {
 
 	## Switch to the EXE's actual directory
 	cd "${WINEPREFIX}/drive_c/${reqDir}"
+	#export LD_PRELOAD="/usr/lib/koku-xinput-wine.so /usr/lib/koku-xinput-wine64.so"
 
 	## Silence Wine and the program as we won't see the output anyway
-	wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
+	PULSE_LATENCY_MSEC=32 wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
 
 	## Fix potentially broken screen resolution on game exit
 	#fixResolution
@@ -344,6 +348,10 @@ function smartLinux {
 	export LC_ALL=C
 	export LANG=C
 
+	#############################################################################################
+	## Don't do any of this anymore, games seem to work fine with their own or system libraries.
+	## Keep around incase I need it in future for something else.
+	#############################################################################################
 	## Determine if 32 or 64bit (if it's a script then chances are it sets paths itself anyway)
 	#bitCheck=$(file "${reqExe}"  | grep 'ELF 32-bit')
 
@@ -373,6 +381,7 @@ case $emuPlatform in
 	amiga ) launchWhdLoad ;;
 	amigacd32 ) fs-uae --fast_memory=0 --amiga-model=CD32 --cdrom-drive-0="$emuGame" ;;
 	atari2600 ) raGame stella ;;
+	atari5200 ) raGame atari800 ;;
 	atari7800 ) raGame prosystem ;;
 	atarijaguar ) raGame virtualjaguar ;;
 	atarilynx ) raGame handy ;;
