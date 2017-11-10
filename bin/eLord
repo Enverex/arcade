@@ -145,7 +145,7 @@ function launchWhdLoad {
 	## Location of the different folders
 	EMUFOLDER="/mnt/store/Emulation"
 	AMIGAFOLDER="${EMUFOLDER}/Games/Commodore - Amiga"
-	TEMPLATEFOLDER="${EMUFOLDER}/Assets/RomScan/WHDLoad-Blank"
+	TEMPLATEFOLDER="${EMUFOLDER}/Misc/WHDLoad-Blank"
 	LOCALFOLDER="/mnt/store/EmuSystem/Amiga"
 	LIVESTORE="${LOCALFOLDER}/whdLoaded"
 
@@ -190,7 +190,8 @@ function launchWhdLoad {
 
 	cd ~
 	## System specific options go here rather than the FS-UAE config otherwise it conflicts with CD32
-	fs-uae --kickstart_file="${LOCALFOLDER}/A1200.rom" --amiga_model="A1200/020" --fast_memory=8192 --hard_drive_0="${LIVESTORE}/${SAFENAME}" --hard_drive_0_priority=6 --hard_drive_1="${LOCALFOLDER}/WHDLoad-Saves"
+	JITARGS="--jit_compiler=1 --uae_compfpu=1 --uae_cachesize=8192 --uae_comp_trustword=indirectks --uae_comp_trustlong=indirectks"
+	fs-uae --kickstart_file="${LOCALFOLDER}/A1200.rom" --amiga_model="A1200/020" --fast_memory=8192 ${JITARGS} --hard_drive_0="${LIVESTORE}/${SAFENAME}" --hard_drive_0_priority=6 --hard_drive_1="${LOCALFOLDER}/WHDLoad-Saves"
 }
 
 ## Integrate this into raGame?

@@ -12,26 +12,33 @@ rm -rf /home/arcade/.emulationstation/gamelists 2>/dev/null
 ssh -Nf 10.2 -p222
 
 ## Copy New Configs
+echo "==== Syncing Configs"
 rsync -rv --no-perms --no-owner --no-group --force -e 'ssh -p 222' root@10.2:/mnt/store/Files/RomScan/generated/AM/{attract.cfg,emulators,romlists} /home/arcade/.attract/
 rsync -rv --no-perms --no-owner --no-group --force -e 'ssh -p 222' root@10.2:/mnt/store/Files/RomScan/generated/ES/.emulationstation /home/arcade/
 
-## Sync the Emulation Folders to the server
-rsync -zav --no-perms --no-owner --no-group --delete --force -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/{Games,Assets} /mnt/store/Emulation/ --exclude='/mnt/store/Emulation/BrokenWineGames'
+## Sync the Emulation Media Assets
+echo "==== Syncing Assets"
+rsync -Lav --no-perms --no-owner --no-group --delete --force -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/Assets/Live /mnt/store/Emulation/Assets/
+rsync -zav --no-perms --no-owner --no-group --delete --force -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/Misc /mnt/store/Emulation/
+
+## Sync Game Content
+echo "==== Syncing Games"
+rsync -zav --no-perms --no-owner --no-group --delete --force -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/Games /mnt/store/Emulation/
 
 ## Close SSH multiplex master
 ssh -O exit 10.2 -p222
 
 ## Fix Permissions
 echo "==== Fixing ownership."
-chown arcade:arcade -Rc /home/arcade/.attract
-chown arcade:arcade -Rc /home/arcade/.emulationstation
-chown arcade:arcade -Rc /mnt/store/Emulation
+chown arcade:arcade -R /home/arcade/.attract
+chown arcade:arcade -R /home/arcade/.emulationstation
+chown arcade:arcade -R /mnt/store/Emulation
 
 echo "==== Fixing permissions."
 find /mnt/store/Emulation -type d -exec chmod -c 755 "{}" \;
-find /mnt/store/Emulation -type f -exec chmod -c 644 "{}" \;
+find /mnt/store/Emulation -type f ! -name "*.sh" -exec chmod -c 644 "{}" \;
 
 echo "==== Fixing executables."
-find /mnt/store/Emulation -type f -name "*.sh" -exec chmod -c +x "{}" \;
+find /mnt/store/Emulation/Games -type f -name "*.sh" -exec chmod -c +x "{}" \;
 
 echo "==== Done"
