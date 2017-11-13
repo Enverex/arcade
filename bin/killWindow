@@ -1,0 +1,65 @@
+#!/bin/bash
+#########################################################
+## KillWindow
+## Kills any program we may want closed, i.e. emulators
+#########################################################
+
+echo "Kill starting."
+
+## List of programs to kill when asked
+killList=("x64sc" "dolphin-emu-nogui" "PCSX2" "fs-uae" "cannonball" "wine" "rpcs3" "ppsspp" "daphne" "dosbox" "pico8" "sdlmame" "citra-qt")
+
+export DISPLAY=:0
+export XAUTHORITY=/home/arcade/.Xauthority
+
+## Get the current running processes
+runningProcesses=$(ps -u arcade | awk '{print $4}')
+
+## Shortcut functions
+function isRunning {
+	if [[ $(echo "${runningProcesses}" | grep $1) ]]; then
+		echo "$1 appears to be running."
+		KILLED=1
+	fi
+}
+
+function doKill {
+	gamePid=$(pidof "$1")
+	if ! [ -z "${gamePid}" ]; then
+		echo "Killing process ${gamePid}"
+		kill -9 ${gamePid}
+		KILLED=1
+	fi
+}
+
+function pressEscape {
+	su arcade -c "xdotool key Escape"
+}
+
+
+## If you don't exit RA cleanly, it doesn't save!
+if [[ $(isRunning retroarch) ]]; then
+	echo "Closing RetroArch."
+	killall retroarch -15
+	KILLED=1
+
+### Ask wine to close everything rather than just killing it
+elif [[ $(isRunning wineserver) ]]; then
+	echo "Closing Wine."
+	su arcade -c "WINEPREFIX=/mnt/store/Wine wineserver -k" &
+	su arcade -c "WINEPREFIX=/mnt/store/Wine64 wineserver -k" &
+	KILLED=1
+
+## Other basic terminations
+else
+	for program in "${killList[@]}"; do
+		doKill "${program}" &
+	done
+fi
+
+## Nothing was killed, just try alt+F4 instead
+if [ -z "${KILLED}" ]; then
+	echo "No processes killed, trying other methods."
+	su arcade -c "xdotool key --clearmodifiers alt+F4"
+        #su arcade -c "xdotool getwindowfocus windowkill"
+fi

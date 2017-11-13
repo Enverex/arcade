@@ -1,0 +1,18 @@
+#!/bin/bash
+
+gameId=$(echo -ne $(cat steam_appid.txt 2>/dev/null))
+gameFolder="$(pwd)"
+timeNow=$(date +%y%m%d%H%M)
+backupFolder="PreUpdate/${timeNow}"
+
+if [ -z "${gameId}" ]; then
+	echo "Missing steam_appid.txt. Put the game's Steam ID into this file and run again."
+	exit 255
+fi
+
+## Backup any possible pre-existing cracks
+mkdir -p "${backupFolder}"
+find -name "libsteam_api.so" ! -path "./PreUpdate/*" -exec cp --parents {} ${backupFolder}/ \;
+
+echo "==== Updating game ID ${gameId}"
+~/.steam/steamcmd.sh +@sSteamCmdForcePlatformType windows +login enverex +force_install_dir "${gameFolder}" +app_update ${gameId} +quit

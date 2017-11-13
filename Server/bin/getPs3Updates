@@ -1,0 +1,62 @@
+#!/bin/php
+
+## Check availability of updates for all PS3 games
+## and then download them if necessary. Note, they
+## still need to be manually installed in RPCS3.
+
+<?php
+
+chdir("/mnt/store/Emulation/Games/Sony - Playstation 3 Raw");
+$gameFolders = scandir(".");
+
+foreach($gameFolders as $thisGame) {
+	// Skip non-games
+	if($thisGame == '.' || $thisGame == '..' || $thisGame == 'getPs3Updates.php') continue;
+
+	// Grab the remote XML
+	$remoteXml = @file_get_contents("https://a0.ww.np.dl.playstation.net/tpl/np/{$thisGame}/{$thisGame}-ver.xml", false, stream_context_create(array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false))));
+	if($remoteXml) {
+		// Flip-reverse in JSON to get a PHP array instead
+		$remoteArray = json_decode(json_encode(simplexml_load_string($remoteXml, "SimpleXMLElement", LIBXML_NOCDATA)), true);
+
+		// Single Patch
+		if(is_array($remoteArray['tag']['package']['@attributes'])) {
+			$latestUpdateArr = $remoteArray['tag']['package'];
+		// Multiple Patches
+		}else{
+			$latestUpdateArr = end($remoteArray['tag']['package']);
+		}
+
+		// Update XML seems valid, carry on
+		if($latestUpdateArr) {
+			$updateVersion = $latestUpdateArr['@attributes']['version'];
+			$updateUrl = $latestUpdateArr['@attributes']['url'];
+			$gameName = preg_replace('%\s+%', ' ', $latestUpdateArr['paramsfo']['TITLE']);
+			$updateName = basename($updateUrl);
+			echo "{$gameName} ({$updateVersion})\n{$updateName}\n";
+
+			// Download the update if we don't already have it
+			if($updateName) {
+				if(!file_exists("{$thisGame}/{$updateName}")) {
+					echo "Downloading update... ";
+					$downloadUrl = escapeshellarg($updateUrl);
+					$downloadTarget = "{$thisGame}/{$updateName}";
+					$downloadTemp = "/tmp/ps3UpdateTemp";
+					if(file_exists($downloadTemp)) unlink($downloadTemp);
+					shell_exec("wget --no-check-certificate {$downloadUrl} -O {$downloadTemp}");
+					rename($downloadTemp, $downloadTarget);
+					echo "Update downloaded.\n";
+				}else{
+					echo "Update already downloaded.\n";
+				}
+			}else{
+				echo "{$thisGame} - No updates found.\n";
+			}
+			echo "\n";
+		}
+	}else{
+		echo "{$thisGame} - No updates available.\n\n";
+	}
+}
+
+?>
