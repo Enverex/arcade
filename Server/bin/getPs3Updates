@@ -1,8 +1,8 @@
 #!/bin/php
 
-## Check availability of updates for all PS3 games
-## and then download them if necessary. Note, they
-## still need to be manually installed in RPCS3.
+## Checking Availability of PS3 Game Updates.
+## These still need to be installed manually from
+## the "Install PKG" menu option inside RPCS3.
 
 <?php
 

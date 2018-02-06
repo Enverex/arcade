@@ -184,7 +184,10 @@ function updateGameDetails($sourceScraper, $gameName, $dbGameName, $platformName
 
 	// The value of this rating, is just too damn high!
 	if(!is_numeric($score)) unset($score);
-	if($score && ($score > 5 || $score < 0.1)) die("\n\n[DB System] Rating value too high or zero ({$score}).\n");
+	if($score && ($score > 5 || $score < 0.1)) {
+		echo "\n[DB System] {$gameName} - Invalid rating score ({$score}).\n";
+		return false;
+	}
 
 	// Invalid player count
 	if(!$players) unset($players);
@@ -400,6 +403,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	$gameDBOArr = DBSingleAssoc("SELECT * FROM games WHERE gameMatchName = ? AND gamePlatform = ? LIMIT 1", array($thisRom['safeName'], $setParts['dbname']));
 	if(!$gameDBOArr) $newGame = 1;
 
+	$romImage = $romWheelImage = $romSnapImage = null;
 	if(!FORCE_IMAGESCAN) {
 		$romImage = $gameDBOArr['gameImage'];
 		$romWheelImage = $gameDBOArr['gameWheelImage'];
@@ -479,8 +483,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	if(FORCE_IMAGESCAN || isset($newGame)) { $thisRom['imageChecks'] = 1; }
 	else{ $thisRom['imageChecks'] = false; }
 
-	if(needsScan($thisRom, $setParts)) { $thisRom['missingDetails'] = true; }
-	else{ $thisRom['missingDetails'] = false; }
+	if(needsScan($thisRom, $setParts)) { $thisRom['missingDetails'] = true; }else{ $thisRom['missingDetails'] = false; }
 
 	// Only do lookups if the game doesn't already exist or we've explicitly requested additional checks
 	if(!$gameDBOArr || $thisRom['missingDetails']) {
@@ -499,13 +502,14 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 		// General scrapers
 		#if(needsScan($thisRom, $setParts)) openvgdbScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['ovgdb'], $setParts['assets']);
 		if(needsScan($thisRom, $setParts)) thegamesdbScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['tgdbid'], $setParts['assets']);
+		if(needsScan($thisRom, $setParts)) mobyLocalScrape($thisRom['safeName'], $thisRom['niceName'], $setParts['dbname'], $setParts['mobyid']);
 		#if(needsScan($thisRom, $setParts)) archivevgScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['archivevgname'], $setParts['assets']);
-		if(needsScan($thisRom, $setParts)) mobyScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['mobyid'], $setParts['assets']);
+		#if(needsScan($thisRom, $setParts)) mobyScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['mobyid'], $setParts['assets']);
 		#if(needsScan($thisRom, $setParts)) allgamecomScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['allgamename'], $setParts['assets']);
-		if(needsScan($thisRom, $setParts)) ignScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['ignname'], $setParts['assets']);
-		if(needsScan($thisRom, $setParts)) rfgenScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['rfgenid'], $setParts['assets']);
-		if(needsScan($thisRom, $setParts)) giantbombScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['gbid'], $setParts['assets']);
-		if(needsScan($thisRom, $setParts)) gamefaqsScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['gamefaqsid'], $setParts['assets']);
+		#if(needsScan($thisRom, $setParts)) ignScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['ignname'], $setParts['assets']);
+		#if(needsScan($thisRom, $setParts)) rfgenScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['rfgenid'], $setParts['assets']);
+		#if(needsScan($thisRom, $setParts)) giantbombScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['gbid'], $setParts['assets']);
+		#if(needsScan($thisRom, $setParts)) gamefaqsScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['gamefaqsid'], $setParts['assets']);
 
 		// Normal platform specific scrapers
 		if(needsScan($thisRom, $setParts, 'Amstrad_CPC')) amstradcpcwikiScraper($thisRom['niceName'], $thisRom['safeName']);
@@ -532,10 +536,10 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	if($thisRom['imageChecks'] && !$romImage) {
 		if(!$romImage) thegamesdbScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['tgdbid'], $setParts['assets'], true);
 		#if(!$romImage) archivevgScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['archivevgname'], $setParts['assets'], true);
-		if(!$romImage) mobyScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['mobyid'], $setParts['assets'], true);
-		if(!$romImage) ignScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['ignname'], $setParts['assets'], true);
-		if(!$romImage) allgamecomScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['allgamename'], $setParts['assets'], true);
-		if(!$romImage) giantbombScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['gbid'], $setParts['assets'], true);
+		#if(!$romImage) mobyScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['mobyid'], $setParts['assets'], true);
+		#if(!$romImage) ignScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['ignname'], $setParts['assets'], true);
+		#if(!$romImage) allgamecomScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['allgamename'], $setParts['assets'], true);
+		#if(!$romImage) giantbombScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['gbid'], $setParts['assets'], true);
 
 		// Get the wheel artwork (handled by the TGDB scraper)
 		if(!$romWheelImage) thegamesdbScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['tgdbid'], $setParts['assets'], false, true);
@@ -548,22 +552,6 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 
 	// Update image path and name
 	DBSimple("UPDATE games SET gameImage = ?, gameWheelImage = ?, gameSnapImage = ?, gameName = ? WHERE gameMatchName = ? AND gamePlatform = ?", array($romImage, $romWheelImage, $romSnapImage, $thisRom['niceName'], $thisRom['safeName'], $setParts['dbname']));
-
-	// Make the live links for the images
-	if($romImage) {
-		$romImageExt = pathinfo($romImage)['extension'];
-		cleanShell("ln -sfn \"{$romImage}\" \"".ASSET_ROOT."/Live/{$setParts['assets']}/Box/{$thisRom['name']}.{$romImageExt}\"");
-	}
-
-	if($romWheelImage) {
-		$romWheelImageExt = pathinfo($romWheelImage)['extension'];
-		cleanShell("ln -sfn \"{$romWheelImage}\" \"".ASSET_ROOT."/Live/{$setParts['assets']}/Wheel/{$thisRom['name']}.{$romWheelImageExt}\"");
-	}
-
-	if($romSnapImage) {
-		$romSnapImageExt = pathinfo($romSnapImage)['extension'];
-		cleanShell("ln -sfn \"{$romSnapImage}\" \"".ASSET_ROOT."/Live/{$setParts['assets']}/Snap/{$thisRom['name']}.{$romSnapImageExt}\"");
-	}
 
 	// Read the game info back from the DB
 	$gameDBArr = DBSingleAssoc("SELECT * FROM games WHERE gameMatchName = ? AND gamePlatform = ? LIMIT 1", array($thisRom['safeName'], $setParts['dbname']));
@@ -594,10 +582,9 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 }
 
 function romScan($romFile, $thisSet, $setParts, $mameGameArr) {
-	global $timeNow, $romImage, $romWheelImage, $romSnapImage, $mameArray;
+	global $timeNow, $mameArray, $romImage, $romWheelImage, $romSnapImage;
 
 	$thisRom['file'] = trim($romFile);
-	$romImage = $romWheelImage = $romSnapImage = null;
 
 	// This is a folder (and not a symlink) - abort
 	if($thisRom['file'] == '.' || $thisRom['file'] == '..') return;
@@ -876,6 +863,7 @@ function populateLaunchboxDb() {
 			unset($launchboxImageArray);
 
 			foreach($launchboxArray as $thisLaunchboxGame) {
+				unset($gameFrontImage);
 				if($thisLaunchboxGame['Platform']) {
 					if(empty($thisLaunchboxGame['Genres'])) {
 						// Null rather than broken/empty array

@@ -77,7 +77,7 @@ function DBLastID() {
 $db = DBNewPDO('/var/run/mysqld/mysqld.sock', 'gamedb', 'gamedb', 'gamedb', 'socket');
 
 // OpenVGDB SQLite Handler
-$openVgdbHandle  = new PDO("sqlite:resources/openvgdb.sqlite");
+$openVgdbHandle = new PDO("sqlite:resources/openvgdb.sqlite", NULL, NULL, array(PDO::ATTR_PERSISTENT => TRUE));
 
 function vgdbQuery($query, $vararray = array()) {
 	global $openVgdbHandle;
@@ -86,6 +86,21 @@ function vgdbQuery($query, $vararray = array()) {
 	if (!$stmt) {
 		echo "\nPDO::errorInfo():\n";
 		print_r($openVgdbHandle->errorInfo());
+	}
+	$stmt->execute($vararray);
+	return $stmt->fetch();
+}
+
+// Mobygames SQLite Handler
+$mobySqlite = new PDO("sqlite:resources/moby.db", NULL, NULL, array(PDO::ATTR_PERSISTENT => TRUE));
+
+function mobyQuery($query, $vararray = array()) {
+	global $mobySqlite;
+	$stmt = NULL;
+	$stmt = $mobySqlite->prepare($query);
+	if (!$stmt) {
+		echo "\nPDO::errorInfo():\n";
+		print_r($mobySqlite->errorInfo());
 	}
 	$stmt->execute($vararray);
 	return $stmt->fetch();

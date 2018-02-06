@@ -11,8 +11,11 @@
 ## http://www.rfgeneration.com/cgi-bin/search.pl (ID in search table)
 ## sqlite3 resources/openvgdb.sqlite - SELECT DISTINCT(TEMPsystemShortName) FROM RELEASES;
 
+## SELECT * FROM tbl_Moby_Games LEFT JOIN tbl_Moby_Releases ON tbl_Moby_Games.id_Moby_Games = tbl_Moby_Releases.id_Moby_Games WHERE tbl_Moby_Games.Name = '(GAMENAME)' AND tbl_Moby_Releases.id_Moby_Platforms = (MOBYPLATFORMID);
+
 $systemArr = array();
 
+// Systems Array. One for each system.
 $systemArr['Nintendo SNES'] = array(
 	'folder' => "{$configFile['romBase']}/Nintendo - Super Nintendo Entertainment System",
 	'extensions' => 'sfc|smc',
@@ -219,6 +222,7 @@ $systemArr['Magnavox Odyssey2'] = array(
 	'nointroname' => 'Magnavox - Odyssey2'
 );
 
+
 $systemArr['Commodore Amiga'] = array(
 	'folder' => "{$configFile['romBase']}/Commodore - Amiga",
 	'extensions' => 'lha',
@@ -237,6 +241,7 @@ $systemArr['Commodore Amiga'] = array(
 	'nointroname' => ''
 );
 
+
 $systemArr['MS-DOS'] = array(
 	'folder' => "{$configFile['romBase']}/PC - DOS",
 	'extensions' => 'sh',
@@ -254,6 +259,7 @@ $systemArr['MS-DOS'] = array(
 	'ovgdb' => '',
 	'nointroname' => ''
 );
+
 
 $systemArr['PC'] = array(
 	'folder' => "{$configFile['romBase']}/PC - Windows",
@@ -292,10 +298,9 @@ $systemArr['Commodore Amiga CD32'] = array(
 	'nointroname' => ''
 );
 
-## Mednafen doesn't support ISO files because it's weird
 $systemArr['Sony Playstation'] = array(
 	'folder' => "{$configFile['romBase']}/Sony - Playstation",
-	'extensions' => 'cue',
+	'extensions' => 'chd',
 	'assets' => 'Sony_Playstation',
 	'amid' => 'Sony Playstation',
 	'lbid' => 'Sony Playstation',
@@ -406,7 +411,6 @@ $systemArr['SNK Neo Geo Pocket Color'] = array(
 	'nointroname' => 'SNK - Neo Geo Pocket Color'
 );
 
-// Systems Array. One for each system.
 /*
 $systemArr['Amstrad CPC'] = array(
 	'folder' => "{$configFile['romBase']}/Amstrad - CPC",
@@ -424,10 +428,13 @@ $systemArr['Amstrad CPC'] = array(
 	'ovgdb' => '',
 	'nointroname' => ''
 );
+*/
 
 $systemArr['Amstrad GX4000'] = array(
 	'folder' => "{$configFile['romBase']}/Amstrad - GX4000",
 	'extensions' => 'cpr',
+	'amid' => 'Amstrad GX4000',
+	'lbid' => 'Amstrad GX4000',
 	'assets' => 'Amstrad_GX4000',
 	'dbname' => 'amstradgx4000',
 	'tgdbid' => 'Amstrad CPC',
@@ -441,7 +448,6 @@ $systemArr['Amstrad GX4000'] = array(
 	'ovgdb' => '',
 	'nointroname' => ''
 );
-*/
 
 $systemArr['Atari 2600'] = array(
 	'folder' => "{$configFile['romBase']}/Atari - 2600",
@@ -462,11 +468,12 @@ $systemArr['Atari 2600'] = array(
 	'nointroname' => 'Atari - 2600'
 );
 
-/*
 $systemArr['Atari 5200'] = array(
 	'folder' => "{$configFile['romBase']}/Atari - 5200",
 	'extensions' => 'a52',
 	'assets' => 'Atari_5200',
+	'amid' => 'Atari 5200',
+	'lbid' => 'Atari 5200',
 	'tgdbid' => 'Atari 5200',
 	'dbname' => 'atari5200',
 	'gbid' => '67',
@@ -477,9 +484,8 @@ $systemArr['Atari 5200'] = array(
 	'gamefaqsid' => 'atari5200',
 	'rfgenid' => '023',
 	'ovgdb' => '5200',
-	'nointroname' => ''
+	'nointroname' => 'Atari - 5200'
 );
-*/
 
 $systemArr['Atari 7800'] = array(
 	'folder' => "{$configFile['romBase']}/Atari - 7800",
@@ -600,8 +606,9 @@ $systemArr['Commodore 64GS'] = array(
 	'folder' => "{$configFile['romBase']}/Commodore - 64GS",
 	'extensions' => 'crt',
 	'assets' => 'Commodore_64',
+	'amid' => 'Commodore 64GS',
+	'lbid' => 'Commodore 64',
 	'dbname' => 'c64gs',
- 	'lbid' => '',
 	'tgdbid' => 'Commodore 64',
 	'gbid' => '14',
 	'mobyid' => '27',
@@ -611,7 +618,7 @@ $systemArr['Commodore 64GS'] = array(
 	'gamefaqsid' => 'c64',
 	'rfgenid' => '018',
 	'ovgdb' => '',
-	'nointroname' => ''
+	'nointroname' => 'Commodore - 64GS'
 );
 */
 
@@ -693,7 +700,7 @@ $systemArr['Nintendo DS'] = array(
 
 $systemArr['Nintendo 3DS'] = array(
 	'folder' => "{$configFile['romBase']}/Nintendo - 3DS",
-	'extensions' => '3ds',
+	'extensions' => '3ds|cia|cii',
 	'assets' => 'Nintendo_3DS',
 	'amid' => 'Nintendo 3DS',
 	'lbid' => 'Nintendo 3DS',
@@ -1003,7 +1010,7 @@ $systemArr['Sega Master System'] = array(
 
 $systemArr['Sega Mega-CD'] = array(
 	'folder' => "{$configFile['romBase']}/Sega - Mega-CD",
-	'extensions' => 'cue',
+	'extensions' => 'chd',
 	'assets' => 'Sega_CD',
 	'amid' => 'Sega CD',
 	'lbid' => 'Sega CD',
@@ -1022,7 +1029,7 @@ $systemArr['Sega Mega-CD'] = array(
 
 $systemArr['Sega Saturn'] = array(
 	'folder' => "{$configFile['romBase']}/Sega - Saturn",
-	'extensions' => 'cue',
+	'extensions' => 'chd',
 	'assets' => 'Sega_Saturn',
 	'amid' => 'Sega Saturn',
 	'lbid' => 'Sega Saturn',

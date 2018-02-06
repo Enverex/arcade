@@ -28,6 +28,7 @@ $mameArray = array();
 $amigaWhdloadArray = array();
 $x68kGameArray = array();
 $thegamedbTest = '';
+$romImage = $romWheelImage = $romSnapImage = '';
 
 // What to do?
 if($mode == 'scan') {
@@ -46,10 +47,6 @@ function doScan() {
 	// Uncomment this to import the Launchbox DB
 	echo "\n\n=============================\nUpdating Launchbox Remote Database\n=============================\n";
 	populateLaunchboxDb();
-
-	// Nuke the existing live links
-	echo "\n\n=============================\nClearing Existing Live Links\n=============================\n";
-	shell_exec("rm -rf /mnt/store/Emulation/Assets/Live");
 
 	// Create backup of the games table
 	if(BACKUPS_CREATE) {
@@ -143,9 +140,6 @@ function doScan() {
 			$romCount = count($thisFolder);
 
 			// Create folders
-			@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Box", 0777, true);
-			@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Snap", 0777, true);
-			@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Wheel", 0777, true);
 			@mkdir(EXTRAASSET_ROOT."/{$setParts['assets']}/Box", 0777, true);
 			@mkdir(EXTRAASSET_ROOT."/{$setParts['assets']}/Snap", 0777, true);
 			@mkdir(EXTRAASSET_ROOT."/{$setParts['assets']}/Wheel", 0777, true);
@@ -193,11 +187,20 @@ function doGenerate() {
 	$systemListEs = $systemListAm = '';
 	if(isset($configFile['linuxTrPath'])) $windowsTranslation = array($configFile['linuxTrPath'] => $configFile['windowsTrPath']);
 
+	// Nuke the existing live links
+	echo "\n\n=============================\nClearing Existing Live Links\n=============================\n";
+	shell_exec("rm -rf /mnt/store/Emulation/Assets/Live");
+
+	echo "\n\n=============================\nFinal Content Generation\n=============================\n";
 	foreach($systemArr as $thisSet => $setParts) {
 		unset($platformExtList);
 		$gameListEs = $gameListAm = $gameListRa = '';
 
-		echo "\n[{$thisSet}] [{$setParts['dbname']}] Creating game list files.";
+		echo "\n[{$thisSet}] [{$setParts['dbname']}] Creating game lists and asset links.";
+
+		@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Box", 0777, true);
+		@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Snap", 0777, true);
+		@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Wheel", 0777, true);
 
 		// Set emulator, use RetroArch if a core has been set
 		if(isset($setParts['retrocore'])) {
@@ -248,6 +251,23 @@ function doGenerate() {
 
 			// Game doesn't work in MAME yet, skip it
 			if($gameArray['gameMameState'] == 'preliminary') continue;
+
+			// The type of artwork we use
+			$linkValuesArray = array(
+				'Box' => $gameArray['gameImage'],
+				'Wheel' => $gameArray['gameWheelImage'],
+				'Snap' => $gameArray['gameSnapImage']
+			);
+
+			// Make the live links for the images
+			foreach($linkValuesArray as $linkType => $linkImage) {
+				if(!$linkImage || empty($gameArray['gameName'])) continue;
+				$linkExtension = pathinfo($linkImage)['extension'];
+				$gameFileName = pathinfo($gameArray['gameFile'])['filename'];
+				$arg1 = escapeshellarg($linkImage);
+				$arg2 = escapeshellarg(ASSET_ROOT . "/Live/{$setParts['assets']}/{$linkType}/{$gameFileName}.{$linkExtension}");
+				cleanShell("ln -sfn {$arg1} {$arg2}");
+			}
 
 			// Tidy up
 			$gameArray['gameDescription'] = cutText($gameArray['gameDescription'], 380);

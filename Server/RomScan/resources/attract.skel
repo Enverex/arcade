@@ -39,7 +39,7 @@ general
 	exit_command         lightControl off
 	default_font         FreeSans
 	font_path            /usr/share/fonts/
-	screen_saver_timeout 120
+	screen_saver_timeout 60
 	displays_menu_exit   no
 	hide_brackets        no
 	startup_mode         default
@@ -61,14 +61,14 @@ general
 	scrape_fanart        no
 	scrape_videos        no
 	scrape_overview      yes
-	video_decoder        software
+	video_decoder        vdpau
 	menu_prompt          Displays Menu
 	menu_layout          maximus-menu
 
 saver_config
 	param                basic_movie Yes
-	param                blank_start_cmd 
-	param                blank_stop_cmd 
+	param                blank_start_cmd lightControl off
+	param                blank_stop_cmd lightControl on
 	param                blank_time 120
 	param                image_collage Yes
 	param                movie_collage Yes
