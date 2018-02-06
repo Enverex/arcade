@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+cd "/mnt/store/Emulation/Games/Commodore - Amiga WHDLoad"
+mkdir Convert
+cd Convert
+7z x "../$1"
+realName="$(basename "$1" .lha)"
+XZ_OPT=-9 tar acvf "../${realName}.txz" .
+cd ..
+rm -rf Convert
