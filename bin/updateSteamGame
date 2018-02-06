@@ -16,3 +16,4 @@ find -name "libsteam_api.so" ! -path "./PreUpdate/*" -exec cp --parents {} ${bac
 
 echo "==== Updating game ID ${gameId}"
 ~/.steam/steamcmd.sh +@sSteamCmdForcePlatformType windows +login enverex +force_install_dir "${gameFolder}" +app_update ${gameId} +quit
+#~/.steam/steamcmd.sh +login enverex +force_install_dir "${gameFolder}" +app_update ${gameId} +quit

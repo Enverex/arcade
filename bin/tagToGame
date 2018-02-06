@@ -51,10 +51,9 @@ cardSerials["0459d0faac5780"]="eLord win \"Games/SonicRacingTransformed/ASN_App_
 cardSerials["040d907aae4f80"]="${emuFolder}/PC\ -\ Windows/Pro\ Evolution\ Soccer\ 2017.sh"		## Pro Evo Soccer 2017
 cardSerials["046bd0faac5780"]="${emuFolder}/PC\ -\ Windows/Castle\ Crashers.sh"				## Castle Crashers
 cardSerials["ce21504e"]="${emuFolder}/PC\ -\ Windows/Brutal\ Doom.sh"					## Brutal Doom
-cardSerials["5e064e4e"]="${emuFolder}/PC\ -\ Windows/Street\ Fighter\ X\ Tekken.sh"					## Brutal Doom
-cardSerials["9e0c514e"]="${emuFolder}/PC\ -\ Windows/The\ Binding\ of\ Isaac\ -\ Rebirth.sh"		## Brutal Doom
-
-#cardSerials["046bd0faac5780"]="eLord win \"Games/Tekken7/\""						## Tekken 7
+cardSerials["5e064e4e"]="${emuFolder}/PC\ -\ Windows/Street\ Fighter\ X\ Tekken.sh"			## Street Fighter X Tekken (doesn't work?)
+cardSerials["9e0c514e"]="${emuFolder}/PC\ -\ Windows/The\ Binding\ of\ Isaac\ -\ Rebirth.sh"		## Binding of Isaac
+cardSerials["046bd0faac5780"]="eLord win \"Games/Tekken7/\""						## Tekken 7 (doesn't work)
 
 ## Playstation
 cardSerials["0410bf7aae4f81"]="eLord psx \"Kula World (Europe).cue\""		## Kula World / Roll Away
@@ -76,19 +75,19 @@ cardSerials["04c8cdfaac5780"]="eLord gc \"Super\ Smash\ Bros.\ Melee\ \(Player\'
 cardSerials["0441d8faac5781"]="eLord mastersystem \"Streets of Rage (Europe).sms\""		## Streets of Rage
 
 ## MegaDrive
-cardSerials["0e90474e"]="eLord megadrive \"Sonic The Hedgehog (USA, Europe).md\""	## Speedball 2
-cardSerials["4e89464e"]="eLord megadrive \"Sonic The Hedgehog 2 (World) (Rev A).md\""	## Speedball 2
-cardSerials["6e86514e"]="eLord megadrive \"Sonic The Hedgehog 3 (USA).md\""	## Speedball 2
+cardSerials["0e90474e"]="eLord megadrive \"Sonic The Hedgehog (USA, Europe).md\""	## Sonic
+cardSerials["4e89464e"]="eLord megadrive \"Sonic The Hedgehog 2 (World) (Rev A).md\""	## Sonic 2
+cardSerials["6e86514e"]="eLord megadrive \"Sonic The Hedgehog 3 (USA).md\""		## Sonic 3
 
 ## Amiga
 cardSerials["0459cdfaac5780"]="eLord amiga \"Speedball 2 - Brutal Deluxe.lha\""	## Speedball 2
 
 ## Wii U
-cardSerials["0491a27aae4f80"]="eLord wiiu \"Mario Kart 8 [AMKE01]\""		## Mario Kart 8
-cardSerials["7ea9514e"]="eLord wiiu \"Super Mario 3D World [ARDP01]\""		## Mario Kart 8
+cardSerials["0491a27aae4f80"]="eLord wiiu \"Mario Kart 8 [AMKE01]\""	## Mario Kart 8
+cardSerials["7ea9514e"]="eLord wiiu \"Super Mario 3D World [ARDP01]\""	## Super Mario 3D World
 
 ## Extra Software
-cardSerials["04d60652783f84"]="kodi"
+cardSerials["04d60652783f84"]="kodi"	## Kodi
 
 #####################################
 

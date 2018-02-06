@@ -18,12 +18,12 @@ rsync -rv --no-perms --no-owner --no-group --force -e 'ssh -p 222' root@10.2:/mn
 
 ## Sync the Emulation Media Assets
 echo "==== Syncing Assets"
-rsync -Lav --no-perms --no-owner --no-group --delete --force -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/Assets/Live /mnt/store/Emulation/Assets/
-rsync -zav --no-perms --no-owner --no-group --delete --force -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/Misc /mnt/store/Emulation/
+rsync -Lav --no-perms --size-only --no-owner --no-group --delete --force -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/Assets/Live /mnt/store/Emulation/Assets/
+rsync -zav --no-perms --size-only --no-owner --no-group --delete --force -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/Misc /mnt/store/Emulation/
 
 ## Sync Game Content
 echo "==== Syncing Games"
-rsync -zav --no-perms --no-owner --no-group --delete --force -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/Games /mnt/store/Emulation/
+rsync -zav --no-perms --size-only --sparse --no-owner --no-group --delete --force -e 'ssh -p 222' root@10.2:/mnt/store/Emulation/Games /mnt/store/Emulation/
 
 ## Close SSH multiplex master
 ssh -O exit 10.2 -p222

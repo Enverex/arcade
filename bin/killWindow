@@ -63,3 +63,10 @@ if [ -z "${KILLED}" ]; then
 	su arcade -c "xdotool key --clearmodifiers alt+F4"
         #su arcade -c "xdotool getwindowfocus windowkill"
 fi
+
+## Start AttractMode if it's not already running
+attractPid=$(pidof attract)
+if [ -z "${attractPid}" ]; then
+	attract &
+fi
+

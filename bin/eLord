@@ -87,6 +87,10 @@ function raGame {
 		emuGame="${gameFile}"
 		platformPath="${romRoot}/Nintendo - Nintendo 64/"
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-noshader.cfg"
+	elif [ "$emuPlatform" = 'saturn' ]; then
+		emuGame="${gameFile}"
+		platformPath="${romRoot}/Sega - Saturn/"
+		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-noshader.cfg"
 	elif [ "$emuPlatform" = 'psx' ]; then
 		emuGame="${gameFile}"
 		platformPath="${romRoot}/Sony - Playstation/"
@@ -171,6 +175,8 @@ function launchWhdLoad {
 			cd "${LOCALFOLDER}/temp/${SAFENAME}"
 			7z x -y "${AMIGAFOLDER}/${GAMEFILE}"
 			rm *.info
+			find -type f -exec chmod 644 {} \;
+			find -type d -exec chmod 755 {} \;
 
 			## Move it to the game's own virtual disk
 			find -mindepth 1 -maxdepth 1 -type d -exec mv "{}" "${LIVESTORE}/${SAFENAME}/Game" \;
@@ -254,6 +260,12 @@ function launchDaphne() {
 	daphne "${daphneName}" vldp -framefile "/mnt/store/Emulation/Games/Daphne/${gameFolder}/${daphneName}.txt" -fastboot -fullscreen -noissues -opengl -x 1280 -y 800 -noserversend -nocrc -ignore_aspect_ratio
 }
 
+function launch3DS() {
+	gameFile=$(basename "${emuGame}" 3ds)
+	platformPath="${romRoot}/Nintendo - 3DS"
+	citra-qt "${platformPath}/${gameFile}.3ds" $emuArgs
+}
+
 function smartWine {
 	reqDir=${emuGame%/*}
 	reqExe=${emuGame##*/}
@@ -279,25 +291,24 @@ function smartWine {
 		#export WINEARCH='win32'
 		export WINEPREFIX="${wine32Loc}"
 		gameDir="${baseGameDir}/${reqDir}"
-		## KoKu xInput Override (do it here as it's 32bit only)
-		if [ -z "${NOKOKU}" ]; then export LD_PRELOAD=/usr/lib/koku-xinput-wine.so; fi
 	elif [ -d "${wine64Loc}/drive_c/${reqDir}" ]; then
 		echo "Running 64bit Wine"
 		#export WINEARCH='win64'
 		export WINEPREFIX="${wine64Loc}"
-		## KoKu xInput Override (do it here as it's 64bit only)
-		if [ -z "${NOKOKU}" ]; then export LD_PRELOAD=/usr/lib/koku-xinput-wine64.so; fi
 	else
 		echo "==== ERROR: I cannot find the game directory for ${reqDir}."
 		return
 	fi
 
+	## KoKu xInput Override
+	if [ -z "${NOKOKU}" ]; then export LD_PRELOAD="/usr/lib/koku-xinput-wine.so /usr/lib/koku-xinput-wine64.so"; fi
+
 	## Switch to the EXE's actual directory
 	cd "${WINEPREFIX}/drive_c/${reqDir}"
-	#export LD_PRELOAD="/usr/lib/koku-xinput-wine.so /usr/lib/koku-xinput-wine64.so"
 
 	## Silence Wine and the program as we won't see the output anyway
-	PULSE_LATENCY_MSEC=32 wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
+	wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
+	#PULSE_LATENCY_MSEC=32 wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
 
 	## Fix potentially broken screen resolution on game exit
 	#fixResolution
@@ -309,7 +320,7 @@ function launchWiiUGame {
 	set -e
 	cd "${romRoot}/Nintendo - Wii U/${gameFolder}/code"
 	## Find the name of the game binary to run
-	wiiFile="$(find * -iname "*.rpx")"
+	wiiFile="$(find * -iname "*.rpx" | head -n1)"
 	set +e
 	cd /mnt/store/Wine64/drive_c/CEmu
 	WINEPREFIX="/mnt/store/Wine64" wine Cemu.exe -f -g "Z:\\mnt\\store\\Emulation\\Games\\Nintendo - Wii U\\${gameFolder}\\code\\${wiiFile}"
@@ -320,6 +331,10 @@ function launchFuturePinball {
 	gameFile="$(basename "$emuGame")"
 	cd /mnt/store/Wine/drive_c/Games/FuturePinball
 	WINEPREFIX="/mnt/store/Wine" wine "Future Pinball.exe" /open "tables/${gameFile}" /play /exit
+}
+
+function launchPs2 {
+	PCSX2 --nogui --noguiprompt --fullscreen "$emuGame"
 }
 
 function smartLinux {
@@ -363,6 +378,9 @@ function smartLinux {
 	#	export LD_LIBRARY_PATH="${homeDir}/Games/CRK64:.:../:./lib:./bin:./lib64:./amd64:./x86_64:${homeDir}/.config/lib64:${steamDir}/ubuntu12_32/steam-runtime/amd64/lib/x86_64-linux-gnu:${steamDir}/ubuntu12_32/steam-runtime/amd64/usr/lib:${steamDir}/ubuntu12_32/steam-runtime/amd64/usr/lib/x86_64-linux-gnu:/usr/lib:$LD_LIBRARY_PATH"
 	#fi
 
+	## Make sure it's executable
+	chmod +x "${reqExe}"
+
 	## Silence the program as we won't see the output anyway
 	./"${reqExe}" $emuArgs >/dev/null 2>&1
 
@@ -378,9 +396,9 @@ sudo cpupower frequency-set -g performance
 ## Main Input Request Handling
 case $emuPlatform in
 	3do ) raGame 4do ;;
-	3ds ) citra-qt "$emuGame" $emuArgs ;;
+	3ds ) launch3DS ;;
 	amiga ) launchWhdLoad ;;
-	amigacd32 ) fs-uae --fast_memory=0 --amiga-model=CD32 --cdrom-drive-0="$emuGame" ;;
+	amigacd32 ) PULSE_LATENCY_MSEC=64 fs-uae --fast_memory=0 --amiga-model=CD32 --cdrom-drive-0="$emuGame" ;;
 	atari2600 ) raGame stella ;;
 	atari5200 ) raGame atari800 ;;
 	atari7800 ) raGame prosystem ;;
@@ -417,13 +435,15 @@ case $emuPlatform in
 	pc ) "$emuGame" ;;
 	pcfx ) raGame mednafen_pcfx ;;
 	pico8 ) pico8 -run "$emuGame" ;;
-	ps2 ) PCSX2 --nogui --noguiprompt --fullscreen "$emuGame" ;;
-	ps3 ) rpcs3 "/mnt/store/Emulation/Games/Sony - Playstation 3/${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
-	psp ) raGame ppsspp ;;
-	#psp ) ppsspp --fullscreen "$emuGame" ;;
+	ps2 ) launchPs2 ;;
+	#ps3 ) rpcs3 "/mnt/store/Emulation/Games/Sony - Playstation 3/${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
+	ps3 ) rpcs3 "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
+	#psp ) raGame ppsspp ;;
+	psp ) ppsspp --fullscreen "$emuGame" ;;
 	psx ) raGame beetle_psx ;;
 	quake ) launchQuakeGame ;;
 	saturn ) raGame mednafen_saturn ;;
+	#saturn ) raGame yabause ;;
 	scummvm ) launchScummGame ;;
 	sega32x ) raGame picodrive ;;
 	segacd ) raGame genesis_plus_gx ;;

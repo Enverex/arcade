@@ -3,7 +3,8 @@
 export DISPLAY=:0
 
 function vncLoop {
-	vncProg='x11vnc'
+	#vncProg='x11vnc'
+	vncProg='x0vncserver'
 	while true; do
 		## Make sure we're the only copy
 		pkill ${vncProg}
