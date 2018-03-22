@@ -66,8 +66,7 @@ function getx68kXmlGames() {
 
 function getMameDatArray() {
 	// Get MAME game real names
-	cleanShell("sdlmame -ll > ".MAME_DAT);
-	$mameDatArray = explode("\n", trim(file_get_contents(MAME_DAT)));
+	$mameDatArray = explode("\n", cleanShell("sdlmame -ll"));
 	foreach($mameDatArray as $mameDatLine) {
 		preg_match('%(\w+)\s+"(.+)"%', $mameDatLine, $mameDatParts);
 		if($mameDatParts) {
@@ -275,14 +274,14 @@ function getImage($gameName, $imageURL, $assetFolder, $imgFolder = 'Box') {
 		if(isImage($tempFile) && filesize($tempFile) > 5000) {
 			// Find the real filetype
 			$fileExt = image_type_to_extension(exif_imagetype($tempFile), false);
-			$fileReport = trim(shell_exec("file \"{$tempFile}\""));
+			#$fileReport = cleanShell("file \"{$tempFile}\"");
 
 			// Because why
 			if($fileExt == 'jpeg') $fileExt = 'jpg';
 
 			// Image isn't PNG or JPG, convert to PNG.
 			if($fileExt != 'jpg' && $fileExt != 'png') {
-				echo "\n[Image Manager] Converting image format (from {$fileExt}). " . trim(shell_exec("mogrify -strip -format png \"{$tempFile}\"")) . "\n";
+				echo "\n[Image Manager] Converting image format (from {$fileExt}). " . cleanShell("mogrify -strip -format png \"{$tempFile}\"") . "\n";
 				$fileExt = 'png';
 			}
 
@@ -290,8 +289,8 @@ function getImage($gameName, $imageURL, $assetFolder, $imgFolder = 'Box') {
 			$targetFile = EXTRAASSET_ROOT."/{$assetFolder}/{$imgFolder}/{$gameName}.{$fileExt}";
 
 			rename($tempFile, $targetFile);
-			if($fileExt == 'png') shell_exec("optipng -o7 \"{$targetFile}\" 2>&1");
-			if($fileExt == 'jpg') shell_exec("exiv2 rm \"{$targetFile}\" 2>&1");
+			if($fileExt == 'png') cleanShell("optipng -o7 \"{$targetFile}\" 2>&1");
+			if($fileExt == 'jpg') cleanShell("exiv2 rm \"{$targetFile}\" 2>&1");
 			return $targetFile;
 		}else{
 			if(DEBUG) echo "\n[Image Manager] Image too small. Probably garbage ({$imageURL}).\n";
@@ -321,22 +320,29 @@ function matchImage($folderPath, $gameName) {
 	global $localImageArray;
 
 	if(!isset($localImageArray[$folderPath]['files'])) {
-		// Get a list of the image folder contents and a normalised copy in a different array
-		$localImageArray[$folderPath]['files'] = explode("\n", cleanShell("cd \"{$folderPath}\" && ls -1"));
+		// Get a list of the image folder contents
+		$localImageArray[$folderPath]['files'] = scandir($folderPath);
 
-		$folderSimpleFiles =
-			explode("\n",
-			trim(
-			preg_replace("%[^a-z0-9\n]%", '',
-			preg_replace("%\.(mp4|mpg|mkv|jpg|jpeg|png|bmp|tiff|svg)(\n|$)%", "\n",
-			strtolower(
-			preg_replace('%\(.*%', '',
-			trim(
-			cleanShell("cd \"{$folderPath}\" && ls -1")
-		)))))));
+		// Copy the array to make a normalised version
+		$fileArray = $localImageArray[$folderPath]['files'];
+
+		// Loop through and clean each name
+		$cleanFileArray = array();
+		foreach($fileArray as $ff) {
+			$ff = preg_replace('%\(.*%', '', $ff);
+			$ff = iconv("UTF-8", "ASCII//TRANSLIT//IGNORE", $ff);
+			$ff = strtolower($ff);
+			$ff = preg_replace("%\.(mp4|mpg|mkv|jpg|jpeg|png|bmp|tiff|svg)(\n|$)%", '', $ff);
+			$ff = preg_replace("%[^a-z0-9\n]%", '', $ff);
+			$ff = trim($ff);
+			// Add to new clean array
+			$cleanFileArray[] = $ff;
+		}
+
+		unset($fileArray);
 
 		// Flip the array so that the image names become the keys
-		$localImageArray[$folderPath]['simple'] = array_flip($folderSimpleFiles);
+		$localImageArray[$folderPath]['simple'] = array_flip($cleanFileArray);
 	}
 
 	// Remove brackets from the game name as well
@@ -350,7 +356,7 @@ function matchImage($folderPath, $gameName) {
 
 function detailsComplete($romSafeName, $platform) {
 	$array = DBSingleAssoc("SELECT * FROM games WHERE gameMatchName = ? AND gamePlatform = ? LIMIT 1", array($romSafeName, $platform));
-	DBSimple("UPDATE games SET gamePing = ? WHERE gameID = ? LIMIT 1", array(time(), $array['gameID']));
+	DBSimple("UPDATE games SET gamePing = ? WHERE gameID = ? LIMIT 1", array(START_TIME, $array['gameID']));
 
 	if(!$array['gameDeveloper']) return false;
 	if(!$array['gamePublisher']) return false;
@@ -433,7 +439,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	$boxImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Box";
 
 	// Fall back to 3D box images (they don't look as good)
-	#$boxImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Box_3D";
+	$boxImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Box_3D";
 
 	// Find a snap video or image using MAME's own Extras
 	if($setParts['assets'] == 'MAME') {
@@ -449,11 +455,14 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	$logoImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Logos";
 
 	// If extra name / location is provided, check that too
-	if($setParts['assets2']) {
-		$boxImgPaths[] = ASSET_ROOT."/{$setParts['assets2']}/Box";
-		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets2']}/Video_MP4_HI_QUAL";
-		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets2']}/Snap";
-		$logoImgPaths[] = ASSET_ROOT."/{$setParts['assets2']}/Logos";
+	$al = 2;
+	while($setParts['assets' . $al]) {
+		$boxImgPaths[]  = ASSET_ROOT."/{$setParts['assets' . $al]}/Box";
+		$boxImgPaths[]  = ASSET_ROOT."/{$setParts['assets' . $al]}/Box_3D";
+		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Video_MP4_HI_QUAL";
+		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Snap";
+		$logoImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Logos";
+		$al++;
 	}
 
 	// Check for versions we've already downloaded
@@ -651,8 +660,13 @@ function romScan($romFile, $thisSet, $setParts, $mameGameArr) {
 	DBSimple("INSERT IGNORE INTO gameFiles SET gameFile = ?, gameFileUpdateTime = ?, gameFilePath = ?, gameFilePlatform = ?, gameID = ?", array($thisRom['file'], $timeNow, $thisRom['fullPath'], $setParts['esname'], $thisRom['gameID']));
 }
 
+// Take a name and turn it into a clean, normalised string
 function safeName($name) {
-	return trim(preg_replace('%[^a-z0-9]%', '', strtolower($name)));
+	$name = iconv("UTF-8", "ASCII//TRANSLIT//IGNORE", $name);
+	$name = strtolower($name);
+	$name = preg_replace('%[^a-z0-9]%', '', $name);
+	$name = trim($name);
+	return $name;
 }
 
 function cutText($text, $cutLength) {
@@ -832,7 +846,7 @@ function populateLaunchboxDb() {
 	// If the LaunchboxDB is older than 2 days old, refresh
 	if(time() - @filemtime('resources/launchboxDB.zip') > 86400) {
 		echo "\n[Launchbox Database] Downloading new database.";
-		shell_exec("wget 'http://gamesdb.launchbox-app.com/Metadata.zip' -O resources/launchboxDB.zip 2>&1");
+		cleanShell("wget 'http://gamesdb.launchbox-app.com/Metadata.zip' -O resources/launchboxDB.zip 2>&1");
 
 		// Catch failed downloads
 		if(@filesize('resources/launchboxDB.zip') < 5000000) {
@@ -841,7 +855,7 @@ function populateLaunchboxDb() {
 		}
 
 		echo "\n[Launchbox Database] Extracting.";
-		shell_exec("7z e -y -oresources resources/launchboxDB.zip Metadata.xml 2>&1");
+		cleanShell("7z e -y -oresources resources/launchboxDB.zip Metadata.xml 2>&1");
 
 		if(file_exists('resources/Metadata.xml')) {
 			echo "\n[Launchbox Database] Truncating internal database.";

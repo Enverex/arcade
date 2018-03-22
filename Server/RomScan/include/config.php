@@ -40,7 +40,6 @@ require_once('include/keys.php');
 // Scraper Resources
 define('MAME_WANT',	RS_PATH.'/resources/mame.want');
 define('MAME_SKIP',	RS_PATH.'/resources/mame.skipped');
-define('MAME_DAT',	RS_PATH.'/resources/mame.dat');
 define('MAME_INFO',	RS_PATH.'/resources/mame.info');
 define('HOL_CACHE',	RS_PATH.'/resources/holCache.txt');
 define('CPC_DB',	RS_PATH.'/resources/cpcPowerDB.txt');

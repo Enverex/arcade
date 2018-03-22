@@ -19,6 +19,7 @@ require_once('include/init.php');
 // Target System Config File Setup
 $configFile = parse_ini_file("resources/config-{$genPlatform}.ini");
 if(!$configFile) die("Unable to find configuration file.");
+define('START_TIME', time());
 define('ASSET_ROOT', $configFile['assetRoot']);
 define('EXTRAASSET_ROOT', $configFile['extraAssetRoot']);
 define('MESS_PATH', $configFile['messPath']);
@@ -71,15 +72,15 @@ function doScan() {
 	// Make sure we have all the MAME games that we actually want
 	echo "\n\n=============================\nVerifying MAME Games\n=============================\n";
 	// Link the CHDs to the main ROM folder
-	$mameChdArray = explode("\n", cleanShell("ls -1 /mnt/store/Emulation/Games/MAME-CHD"));
+	$mameChdArray = scandir('/mnt/store/Emulation/Games/MAME-CHD');
 	foreach($mameChdArray as $thisChd) {
 		if(!file_exists("/mnt/store/Emulation/Games/MAME/{$thisChd}")) {
-			echo "[MAME ROM Verification] CHD {$thisChd} not present. Linking from CHD folder.".PHP_EOL;
-			cleanShell("ln -s \"/mnt/store/Emulation/Games/MAME-CHD/{$thisChd}\" \"/mnt/store/Emulation/Games/MAME/{$thisChd}\"");
+			echo "[MAME ROM Verification] CHD {$thisChd} not present. Linking from CHD folder." . PHP_EOL;
+			symlink("/mnt/store/Emulation/Games/MAME-CHD/{$thisChd}", "/mnt/store/Emulation/Games/MAME/{$thisChd}");
 		}
 	}
 
-	// Make sure all clones link to their parents
+	// Make sure all clones link to their parents so MAME knows which game we're really launching
 	foreach($mameGameArr as $mameGameKey => $thisMameGame) {
 		unset($parentName);
 		// Check if ROM archive of CHD folder exist
@@ -98,10 +99,11 @@ function doScan() {
 				// Create link to parent if the parent actually exists
 				if(file_exists($parentPath)) {
 					echo "[MAME ROM Verification] Linking to parent ROM {$parentName}.".PHP_EOL;
+					// Symlink folders to folders, files to .zip files
 					if(is_dir($parentPath)) {
-						cleanShell("ln -s {$parentPath} /mnt/store/Emulation/Games/MAME/{$thisMameGame}");
+						symlink($parentPath, "/mnt/store/Emulation/Games/MAME/{$thisMameGame}");
 					}else{
-						cleanShell("ln -s {$parentPath} /mnt/store/Emulation/Games/MAME/{$thisMameGame}.zip");
+						symlink($parentPath, "/mnt/store/Emulation/Games/MAME/{$thisMameGame}.zip");
 					}
 				}else{
 					echo "[MAME ROM Verification] Parent ROM ({$parentName}) does not exist.".PHP_EOL;
@@ -189,7 +191,7 @@ function doGenerate() {
 
 	// Nuke the existing live links
 	echo "\n\n=============================\nClearing Existing Live Links\n=============================\n";
-	shell_exec("rm -rf /mnt/store/Emulation/Assets/Live");
+	cleanShell("rm -rf /mnt/store/Emulation/Assets/Live");
 
 	echo "\n\n=============================\nFinal Content Generation\n=============================\n";
 	foreach($systemArr as $thisSet => $setParts) {
@@ -264,13 +266,11 @@ function doGenerate() {
 				if(!$linkImage || empty($gameArray['gameName'])) continue;
 				$linkExtension = pathinfo($linkImage)['extension'];
 				$gameFileName = pathinfo($gameArray['gameFile'])['filename'];
-				$arg1 = escapeshellarg($linkImage);
-				$arg2 = escapeshellarg(ASSET_ROOT . "/Live/{$setParts['assets']}/{$linkType}/{$gameFileName}.{$linkExtension}");
-				cleanShell("ln -sfn {$arg1} {$arg2}");
+				symlink($linkImage, ASSET_ROOT."/Live/{$setParts['assets']}/{$linkType}/{$gameFileName}.{$linkExtension}");
 			}
 
-			// Tidy up
-			$gameArray['gameDescription'] = cutText($gameArray['gameDescription'], 380);
+			// Trim game description
+			$gameArray['gameDescription'] = cutText($gameArray['gameDescription'], 350);
 
 			// Translate Linux paths to Windows paths
 			if(isset($windowsTranslation)) {
