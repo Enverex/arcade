@@ -3,7 +3,7 @@
 ## Options
 frameRate=60	# FPS
 audioQuality=8	# Opus Qual - Bad 0 <> 10 Good
-videoQuality=20 # H264 QVal - Lower is better
+videoQuality=18 # H264 QVal - Lower is better
 recordLocation=/home/arcade/RecordedVideo
 
 ## Auto-Config - Use the last render device which should be the Intel GPU
@@ -12,15 +12,15 @@ encoderDevice=$(ls -1 /dev/dri/renderD* | sort -r | head -n1)
 
 echo "Using ${encoderDevice}"
 
-#ffmpeg -loglevel 16 -threads 4 -probesize 10M -framerate ${frameRate} -vsync 1 \
-#	-vaapi_device ${encoderDevice} -hwaccel vaapi -hwaccel_output_format vaapi \
-#	-thread_queue_size 512 -f x11grab -s ${currentRes} -r ${frameRate} -i :0.0 \
-#	-thread_queue_size 512 -f pulse -ac 2 -channel_layout stereo -i default -c:a libopus -vbr on -compression_level ${audioQuality} \
-#	-vf hwupload -c:v h264_vaapi -qp ${videoQuality} "${recordLocation}/$(date +%y%m%d%H%M%S).mkv"
-
 ffmpeg -loglevel 16 -threads 4 -probesize 10M -framerate ${frameRate} -vsync 1 \
+	-vaapi_device ${encoderDevice} -hwaccel vaapi -hwaccel_output_format vaapi \
 	-thread_queue_size 512 -f x11grab -s ${currentRes} -r ${frameRate} -i :0.0 \
 	-thread_queue_size 512 -f pulse -ac 2 -channel_layout stereo -i default -c:a libopus -vbr on -compression_level ${audioQuality} \
-	-c:v h264_nvenc -qp ${videoQuality} "${recordLocation}/$(date +%y%m%d%H%M%S).mkv"
+	-vf hwupload -c:v h264_vaapi -qp ${videoQuality} "${recordLocation}/$(date +%y%m%d%H%M%S).mkv"
+
+#ffmpeg -loglevel 16 -threads 4 -probesize 10M -framerate ${frameRate} -vsync 1 \
+#	-thread_queue_size 512 -f x11grab -s ${currentRes} -r ${frameRate} -i :0.0 \
+#	-thread_queue_size 512 -f pulse -ac 2 -channel_layout stereo -i default -c:a libopus -vbr on -compression_level ${audioQuality} \
+#	-c:v h264_nvenc -qp ${videoQuality} "${recordLocation}/$(date +%y%m%d%H%M%S).mkv"
 
 echo -e "\nEncoding finished.\n"

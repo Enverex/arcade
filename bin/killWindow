@@ -33,7 +33,7 @@ function doKill {
 }
 
 function pressEscape {
-	su arcade -c "xdotool key Escape"
+	xdotool key Escape
 }
 
 
@@ -46,8 +46,8 @@ if [[ $(isRunning retroarch) ]]; then
 ### Ask wine to close everything rather than just killing it
 elif [[ $(isRunning wineserver) ]]; then
 	echo "Closing Wine."
-	su arcade -c "WINEPREFIX=/mnt/store/Wine wineserver -k" &
-	su arcade -c "WINEPREFIX=/mnt/store/Wine64 wineserver -k" &
+	WINEPREFIX=/mnt/store/Wine wineserver -k &
+	WINEPREFIX=/mnt/store/Wine64 wineserver -k &
 	KILLED=1
 
 ## Other basic terminations
@@ -60,7 +60,7 @@ fi
 ## Nothing was killed, just try alt+F4 instead
 if [ -z "${KILLED}" ]; then
 	echo "No processes killed, trying other methods."
-	su arcade -c "xdotool key --clearmodifiers alt+F4"
+	xdotool key --clearmodifiers alt+F4
         #su arcade -c "xdotool getwindowfocus windowkill"
 fi
 

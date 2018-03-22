@@ -5,6 +5,8 @@
 #################################################################
 
 export DISPLAY=:0
+export WINEDEBUG='-all'
+
 cd ~
 
 emuPlatform="$1"
@@ -83,6 +85,10 @@ function raGame {
 	elif [ "$emuPlatform" = 'nes' ]; then
 		emuGame="${gameFile}"
 		platformPath="${romRoot}/Nintendo - Nintendo Entertainment System/"
+	elif [ "$emuPlatform" = '3ds' ]; then
+		emuGame="${gameFile}"
+		platformPath="${romRoot}/Nintendo - 3DS/"
+		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-noshader.cfg"
 	elif [ "$emuPlatform" = 'n64' ]; then
 		emuGame="${gameFile}"
 		platformPath="${romRoot}/Nintendo - Nintendo 64/"
@@ -261,7 +267,7 @@ function launchDaphne() {
 }
 
 function launch3DS() {
-	gameFile=$(basename "${emuGame}" 3ds)
+	gameFile=$(basename "${emuGame}" .3ds)
 	platformPath="${romRoot}/Nintendo - 3DS"
 	citra-qt "${platformPath}/${gameFile}.3ds" $emuArgs
 }
@@ -269,9 +275,6 @@ function launch3DS() {
 function smartWine {
 	reqDir=${emuGame%/*}
 	reqExe=${emuGame##*/}
-
-	## Be quiet
-	export WINEDEBUG='-all'
 
 	## Kill any old processes
 	wineserver -k
@@ -322,8 +325,8 @@ function launchWiiUGame {
 	## Find the name of the game binary to run
 	wiiFile="$(find * -iname "*.rpx" | head -n1)"
 	set +e
-	cd /mnt/store/Wine64/drive_c/CEmu
-	WINEPREFIX="/mnt/store/Wine64" wine Cemu.exe -f -g "Z:\\mnt\\store\\Emulation\\Games\\Nintendo - Wii U\\${gameFolder}\\code\\${wiiFile}"
+	cd /mnt/store/Wine64/drive_c/Cemu
+	WINEPREFIX="/mnt/store/Wine64" wine Cemu.exe -f -g "Z:\\mnt\\store\\Emulation\\Games\\Nintendo - Wii U\\${gameFolder}\\code\\${wiiFile}" >/dev/null 2>&1
 	setAAMode off
 }
 
@@ -390,13 +393,14 @@ function smartLinux {
 
 #doLights game
 lightControl cracktro &
-sudo systemctl stop mycroft &
-sudo cpupower frequency-set -g performance
+#sudo systemctl stop mycroft &
+sudo cpupower frequency-set -g performance &
 
 ## Main Input Request Handling
 case $emuPlatform in
 	3do ) raGame 4do ;;
 	3ds ) launch3DS ;;
+	#3ds ) raGame citra ;;
 	amiga ) launchWhdLoad ;;
 	amigacd32 ) PULSE_LATENCY_MSEC=64 fs-uae --fast_memory=0 --amiga-model=CD32 --cdrom-drive-0="$emuGame" ;;
 	atari2600 ) raGame stella ;;
@@ -429,6 +433,7 @@ case $emuPlatform in
 	n64 ) raGame parallel_n64 ;;
 	#n64 ) mupen64plus "$emuGame" ;;
 	nds ) raGame desmume ;;
+	#nds ) desmume --preload-rom "$emuGame" ;;
 	nes ) raGame nestopia ;;
 	ngpc ) raGame mednafen_ngp ;;
 	odyssey2 ) raGame o2em ;;
@@ -437,7 +442,8 @@ case $emuPlatform in
 	pico8 ) pico8 -run "$emuGame" ;;
 	ps2 ) launchPs2 ;;
 	#ps3 ) rpcs3 "/mnt/store/Emulation/Games/Sony - Playstation 3/${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
-	ps3 ) rpcs3 "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
+	#ps3 ) rpcs3 "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
+	ps3 ) ~/AppImage/rpcs3-v0.0.5-6498-7233640c_linux64.AppImage "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
 	#psp ) raGame ppsspp ;;
 	psp ) ppsspp --fullscreen "$emuGame" ;;
 	psx ) raGame beetle_psx ;;
@@ -461,7 +467,7 @@ case $emuPlatform in
 	x68000 ) raGame px68k ;;
 esac
 
-sudo cpupower frequency-set -g powersave
+sudo cpupower frequency-set -g powersave &
 
 ## Put lights back in epilepsy mode
-doLights attract
+doLights attract &

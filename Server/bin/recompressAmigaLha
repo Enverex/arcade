@@ -1,10 +1,15 @@
 #!/bin/bash -e
 
 cd "/mnt/store/Emulation/Games/Commodore - Amiga WHDLoad"
-mkdir Convert
-cd Convert
-7z x "../$1"
 realName="$(basename "$1" .lha)"
-XZ_OPT=-9 tar acvf "../${realName}.txz" .
-cd ..
-rm -rf Convert
+
+if [ -f "${realName}.txz" ]; then
+	exit
+else
+	mkdir Convert
+	cd Convert
+	7z x "../$1"
+	XZ_OPT=-9e tar Jcvf "../${realName}.txz" --owner=1000 --group=1000 .
+	cd ..
+	rm -rf Convert
+fi

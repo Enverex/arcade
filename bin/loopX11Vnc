@@ -1,10 +1,10 @@
 #!/bin/sh
 
 export DISPLAY=:0
+#vncProg='x11vnc'
+vncProg='x0vncserver'
 
 function vncLoop {
-	#vncProg='x11vnc'
-	vncProg='x0vncserver'
 	while true; do
 		## Make sure we're the only copy
 		pkill ${vncProg}
@@ -25,5 +25,7 @@ function vncLoop {
 	done
 }
 
-export -f vncLoop
-flock -w 5 -x -n /tmp/vncLock -c vncLoop
+#export -f vncLoop
+#flock -w 5 -x -n /tmp/vncLock -c vncLoop
+
+while true; do ${vncProg} -rfbauth /home/arcade/.config/x11vnc/passwd >/dev/null 2>&1; done
