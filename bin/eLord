@@ -304,7 +304,7 @@ function smartWine {
 	fi
 
 	## KoKu xInput Override
-	if [ -z "${NOKOKU}" ]; then export LD_PRELOAD="/usr/lib/koku-xinput-wine.so /usr/lib/koku-xinput-wine64.so"; fi
+	#if [ -z "${NOKOKU}" ]; then export LD_PRELOAD="/usr/lib/koku-xinput-wine.so /usr/lib/koku-xinput-wine64.so"; fi
 
 	## Switch to the EXE's actual directory
 	cd "${WINEPREFIX}/drive_c/${reqDir}"
@@ -325,7 +325,7 @@ function launchWiiUGame {
 	## Find the name of the game binary to run
 	wiiFile="$(find * -iname "*.rpx" | head -n1)"
 	set +e
-	cd /mnt/store/Wine64/drive_c/Cemu
+	cd /mnt/store/Wine64/drive_c/Games/Cemu
 	WINEPREFIX="/mnt/store/Wine64" wine Cemu.exe -f -g "Z:\\mnt\\store\\Emulation\\Games\\Nintendo - Wii U\\${gameFolder}\\code\\${wiiFile}" >/dev/null 2>&1
 	setAAMode off
 }
@@ -442,8 +442,8 @@ case $emuPlatform in
 	pico8 ) pico8 -run "$emuGame" ;;
 	ps2 ) launchPs2 ;;
 	#ps3 ) rpcs3 "/mnt/store/Emulation/Games/Sony - Playstation 3/${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
-	#ps3 ) rpcs3 "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
-	ps3 ) ~/AppImage/rpcs3-v0.0.5-6498-7233640c_linux64.AppImage "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
+	ps3 ) rpcs3 "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
+	#ps3 ) ~/AppImage/rpcs3-v0.0.5-6498-7233640c_linux64.AppImage "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
 	#psp ) raGame ppsspp ;;
 	psp ) ppsspp --fullscreen "$emuGame" ;;
 	psx ) raGame beetle_psx ;;

@@ -28,4 +28,4 @@ function vncLoop {
 #export -f vncLoop
 #flock -w 5 -x -n /tmp/vncLock -c vncLoop
 
-while true; do ${vncProg} -rfbauth /home/arcade/.config/x11vnc/passwd >/dev/null 2>&1; done
+while true; do ${vncProg} -MaxProcessorUsage 90 -SecurityTypes VncAuth -rfbauth /home/arcade/.config/x11vnc/passwd >/dev/null 2>&1; done
