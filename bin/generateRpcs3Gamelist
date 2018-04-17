@@ -1,0 +1,8 @@
+#!/bin/bash
+
+rm -f ~/.config/rpcs3/games.yml
+touch ~/.config/rpcs3/games.yml
+
+for GID in $(ls -1); do
+	echo "${GID}: /mnt/store/Emulation/Games/Sony - Playstation 3 Raw/${GID}" >> ~/.config/rpcs3/games.yml
+done

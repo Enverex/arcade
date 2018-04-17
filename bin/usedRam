@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sudo ps aux --sort -rss | awk '{print $6}' | tail -n+2 | awk '{s+=$1} END {printf "%.2f MB\n", MB=s/1024}'

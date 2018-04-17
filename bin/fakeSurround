@@ -1,0 +1,5 @@
+pactl unload-module module-combine-sink
+pactl unload-module module-remap-sink
+#pactl load-module module-remap-sink master=bluez_sink.30_21_B8_C7_2B_84.a2dp_sink channels=2 channel_map=rear-left,rear-right
+#pactl load-module module-combine-sink sink_name=VirtualSurround slaves=alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1,bluez_sink.30_21_B8_C7_2B_84.a2dp_sink.remapped channel_map=left,right,rear-left,rear-right channels=4
+#pactl set-default-sink VirtualSurround

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+## Set Spindown Timeout
+hdparm -S 241 /dev/sda &
+hdparm -S 241 /dev/sdb &
+
+## CPU to On-Demand
+cpupower frequency-set -g powersave &
+
+## Mount Late Drives
+mount /mnt/store &
+mount /mnt/emerald &
+
+## Overclock GPU
+nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=205' &
+nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=1492' &

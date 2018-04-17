@@ -1,0 +1,28 @@
+#!/bin/bash
+
+## Options
+frameRate=30	# FPS
+audioQuality=6	# Opus Qual - Bad 0 <> 10 Good
+videoQuality=22 # H264 QVal - Lower is better
+
+## Auto-Config - Use the last render device which should be the Intel GPU
+currentRes=$(xdpyinfo | grep dimensions | awk '{print $2}')
+encoderDevice=$(ls -1 /dev/dri/renderD* | sort -r | head -n1)
+#encoderDevice=/dev/dri/renderD129
+
+echo "Using ${encoderDevice}"
+
+#ffmpeg -re -threads 4 -probesize 32 -framerate ${frameRate} -vsync 1 \
+#	-vaapi_device ${encoderDevice} -hwaccel vaapi -hwaccel_output_format vaapi \
+#	-f x11grab -s ${currentRes} -r ${frameRate} -i :0.0 -f pulse -ac 2 -channel_layout stereo -i default -c:a libopus -vbr on -b:a 192k \
+#        -vf hwupload -c:v h264_vaapi -b:v 5M -f mpegts udp://10.0.0.61:6000
+
+#ffmpeg -probesize 32 -framerate ${frameRate} -vaapi_device ${encoderDevice} -hwaccel vaapi -hwaccel_output_format vaapi \
+#	-f x11grab -s ${currentRes} -r ${frameRate} -i :0.0 -f pulse -ac 2 -channel_layout stereo -i default -c:a libopus -vbr on -b:a 192k \
+#        -vf hwupload -c:v h264_vaapi -maxrate:v 5M -f mpegts udp://10.0.0.61:6000
+
+ffmpeg -re -probesize 32 -framerate ${frameRate} -f x11grab -s ${currentRes} -r ${frameRate} -i :0.0 \
+	-f pulse -ac 2 -channel_layout stereo -i default -c:a libopus -vbr on -b:a 192k \
+        -c:v h264_nvenc -g 2 -preset llhq -maxrate:v 3M -f flv rtmp://10.0.0.5:6000
+
+echo -e "\nEncoding finished.\n"

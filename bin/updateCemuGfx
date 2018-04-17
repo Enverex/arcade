@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd ~/Wine64/Cemu
+WINEPREFIX=/mnt/store/Wine64 ./upd_cemu.py

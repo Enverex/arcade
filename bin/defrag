@@ -1,0 +1,3 @@
+#!/bin/sh
+
+btrfs filesystem defragment -v -czstd -r "$@"

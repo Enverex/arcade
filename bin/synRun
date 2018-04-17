@@ -1,0 +1,5 @@
+## Kill off VNC first as we won't need it
+#killall loopX11Vnc x0vncserver
+
+## Launch Synergy
+synergyc -n arcade --no-tray -f 10.0.0.53

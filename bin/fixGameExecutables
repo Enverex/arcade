@@ -1,0 +1,5 @@
+#!/bin/bash
+## Go through all files in game folders and make anything that appears to be a program or script, executable.
+
+cd /mnt/store/Games
+find * -type f -exec file {} \; | grep -E --line-buffered "LSB executable|POSIX shell script" | stdbuf -oL awk -F':' '{print $1}' | stdbuf -o0 tr '\n' '\0' | stdbuf -o0 xargs -0 -L1 -I{} chmod -c 755 "{}"

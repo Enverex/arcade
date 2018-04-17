@@ -1,0 +1,25 @@
+#!/bin/bash
+## Autodetect which Wine prefix we're in and use that.
+
+case "$(pwd)" in
+	## Game Specific Prefixes
+	/mnt/store/WineBottles/*)
+		bottleName="$(pwd | cut -d'/' -f5)"
+		echo "Running Wine Bottled ${bottleName} Prefix"
+		winePath="/mnt/store/WineBottles/${bottleName}"
+	;;
+
+	## General 32bit Wine
+	/mnt/store/Wine/*|/home/arcade/Wine/*)
+		echo "Running Wine General 32bit Prefix"
+		winePath="/mnt/store/Wine"
+	;;
+
+	## General 64bit Wine
+	/mnt/store/Wine64/*|/home/arcade/Wine64/*)
+		echo "Running Wine General 64bit Prefix"
+		winePath="/mnt/store/Wine64"
+	;;
+esac
+
+WINEPREFIX="${winePath}" wine "$@"
