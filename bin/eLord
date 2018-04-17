@@ -15,47 +15,42 @@ emuArgs="${@:3}"
 
 romRoot='/mnt/store/Emulation/Games'
 homeRoot='/home/arcade'
+messLb='~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
-echo "Request for game ${emuGame}"
+function doMessage() { echo -e "\n\e[92m${messLb}\n ${1}\n${messLb}\n\e[0m"; }
+function doInfo() { echo -e "\n\e[96m${messLb}\n ${1}\n${messLb}\n\e[0m"; }
+function doError() { echo -e "\n\e[95m${messLb}\n ${1}\n${messLb}\n\e[0m"; }
+
+doMessage "Request for game ${emuGame}"
 
 if [ -z "$emuPlatform" ]; then
-	echo "==== ERROR: Missing platform name."
+	doError "Missing platform name"
 	exit 2
 fi
 
 if [ -z "$emuGame" ]; then
-	echo "==== ERROR: Missing game."
+	doError "Missing game"
 	exit 2
 fi
 
 ## Show OSD confirmation
 echo -en "Launching Game - Please Wait" | osd_cat -Acenter -pmiddle -cwhite -s2 -O6 -ublack -l1 -d3 -f"PacFontGood 36" &
 
-function cleanName() {
-	echo "${1//[^a-zA-Z0-9.]/_}"
-}
+function cleanName() { echo "${1//[^a-zA-Z0-9.]/_}"; }
 
 function genVectrexConfig {
-	if [ -z "$1" ]; then
-	        exit 255
-	fi
+	if [ -z "$1" ]; then exit 255; fi
 
 	gameName="$1"
 	echo "input_overlay = ${homeRoot}/.config/retroarch/autovec/${gameName}.cfg\ninput_overlay_enable = true\ninput_overlay_opacity = 0.375000\ninput_overlay_scale = 1.0\n#custom_viewport_width = 622\n#custom_viewport_height = 750\n#custom_viewport_x = 570\n#custom_viewport_y = 30\n#aspect_ratio_index = 22\n#video_scale_integer = true\noverlays = 1\noverlay0_overlay = ${homeRoot}/.config/retroarch/overlay/vectrex/${gameName}.png\noverlay0_full_screen = false\noverlay0_descs = 0" > "${homeRoot}/.config/retroarch/autovec/${gameName}.cfg"
 }
 
 function setAAMode {
-	if [ "$1" == 'msaa' ]; then
-		nvidia-settings --assign=FSAA=10 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0
-	fi
-
-	if [ "$1" == 'fxaa' ]; then
-		nvidia-settings --assign=FXAA=1 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0
-	fi
-
-	if [ "$1" == 'off' ]; then
-		nvidia-settings --assign=FSAA=0 --assign=FXAA=0 --assign=FSAAAppControlled=1 --assign=FSAAAppEnhanced=1
-	fi
+	case $1 in
+		msaa )	nvidia-settings --assign=FSAA=10 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0 ;;
+		fxaa )	nvidia-settings --assign=FXAA=1 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0 ;;
+		off )	nvidia-settings --assign=FSAA=0 --assign=FXAA=0 --assign=FSAAAppControlled=1 --assign=FSAAAppEnhanced=1 ;;
+	esac
 }
 
 ## RetroArch Multi-System Emulator (takes 1 argument: the core name)
@@ -115,7 +110,7 @@ function raGame {
 		raExtraOps="--appendconfig ${homeRoot}/.config/retroarch/retroarch-glow.cfg|${homeRoot}/.config/retroarch/autovec/${gameSafeName}.cfg"
 	fi
 
-	echo "=== Running retroarch -f ${raExtraOps} -L \"/usr/lib/libretro/${1}_libretro.so\" \"${platformPath}${emuGame}\""
+	doInfo "Running retroarch -f ${raExtraOps} -L \"/usr/lib/libretro/${1}_libretro.so\" \"${platformPath}${emuGame}\""
 	retroarch -f ${raExtraOps} -L "/usr/lib/libretro/${1}_libretro.so" "${platformPath}${emuGame}"
 }
 
@@ -128,24 +123,22 @@ function doLights {
 	## This is a supervisor, don't do anything
 	if [ "$emuPlatform" = 'pc' ]; then return; fi
 
-	lightControl off
+	lightControl off >/dev/null 2>&1
 
-	if [ "$1" = 'game' ]; then
-		echo ''
-		lightControl emu $emuPlatform &
-	elif [ "$1" = 'attract' ]; then
-		lightControl random &
-	fi
+	case $1 in
+		game )		lightControl emu $emuPlatform >/dev/null 2>&1 & ;;
+		attract )	lightControl random >/dev/null 2>&1 & ;;
+		cracktro )	lightControl cracktro >/dev/null 2>&1 & ;;
+	esac
 }
 
 function launchDolphin {
 	gameFile=$(basename "${emuGame}")
 
-	if [ "$1" = "gc" ]; then
-		gamePath="Nintendo - GameCube"
-	elif [ "$1" = "wii" ]; then
-		gamePath="Nintendo - Wii"
-	fi
+	case ${1} in
+		gc )	gamePath="Nintendo - GameCube" ;;
+		wii )	gamePath="Nintendo - Wii" ;;
+	esac
 
 	dolphin-emu-nogui -e "${romRoot}/${gamePath}/${gameFile}"
 }
@@ -163,7 +156,7 @@ function launchWhdLoad {
 	GAMEFILE=$(basename "$emuGame")
 
 	if ! [ -f "${AMIGAFOLDER}/${GAMEFILE}" ]; then
-			echo "Missing valid game archive name."
+			doError "Missing valid game archive name"
 			exit 1
 	fi
 
@@ -192,9 +185,9 @@ function launchWhdLoad {
 			WHDSLAVE=$(find * -maxdepth 1 -iname "*.slave" | head -n1)
 
 			## Game specific slave options
-			if [ "${WHDSLAVE}" == 'Flashback.Slave' ]; then
-				EXTRAOPS="CUSTOM4=1"
-			fi
+			case ${WHDSLAVE} in
+				Flashback.Slave )	EXTRAOPS="CUSTOM4=1" ;;
+			esac
 
 			## Add the slave to the startup sequence
 			echo -e "\nWHDLoad ${WHDSLAVE} Preload ${EXTRAOPS}\nuae-configuration SPC_QUIT 1" >> ../S/Startup-Sequence
@@ -281,8 +274,8 @@ function smartWine {
 
 	## Use virtual desktop if requested (typically fixes broken fullscreen games)
 	if ! [ -z "${useWineVd}" ]; then
-			vDesktop="explorer /desktop=wine,$(getNativeResolution)"
-			unset useWineVd
+		vDesktop="explorer /desktop=wine,$(getNativeResolution)"
+		unset useWineVd
 	fi
 
 	wine32Loc="/mnt/store/Wine"
@@ -290,16 +283,16 @@ function smartWine {
 
 	## Auto-detect the arch based on where the game is
 	if [ -d "${wine32Loc}/drive_c/${reqDir}" ]; then
-		echo "Running 32bit Wine"
+		doInfo "Running 32bit Wine"
 		#export WINEARCH='win32'
 		export WINEPREFIX="${wine32Loc}"
 		gameDir="${baseGameDir}/${reqDir}"
 	elif [ -d "${wine64Loc}/drive_c/${reqDir}" ]; then
-		echo "Running 64bit Wine"
+		doInfo "Running 64bit Wine"
 		#export WINEARCH='win64'
 		export WINEPREFIX="${wine64Loc}"
 	else
-		echo "==== ERROR: I cannot find the game directory for ${reqDir}."
+		doError "Cannot find the game directory for ${reqDir}"
 		return
 	fi
 
@@ -356,7 +349,7 @@ function smartLinux {
 	elif [ -d "${baseGameDir}/Steam2/${reqDir}" ]; then
 		gameDir="${baseGameDir}/Steam2/${reqDir}"
 	else
-		echo "==== ERROR: I cannot find the game directory for ${reqDir}."
+		doError "Cannot find the game directory for ${reqDir}"
 		return
 	fi
 
@@ -392,9 +385,9 @@ function smartLinux {
 }
 
 #doLights game
-lightControl cracktro &
+doLights cracktro
 #sudo systemctl stop mycroft &
-sudo cpupower frequency-set -g performance &
+sudo cpupower frequency-set -g performance >/dev/null
 
 ## Main Input Request Handling
 case $emuPlatform in
@@ -467,7 +460,8 @@ case $emuPlatform in
 	x68000 ) raGame px68k ;;
 esac
 
-sudo cpupower frequency-set -g powersave &
-
 ## Put lights back in epilepsy mode
 doLights attract &
+sudo cpupower frequency-set -g powersave >/dev/null
+
+doMessage "eLord Finished"
