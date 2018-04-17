@@ -15,8 +15,13 @@ mkdir -p "${backupFolder}"
 find -name "libsteam_api.so" ! -path "./PreUpdate/*" -exec cp --parents {} ${backupFolder}/ \;
 
 echo "==== Updating game ID ${gameId}"
+
 if [ "$1" = 'win' ]; then
 	winVar="+@sSteamCmdForcePlatformType windows"
 fi
 
-~/.steam/steamcmd.sh $winVar +login enverex +force_install_dir "${gameFolder}" +app_update ${gameId} +quit
+if [ "$1" = 'validate' ]; then
+	doVal="validate"
+fi
+
+~/.steam/steamcmd.sh $winVar +login enverex +force_install_dir "${gameFolder}" +app_update ${gameId} ${doVal} +quit
