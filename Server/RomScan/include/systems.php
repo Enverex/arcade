@@ -71,6 +71,24 @@ $systemArr['Nintendo Wii U'] = array(
 	'nointroname' => ''
 );
 
+$systemArr['Nintendo WiiWare'] = array(
+	'folder' => "{$configFile['romBase']}/Nintendo - WiiWare",
+	'extensions' => 'wad',
+	'dbname' => 'wiiware',
+	'assets' => 'Nintendo_WiiWare',
+	'amid' => 'Nintendo WiiWare',
+	'lbid' => 'Nintendo Wii',
+	'tgdbid' => 'Nintendo Wii',
+	'gbid' => '36',
+	'mobyid' => '82',
+	'ignname' => 'wii',
+	'allgamename' => 'Wii',
+	'archivevgname' => 'wii',
+	'gamefaqsid' => 'wii',
+	'rfgenid' => '132',
+	'nointroname' => ''
+);
+
 $systemArr['Daphne'] = array(
 	'folder' => "{$configFile['romBase']}/Daphne",
 	'extensions' => '',
@@ -272,6 +290,7 @@ $systemArr['PC'] = array(
 	'amid' => 'PC',
 	'lbid' => 'Windows',
 	'dbname' => 'pc',
+	'forceinclude' => true,
 	'tgdbid' => 'PC',
 	'gbid' => '94',
 	'mobyid' => '3',
@@ -800,7 +819,7 @@ $systemArr['Nintendo GameCube'] = array(
 
 $systemArr['Nintendo N64'] = array(
 	'folder' => "{$configFile['romBase']}/Nintendo - Nintendo 64",
-	'extensions' => 'n64',
+	'extensions' => 'n64|z64',
 	'assets' => 'Nintendo_N64',
 	'amid' => 'Nintendo 64',
 	'lbid' => 'Nintendo 64',
@@ -842,11 +861,11 @@ $systemArr['Nintendo NES'] = array(
 $systemArr['Nintendo Wii'] = array(
 	'folder' => "{$configFile['romBase']}/Nintendo - Wii",
 	'extensions' => 'wbfs',
+	'dbname' => 'wii',
 	'assets' => 'Nintendo_Wii',
 	'amid' => 'Nintendo Wii',
 	'lbid' => 'Nintendo Wii',
 	'tgdbid' => 'Nintendo Wii',
-	'dbname' => 'wii',
 	'gbid' => '36',
 	'mobyid' => '82',
 	'ignname' => 'wii',

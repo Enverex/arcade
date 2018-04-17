@@ -91,8 +91,11 @@ function vgdbQuery($query, $vararray = array()) {
 	return $stmt->fetch();
 }
 
-// Mobygames SQLite Handler
+// Mobygames SQLite Handler (no-longer needed - imported into MySQL for performance reasons)
+/*
 $mobySqlite = new PDO("sqlite:resources/moby.db", NULL, NULL, array(PDO::ATTR_PERSISTENT => TRUE));
+$mobySqlite->exec('pragma synchronous = off;');
+$mobySqlite->exec('pragma journal_mode = MEMORY;');
 
 function mobyQuery($query, $vararray = array()) {
 	global $mobySqlite;
@@ -105,5 +108,6 @@ function mobyQuery($query, $vararray = array()) {
 	$stmt->execute($vararray);
 	return $stmt->fetch();
 }
+*/
 
 ?>

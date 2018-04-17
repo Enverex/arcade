@@ -61,7 +61,7 @@ general
 	scrape_fanart        no
 	scrape_videos        no
 	scrape_overview      yes
-	video_decoder        vdpau
+	video_decoder        software
 	menu_prompt          Displays Menu
 	menu_layout          maximus-menu
 

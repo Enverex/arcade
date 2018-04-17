@@ -31,31 +31,31 @@ function launchboxDbScraper($dbGameName, $platformName, $gameName, $launchboxPla
 function mobyLocalScrape($dbGameName, $gameName, $platformName, $mgids) {
 	if(!$mgids) return;
 
-	$gameDetails = mobyQuery("SELECT * FROM tbl_Moby_Games LEFT JOIN tbl_Moby_Releases ON tbl_Moby_Games.id_Moby_Games = tbl_Moby_Releases.id_Moby_Games WHERE tbl_Moby_Games.Name = ? AND tbl_Moby_Releases.id_Moby_Platforms = ? LIMIT 1", array($gameName, $mgids));
+	$gameDetails = DBSingleAssoc("SELECT * FROM moby_Games LEFT JOIN moby_Releases ON moby_Games.id_Moby_Games = moby_Releases.id_Moby_Games WHERE moby_Games.Name = ? AND moby_Releases.id_Moby_Platforms = ? LIMIT 1", array($gameName, $mgids));
 
 	// Check alternate names
 	if(!$gameDetails) {
-		$gameDetails = mobyQuery("SELECT * FROM tbl_Moby_Games_Alternate_Titles LEFT JOIN tbl_Moby_Releases ON tbl_Moby_Games_Alternate_Titles.id_Moby_Games = tbl_Moby_Releases.id_Moby_Games WHERE Alternate_Title = ? AND tbl_Moby_Releases.id_Moby_Platforms = ? LIMIT 1", array($gameName, $mgids));
+		$gameDetails = DBSingleAssoc("SELECT * FROM moby_Games_Alternate_Titles LEFT JOIN moby_Releases ON moby_Games_Alternate_Titles.id_Moby_Games = moby_Releases.id_Moby_Games WHERE Alternate_Title = ? AND moby_Releases.id_Moby_Platforms = ? LIMIT 1", array($gameName, $mgids));
 	}
 
 	if($gameDetails) {
 		if($gameDetails['Description'])	$description = trim($gameDetails['Description']);
-		if($gameDetails['Year'])		$year = trim($gameDetails['Year']);
+		if($gameDetails['Year'])		$releasedate = trim($gameDetails['Year']);
 		if($gameDetails['MobyScore'])	$rating = trim($gameDetails['MobyScore']);
 
 		if($gameDetails['Publisher_id_Moby_Companies']) {
-			$publisherDetails = mobyQuery("SELECT * FROM tbl_Moby_Companies WHERE id_Moby_Companies = ? LIMIT 1", array($gameDetails['Publisher_id_Moby_Companies']));
+			$publisherDetails = DBSingleAssoc("SELECT * FROM moby_Companies WHERE id_Moby_Companies = ? LIMIT 1", array($gameDetails['Publisher_id_Moby_Companies']));
 			if($publisherDetails) $publisher = trim($publisherDetails['Name']);
 		}
 
 		if($gameDetails['Developer_id_Moby_Companies']) {
-			$developerDetails = mobyQuery("SELECT * FROM tbl_Moby_Companies WHERE id_Moby_Companies = ? LIMIT 1", array($gameDetails['Developer_id_Moby_Companies']));
+			$developerDetails = DBSingleAssoc("SELECT * FROM moby_Companies WHERE id_Moby_Companies = ? LIMIT 1", array($gameDetails['Developer_id_Moby_Companies']));
 			if($developerDetails) $developer = trim($developerDetails['Name']);
 		}
 
 		if($description || $year || $rating || $publisher || $developer) {
 			if(DEBUG) echo "\n[MobyGames Local Scraper] [{$gameName}] Info found. Adding to database.";
-			updateGameDetails('MobyGamesAPI', $gameName, $dbGameName, $platformName, $year, null, $description, $rating, $developer, $publisher);
+			updateGameDetails('MobyGamesAPI', $gameName, $dbGameName, $platformName, cleanUnixtime($releasedate), null, $description, $rating, $developer, $publisher);
 			return true;
 		}
 	}
@@ -308,6 +308,9 @@ function openvgdbScrape($dbGameName, $platformName, $gameName, $ovgdbId, $assetF
 
 ## API Scraper
 function thegamesdbScrape($dbGameName, $platformName, $gameName, $tgdbid, $assetFolder, $grabImageOnly = null, $getWheelArtOnly = null, $getSnapArtOnly = null) {
+	// It's always down, don't even bother
+	return;
+
 	if(!$tgdbid) return;
 	global $thegamedbTest, $extraAssetRoot, $romImage, $romWheelImage, $romSnapImage;
 
@@ -423,6 +426,9 @@ function thegamesdbScrape($dbGameName, $platformName, $gameName, $tgdbid, $asset
 
 ## API Scraper
 function theoldgamesdbScrape($dbGameName, $platformName, $gameName, $tgdbid, $assetFolder, $grabImageOnly = null) {
+	// Disable for now, it's a bit useless
+	return false;
+
 	if(!$tgdbid) return;
 	global $thegamedbTest, $extraAssetRoot, $romImage;
 

@@ -28,6 +28,7 @@ require_once('include/systems.php');
 $mameArray = array();
 $amigaWhdloadArray = array();
 $x68kGameArray = array();
+$localImageArray = array();
 $thegamedbTest = '';
 $romImage = $romWheelImage = $romSnapImage = '';
 

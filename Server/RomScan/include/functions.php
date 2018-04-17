@@ -184,8 +184,8 @@ function updateGameDetails($sourceScraper, $gameName, $dbGameName, $platformName
 	// The value of this rating, is just too damn high!
 	if(!is_numeric($score)) unset($score);
 	if($score && ($score > 5 || $score < 0.1)) {
-		echo "\n[DB System] {$gameName} - Invalid rating score ({$score}).\n";
-		return false;
+		echo "\n[DB System] {$gameName} - Invalid rating score of {$score} provided by {$sourceScraper}.\n";
+		unset($score);
 	}
 
 	// Invalid player count
@@ -195,22 +195,35 @@ function updateGameDetails($sourceScraper, $gameName, $dbGameName, $platformName
 	if($genre) $genre = trim(preg_replace('%\s*[\||/]\s*%', ', ', $genre));
 
 	// Nonsense date, blank it
-	if(!is_numeric($releaseDate)) unset($releaseDate);
+	if($releaseDate && (!is_numeric($releaseDate) || $releaseDate < 5000)) {
+		echo "\n[DB System] {$gameName} - Nonsensical date provided by {$sourceScraper}.\n";
+		unset($releaseDate);
+	}
 
 	// Description is too short to be viable, bin it
 	if(strlen($description) < 80) unset($description);
 
-	if($dbRows = DBSingle("SELECT gameName FROM games WHERE gameMatchName = ? AND gamePlatform = ? LIMIT 1", array($dbGameName, $platformName))) {
-		if(isset($releaseDate))		DBSimple("UPDATE games SET gameReleaseDate = ?	WHERE ".(!$override ? "gameReleaseDate IS NULL AND" : "")."	gameMatchName = ? AND gamePlatform = ?", array($releaseDate, $dbGameName, $platformName));
-		if(isset($genre))			DBSimple("UPDATE games SET gameGenre = ? 		WHERE ".(!$override ? "gameGenre IS NULL AND" : "")."		gameMatchName = ? AND gamePlatform = ?", array(cleanWhitespace($genre), $dbGameName, $platformName));
-		if(isset($description))		DBSimple("UPDATE games SET gameDescription = ?	WHERE ".(!$override ? "gameDescription IS NULL AND" : "")."	gameMatchName = ? AND gamePlatform = ?", array(cleanWhitespace($description), $dbGameName, $platformName));
-		if(isset($score))			DBSimple("UPDATE games SET gameRating = ? 		WHERE ".(!$override ? "gameRating IS NULL AND" : "")."		gameMatchName = ? AND gamePlatform = ?", array($score, $dbGameName, $platformName));
-		if(isset($developer))		DBSimple("UPDATE games SET gameDeveloper = ? 	WHERE ".(!$override ? "gameDeveloper IS NULL AND" : "")."	gameMatchName = ? AND gamePlatform = ?", array(cleanWhitespace($developer), $dbGameName, $platformName));
-		if(isset($publisher))		DBSimple("UPDATE games SET gamePublisher = ? 	WHERE ".(!$override ? "gamePublisher IS NULL AND" : "")."	gameMatchName = ? AND gamePlatform = ?", array(cleanWhitespace($publisher), $dbGameName, $platformName));
-		if(isset($players))			DBSimple("UPDATE games SET gamePlayers = ?		WHERE ".(!$override ? "gamePlayers IS NULL AND" : "")."		gameMatchName = ? AND gamePlatform = ?", array(cleanWhitespace($players), $dbGameName, $platformName));
-		if(isset($mamestate))		DBSimple("UPDATE games SET gameMameState = ? 	WHERE ".(!$override ? "gameMameState IS NULL AND" : "")."	gameMatchName = ? AND gamePlatform = ?", array(cleanWhitespace($mamestate), $dbGameName, $platformName));
+	if($dbRow = DBSingle("SELECT gameName FROM games WHERE gameMatchName = ? AND gamePlatform = ? LIMIT 1", array($dbGameName, $platformName))) {
+		// Update specific game information elements
+		if(isset($releaseDate))		DBSimple("UPDATE games SET gameReleaseDate = ?	WHERE ".(!$override ? "gameReleaseDate IS NULL AND" : "")."	gameMatchName = ? AND gamePlatform = ? LIMIT 1", array($releaseDate, $dbGameName, $platformName));
+		if(isset($genre))			DBSimple("UPDATE games SET gameGenre = ? 		WHERE ".(!$override ? "gameGenre IS NULL AND" : "")."		gameMatchName = ? AND gamePlatform = ? LIMIT 1", array(cleanWhitespace($genre), $dbGameName, $platformName));
+		if(isset($description))		DBSimple("UPDATE games SET gameDescription = ?	WHERE ".(!$override ? "gameDescription IS NULL AND" : "")."	gameMatchName = ? AND gamePlatform = ? LIMIT 1", array(cleanWhitespace($description), $dbGameName, $platformName));
+		if(isset($score))			DBSimple("UPDATE games SET gameRating = ? 		WHERE ".(!$override ? "gameRating IS NULL AND" : "")."		gameMatchName = ? AND gamePlatform = ? LIMIT 1", array($score, $dbGameName, $platformName));
+		if(isset($developer))		DBSimple("UPDATE games SET gameDeveloper = ? 	WHERE ".(!$override ? "gameDeveloper IS NULL AND" : "")."	gameMatchName = ? AND gamePlatform = ? LIMIT 1", array(cleanWhitespace($developer), $dbGameName, $platformName));
+		if(isset($publisher))		DBSimple("UPDATE games SET gamePublisher = ? 	WHERE ".(!$override ? "gamePublisher IS NULL AND" : "")."	gameMatchName = ? AND gamePlatform = ? LIMIT 1", array(cleanWhitespace($publisher), $dbGameName, $platformName));
+		if(isset($players))			DBSimple("UPDATE games SET gamePlayers = ?		WHERE ".(!$override ? "gamePlayers IS NULL AND" : "")."		gameMatchName = ? AND gamePlatform = ? LIMIT 1", array(cleanWhitespace($players), $dbGameName, $platformName));
+		if(isset($mamestate))		DBSimple("UPDATE games SET gameMameState = ? 	WHERE ".(!$override ? "gameMameState IS NULL AND" : "")."	gameMatchName = ? AND gamePlatform = ? LIMIT 1", array(cleanWhitespace($mamestate), $dbGameName, $platformName));
+
+		// Name has changed but we still matched, update that too
+		if($dbRow != $gameName) {
+			DBSimple("UPDATE games SET gameName = ? WHERE gameMatchName = ? AND gamePlatform = ? LIMIT 1", array(cleanWhitespace($gameName), $dbGameName, $platformName));
+			if(DEBUG) echo "\n[DB System] Game name updated for {$gameName}.\n";
+		}
+
+		// Mark as scanned by specific scanner (specifically ones which aren't likely to ever be updated)
+		if($sourceScraper == 'MobyGamesAPI')	DBSimple("UPDATE games SET gameMobyChecked = ? 	WHERE gameMatchName = ? AND gamePlatform = ? LIMIT 1", array(1, $dbGameName, $platformName));
 	}else{
-		$dbRows = DBSimple("INSERT INTO games SET
+		$dbRow = DBSimple("INSERT INTO games SET
 			gameName = ?,
 			gameMatchName = ?,
 			gamePlatform = ?,
@@ -237,7 +250,7 @@ function updateGameDetails($sourceScraper, $gameName, $dbGameName, $platformName
 		));
 	}
 
-	if($dbRows && DEBUG) echo "\n[Updater] Rows updated by {$sourceScraper}.\n";
+	if($dbRow && DEBUG) echo "\n[DB System] Rows updated by {$sourceScraper}.\n";
 }
 
 function blankToNull($array) {
@@ -343,6 +356,7 @@ function matchImage($folderPath, $gameName) {
 
 		// Flip the array so that the image names become the keys
 		$localImageArray[$folderPath]['simple'] = array_flip($cleanFileArray);
+		unset($cleanFileArray);
 	}
 
 	// Remove brackets from the game name as well
@@ -405,6 +419,9 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	global $romImage, $romWheelImage, $romSnapImage;
 	$echoArray = $boxImgPaths = $snapImgPaths = $logoImgPaths = $gameNames = array();
 
+	// Debug timer
+	#$gsStart = microtime(1);
+
 	// Find out current information set
 	$gameDBOArr = DBSingleAssoc("SELECT * FROM games WHERE gameMatchName = ? AND gamePlatform = ? LIMIT 1", array($thisRom['safeName'], $setParts['dbname']));
 	if(!$gameDBOArr) $newGame = 1;
@@ -418,6 +435,10 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 
 	$gameNames[] = $thisRom['name'];
 	$gameNames[] = $thisRom['safeName'];
+
+	// Mark game as already scanned on slow scrapers to speed up future scanning
+	if($gameDBOArr['gameMobyChecked']) $skipMoby = true;
+	
 
 	##### Start Existing Image Location Assignment #############################
 
@@ -511,9 +532,9 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 		// General scrapers
 		#if(needsScan($thisRom, $setParts)) openvgdbScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['ovgdb'], $setParts['assets']);
 		if(needsScan($thisRom, $setParts)) thegamesdbScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['tgdbid'], $setParts['assets']);
-		if(needsScan($thisRom, $setParts)) mobyLocalScrape($thisRom['safeName'], $thisRom['niceName'], $setParts['dbname'], $setParts['mobyid']);
+		if(needsScan($thisRom, $setParts) && !$skipMoby) mobyLocalScrape($thisRom['safeName'], $thisRom['niceName'], $setParts['dbname'], $setParts['mobyid']);
 		#if(needsScan($thisRom, $setParts)) archivevgScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['archivevgname'], $setParts['assets']);
-		#if(needsScan($thisRom, $setParts)) mobyScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['mobyid'], $setParts['assets']);
+		#if(needsScan($thisRom, $setParts) && !$skipMoby) mobyScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['mobyid'], $setParts['assets']);
 		#if(needsScan($thisRom, $setParts)) allgamecomScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['allgamename'], $setParts['assets']);
 		#if(needsScan($thisRom, $setParts)) ignScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['ignname'], $setParts['assets']);
 		#if(needsScan($thisRom, $setParts)) rfgenScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['rfgenid'], $setParts['assets']);
@@ -545,7 +566,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	if($thisRom['imageChecks'] && !$romImage) {
 		if(!$romImage) thegamesdbScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['tgdbid'], $setParts['assets'], true);
 		#if(!$romImage) archivevgScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['archivevgname'], $setParts['assets'], true);
-		#if(!$romImage) mobyScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['mobyid'], $setParts['assets'], true);
+		#if(!$romImage && !$skipMoby) mobyScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['mobyid'], $setParts['assets'], true);
 		#if(!$romImage) ignScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['ignname'], $setParts['assets'], true);
 		#if(!$romImage) allgamecomScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['allgamename'], $setParts['assets'], true);
 		#if(!$romImage) giantbombScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['gbid'], $setParts['assets'], true);
@@ -587,6 +608,8 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	// Print any details
 	if($echoArray) echo "\n".implode("\n", $echoArray)."\n";
 
+	// Debug timer printout for profiling
+	#echo round(microtime(1) - $gsStart, 3) . ' ' . PHP_EOL;
 	return $gameDBArr['gameID'];
 }
 
