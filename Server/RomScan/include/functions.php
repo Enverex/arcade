@@ -66,7 +66,7 @@ function getx68kXmlGames() {
 
 function getMameDatArray() {
 	// Get MAME game real names
-	$mameDatArray = explode("\n", cleanShell("sdlmame -ll"));
+	$mameDatArray = explode("\n", cleanShell("mame -ll"));
 	foreach($mameDatArray as $mameDatLine) {
 		preg_match('%(\w+)\s+"(.+)"%', $mameDatLine, $mameDatParts);
 		if($mameDatParts) {
@@ -853,7 +853,7 @@ function getMameGameXml($romName) {
 	$gameXml = DBSingle("SELECT mameXml FROM mameGameXml WHERE gameMatchName = ? LIMIT 1", array($romName));
 
 	if(!$gameXml) {
-		$gameXml = @simplexml_load_string(cleanShell("sdlmame -listxml '{$romName}' 2>/dev/null"));
+		$gameXml = @simplexml_load_string(cleanShell("mame -listxml '{$romName}' 2>/dev/null"));
 		if($gameXml) {
 			$gameXml = json_encode($gameXml);
 			if($gameXml) DBSimple("INSERT INTO mameGameXml SET gameMatchName = ?, mameXml = ?", array($romName, $gameXml));

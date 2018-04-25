@@ -3,7 +3,7 @@
 
 $gameExt = 'zip';
 
-$gameListRaw = trim(shell_exec("sdlmame -listfull"));
+$gameListRaw = trim(shell_exec("mame -listfull"));
 $gameArray = explode("\n", $gameListRaw);
 
 // First line is the header, ignore it

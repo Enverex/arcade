@@ -4,7 +4,7 @@
 ## Copyright: Benjamin Hodgetts (Enverex) <ben@xnode.org>
 ## Description: Game image and detail scraper for Emulation Station.
 ## This is designed to be ran on a Linux server (e.g. a NAS) that holds all the ROM files.
-## Requirements: PHP, SDLMame, cURL, ImageMagick, WGet.
+## Requirements: PHP, Mame, cURL, ImageMagick, WGet.
 ## ToDo: Still very specific to my setup, need to make the code more "generic".
 ## Scrapers: mameDB, Hall of Light, DoomWorld, TheGamesDB, Archive.VG, MobyGames, AllGame (defunct), IGN,
 ##			OpenVGDB, RFGeneration, GiantBomb, GameFAQs, AmstradCPC Wiki, cpcPower, VectrexGDB, PCDI, PCFXWiki,
