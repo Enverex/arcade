@@ -5,7 +5,7 @@
 #################################################################
 
 export DISPLAY=:0
-export WINEDEBUG='-all'
+export WINEDEBUG=-all
 
 cd ~
 
@@ -15,7 +15,7 @@ emuArgs="${@:3}"
 
 romRoot='/mnt/store/Emulation/Games'
 homeRoot='/home/arcade'
-messLb='~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+messLb='~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
 function doMessage() { echo -e "\n\e[92m${messLb}\n ${1}\n${messLb}\n\e[0m"; }
 function doInfo() { echo -e "\n\e[96m${messLb}\n ${1}\n${messLb}\n\e[0m"; }
@@ -269,13 +269,17 @@ function smartWine {
 	reqDir=${emuGame%/*}
 	reqExe=${emuGame##*/}
 
-	## Kill any old processes
-	wineserver -k
-
 	## Use virtual desktop if requested (typically fixes broken fullscreen games)
 	if ! [ -z "${useWineVd}" ]; then
 		vDesktop="explorer /desktop=wine,$(getNativeResolution)"
 		unset useWineVd
+	fi
+
+	## Use DXVK if requested
+	if ! [ -z "${useDxvk}" ]; then
+		doInfo "Activating DXVK"
+		export WINEDLLOVERRIDES="d3d11,dxgi=n,b"
+		unset useWineVk
 	fi
 
 	wine32Loc="/mnt/store/Wine"
@@ -283,12 +287,12 @@ function smartWine {
 
 	## Auto-detect the arch based on where the game is
 	if [ -d "${wine32Loc}/drive_c/${reqDir}" ]; then
-		doInfo "Running 32bit Wine"
+		doMessage "Running 32bit Wine"
 		#export WINEARCH='win32'
 		export WINEPREFIX="${wine32Loc}"
 		gameDir="${baseGameDir}/${reqDir}"
 	elif [ -d "${wine64Loc}/drive_c/${reqDir}" ]; then
-		doInfo "Running 64bit Wine"
+		doMessage "Running 64bit Wine"
 		#export WINEARCH='win64'
 		export WINEPREFIX="${wine64Loc}"
 	else
@@ -296,15 +300,17 @@ function smartWine {
 		return
 	fi
 
-	## KoKu xInput Override
+	## Kill any old processes
+	wineserver -k
+
+	## KoKu xInput Override (not needed as native XInput support now seems to work)
 	#if [ -z "${NOKOKU}" ]; then export LD_PRELOAD="/usr/lib/koku-xinput-wine.so /usr/lib/koku-xinput-wine64.so"; fi
 
 	## Switch to the EXE's actual directory
 	cd "${WINEPREFIX}/drive_c/${reqDir}"
 
-	## Silence Wine and the program as we won't see the output anyway
+	## If additional Pulse latency is required, add PULSE_LATENCY_MSEC=32 to the launcher script
 	wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
-	#PULSE_LATENCY_MSEC=32 wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
 
 	## Fix potentially broken screen resolution on game exit
 	#fixResolution
