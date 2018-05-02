@@ -1,0 +1,22 @@
+## Kill Wine in a more extreme way when it's misbehaving.
+## Only to be used as a last resort.
+
+function doKillWine {
+	echo "Killing $1"
+	WINEPREFIX=$1 wineserver -k
+}
+
+doKillWine /mnt/store/Wine
+doKillWine /mnt/store/Wine64
+
+for BOTTLE in /mnt/store/WineBottles/*; do
+	doKillWine "${BOTTLE}"
+done
+
+## Now do things the hard way for any remaining processes
+pkill -f .exe
+sleep 1
+pkill -f .exe -9
+sleep 1
+
+echo "Wine Hard-Kill Complete."

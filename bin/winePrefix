@@ -1,0 +1,29 @@
+#!/bin/bash
+## Autodetect and display
+
+## No path, exit
+if [ -z "$1" ]; then
+	exit 1
+fi
+
+gamePath="$(ls -1 /mnt/store/{Wine,Wine64,WineBottles/*}/drive_c/"$1" 2>/dev/null | head -n1)"
+
+case "$gamePath" in
+	## Game Specific Prefixes
+	/mnt/store/WineBottles/*)
+		bottleName="$(echo $gamePath | cut -d'/' -f5)"
+		winePath="/mnt/store/WineBottles/${bottleName}"
+	;;
+
+	## General 32bit Wine
+	/mnt/store/Wine/*|/home/arcade/Wine/*)
+		winePath="/mnt/store/Wine"
+	;;
+
+	## General 64bit Wine
+	/mnt/store/Wine64/*|/home/arcade/Wine64/*)
+		winePath="/mnt/store/Wine64"
+	;;
+esac
+
+echo "${winePath}"

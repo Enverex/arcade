@@ -286,19 +286,24 @@ function smartWine {
 	wine64Loc="/mnt/store/Wine64"
 
 	## Auto-detect the arch based on where the game is
-	if [ -d "${wine32Loc}/drive_c/${reqDir}" ]; then
-		doMessage "Running 32bit Wine"
-		#export WINEARCH='win32'
-		export WINEPREFIX="${wine32Loc}"
-		gameDir="${baseGameDir}/${reqDir}"
-	elif [ -d "${wine64Loc}/drive_c/${reqDir}" ]; then
-		doMessage "Running 64bit Wine"
-		#export WINEARCH='win64'
-		export WINEPREFIX="${wine64Loc}"
-	else
-		doError "Cannot find the game directory for ${reqDir}"
-		return
-	fi
+	#if [ -d "${wine32Loc}/drive_c/${reqDir}" ]; then
+	#	doMessage "Running 32bit Wine"
+	#	#export WINEARCH='win32'
+	#	export WINEPREFIX="${wine32Loc}"
+	#	gameDir="${baseGameDir}/${reqDir}"
+	#elif [ -d "${wine64Loc}/drive_c/${reqDir}" ]; then
+	#	doMessage "Running 64bit Wine"
+	#	#export WINEARCH='win64'
+	#	export WINEPREFIX="${wine64Loc}"
+	#else
+	#	doError "Cannot find the game directory for ${reqDir}"
+	#	return
+	#fi
+
+	## Autodetect prefix
+	usePrefix=$(winePrefix "${emuGame}")
+	doMessage "Using Wine Prefix - ${usePrefix}"
+	export WINEPREFIX="${usePrefix}"
 
 	## Kill any old processes
 	wineserver -k
