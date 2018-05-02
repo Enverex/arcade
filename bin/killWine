@@ -2,22 +2,16 @@
 ## Kill Wine in a more extreme way when it's misbehaving.
 ## Only to be used as a last resort.
 
-function doKillWine {
-	echo "Killing $1"
-	WINEPREFIX=$1 wineserver -k
-}
-
-doKillWine /mnt/store/Wine
-doKillWine /mnt/store/Wine64
-
-for BOTTLE in /mnt/store/WineBottles/*; do
-	doKillWine "${BOTTLE}"
+for pid in $(pgrep wineserver); do
+	thisPrefix="$(grep -aoP '(?<=WINEPREFIX=).+?(?=[\x0|\n])' /proc/$pid/environ)"
+	echo "Killing Prefix: ${thisPrefix}"
+	WINEPREFIX="${thisPrefix}" wineserver -k
 done
 
 ## Now do things the hard way for any remaining processes
+sleep 1
 pkill -f .exe
 sleep 1
 pkill -f .exe -9
-sleep 1
 
 echo "Wine Hard-Kill Complete."
