@@ -2,7 +2,7 @@
 
 $systemFile = trim("
 
-executable		launchEmuGame
+executable		eLord
 args			{$setParts['dbname']} \"[romfilename]\"
 rompath			{$esRomPath}
 romext			{$platformExtList}

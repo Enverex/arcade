@@ -267,7 +267,9 @@ function doGenerate() {
 				if(!$linkImage || empty($gameArray['gameName'])) continue;
 				$linkExtension = pathinfo($linkImage)['extension'];
 				$gameFileName = pathinfo($gameArray['gameFile'])['filename'];
-				symlink($linkImage, ASSET_ROOT."/Live/{$setParts['assets']}/{$linkType}/{$gameFileName}.{$linkExtension}");
+				if(!symlink($linkImage, ASSET_ROOT."/Live/{$setParts['assets']}/{$linkType}/{$gameFileName}.{$linkExtension}")) {
+					echo "\nFailed to create symlink for $linkImage";
+				}
 			}
 
 			// Trim game description
@@ -279,7 +281,7 @@ function doGenerate() {
 				$gameArray['gameImage'] = translateWinPath($gameArray['gameImage']);
 			}
 
-			$gameListEs .= "<game>\n\t<name>".xmlSafe($gameArray['gameName'])."</name>\n\t<path>{$gameArray['gameFilePath']}</path>\n\t<desc>".xmlSafe($gameArray['gameDescription'])."</desc>\n\t<publisher>".xmlSafe($gameArray['gamePublisher'])."</publisher>\n\t<developer>".xmlSafe($gameArray['gameDeveloper'])."</developer>\n\t<releasedate>".($gameArray['gameReleaseDate'] ? dateToES($gameArray['gameReleaseDate']) : '')."</releasedate>\n\t<image>{$gameArray['gameImage']}</image>\n\t<genre>".xmlSafe($gameArray['gameGenre'])."</genre>\n\t<rating>".numToFloat($gameArray['gameRating'])."</rating>\n\t<players>{$gameArray['gamePlayers']}</players>\n</game>\n\n";
+			$gameListEs .= "<game>\n\t<name>".xmlSafe($gameArray['gameName'])."</name>\n\t<path>{$gameArray['gameFilePath']}</path>\n\t<desc>".xmlSafe($gameArray['gameDescription'])."</desc>\n\t<publisher>".xmlSafe($gameArray['gamePublisher'])."</publisher>\n\t<developer>".xmlSafe($gameArray['gameDeveloper'])."</developer>\n\t<releasedate>".($gameArray['gameReleaseDate'] ? dateToES($gameArray['gameReleaseDate']) : '')."</releasedate>\n\t<image>".str_replace('Emulation/Assets', 'Emulation/Assets/Live', $gameArray['gameImage'])."</image>\n\t<genre>".xmlSafe($gameArray['gameGenre'])."</genre>\n\t<rating>".numToFloat($gameArray['gameRating'])."</rating>\n\t<players>{$gameArray['gamePlayers']}</players>\n</game>\n\n";
 
 			// #Name;Title;Emulator;CloneOf;Year;Manufacturer;Category;Players;Rotation;Control;Status;DisplayCount;DisplayType;AltRomname;AltTitle;Extra
 			$gameListAm .= pathinfo($gameArray['gameFilePath'], PATHINFO_FILENAME).";{$gameArray['gameName']};{$setParts['esname']};;".($gameArray['gameReleaseDate'] ? date('Y', $gameArray['gameReleaseDate']) : '').";{$gameArray['gameDeveloper']};{$gameArray['gameGenre']};{$gameArray['gamePlayers']};;;;;;;".pathinfo($gameArray['gameImage'], PATHINFO_FILENAME).";".makeAttractSafe($gameArray['gameDescription'])."\n";
@@ -289,11 +291,21 @@ function doGenerate() {
 		}
 
 		## EMULATION STATION ##
+		// Generate game list
 		@mkdir(ESTATION_GPATH, 0777, true);
 		$emulatorArgsEs = str_replace('ROMGOESHERE', '%ROM_RAW%', $emulatorArgsEs);
-		$systemListEs .= "<system>\n\t<name>{$setParts['esname']}</name>\n\t<fullname>{$thisSet}</fullname>\n\t<path>{$esRomPath}</path>\n\t<extension>{$platformExtList}</extension>\n\t<command>{$emulatorCommand} {$emulatorArgsEs}</command>\n\t<platform>{$setParts['dbname']}</platform>\n\t<theme>{$setParts['dbname']}</theme>\n</system>\n\n";
+		$systemListEs .= "<system>\n\t<name>{$setParts['esname']}</name>\n\t<fullname>{$thisSet}</fullname>\n\t<path>{$esRomPath}</path>\n\t<extension>{$platformExtList}</extension>\n\t<command>eLord {$setParts['dbname']} \"%ROM_RAW%\"</command>\n\t<platform>{$setParts['dbname']}</platform>\n\t<theme>{$setParts['dbname']}</theme>\n</system>\n\n";
 		@mkdir(ESTATION_GPATH."/.emulationstation/gamelists/{$setParts['esname']}", 0777, true);
 		file_put_contents(ESTATION_GPATH."/.emulationstation/gamelists/{$setParts['esname']}/gamelist.xml", "<?xml version='1.0' encoding='UTF-8'?>\n\n<gameList>\n\n{$gameListEs}</gameList>\n");
+		// Generate theme file
+		$systemName = $thisSet;
+		$esThemeXml = file_get_contents(ESTATION_SKEL);
+		$systemCompanyName = strtok($systemName, ' ');
+		$systemName = substr(strstr($systemName, ' '), 1);
+		$esThemeXml = str_replace('REPLACE_SYSTEMNAME1', $systemCompanyName, $esThemeXml);
+		$esThemeXml = str_replace('REPLACE_SYSTEMNAME2', $systemName, $esThemeXml);
+		@mkdir(ESTATION_GPATH."/.emulationstation/themes/romscan/{$setParts['esname']}", 0777, true);
+		file_put_contents(ESTATION_GPATH."/.emulationstation/themes/romscan/{$setParts['esname']}/theme.xml", $esThemeXml);
 
 		## ATTRACT MODE ##
 		$emulatorArgsAm = str_replace('ROMGOESHERE', '[romfilename]', $emulatorArgsAm);
@@ -311,11 +323,11 @@ function doGenerate() {
 
 	echo "\n\n[All] Creating emulator system files.\n";
 
-	// Save the Systems file. ES uses one big file, AttractMode uses one file per emulator. Retroarch doesn't have one.
-	// ES
+	## Save the Systems file. EmulationStation uses one big file, AttractMode uses one file per emulator. Retroarch doesn't have one.
+	// EmulationStation
 	$systemListEs = trim($systemListEs);
 	file_put_contents(ESTATION_GPATH."/.emulationstation/es_systems.cfg", "<systemList>\n{$systemListEs}\n</systemList>");
-	// AM
+	// AttractMode
 	$systemListAm = trim($systemListAm);
 	file_put_contents(ATTRACT_GPATH."/attract.cfg", "{$systemListAm}\n\n" . file_get_contents(ATTRACT_SKEL));
 }

@@ -460,7 +460,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	$boxImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Box";
 
 	// Fall back to 3D box images (they don't look as good)
-	$boxImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Box_3D";
+	#$boxImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Box_3D";
 
 	// Find a snap video or image using MAME's own Extras
 	if($setParts['assets'] == 'MAME') {

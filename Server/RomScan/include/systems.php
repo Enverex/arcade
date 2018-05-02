@@ -147,7 +147,7 @@ $systemArr['Nintendo Satellaview'] = array(
 	'nointroname' => 'Nintendo - Satellaview'
 );
 
-$systemArr['Arcade'] = array(
+$systemArr['Arcade MAME'] = array(
 	'folder' => "{$configFile['romBase']}/MAME",
 	'extensions' => 'zip',
 	'assets' => 'MAME',
@@ -262,7 +262,7 @@ $systemArr['Commodore Amiga'] = array(
 );
 
 
-$systemArr['MS-DOS'] = array(
+$systemArr['Microsoft DOS'] = array(
 	'folder' => "{$configFile['romBase']}/PC - DOS",
 	'extensions' => 'sh',
 	'assets' => 'Microsoft_DOS',
@@ -282,7 +282,7 @@ $systemArr['MS-DOS'] = array(
 );
 
 
-$systemArr['PC'] = array(
+$systemArr['PC Native'] = array(
 	'folder' => "{$configFile['romBase']}/PC - Windows",
 	'extensions' => 'sh',
 	'assets' => 'Microsoft_Windows',

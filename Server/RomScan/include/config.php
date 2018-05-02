@@ -49,6 +49,7 @@ define('ATTRACT_SKEL',		RS_PATH.'/resources/attract.skel');
 define('ATTRACT_VARS',		RS_PATH.'/resources/attract-system.skel');
 define('ATTRACT_GPATH',		RS_PATH.'/generated/AM');
 define('ESTATION_GPATH',	RS_PATH.'/generated/ES');
+define('ESTATION_SKEL',		RS_PATH.'/resources/emustation-theme.skel');
 define('RETROXMB_GPATH',	RS_PATH.'/generated/XMB');
 
 ?>
