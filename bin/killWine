@@ -1,3 +1,4 @@
+#!/bin/bash
 ## Kill Wine in a more extreme way when it's misbehaving.
 ## Only to be used as a last resort.
 
