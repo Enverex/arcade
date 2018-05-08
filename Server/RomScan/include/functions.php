@@ -129,7 +129,8 @@ function getPage($pageURL) {
 		curl_setopt($curl, CURLOPT_ENCODING, "gzip,deflate");
 		curl_setopt($curl, CURLOPT_AUTOREFERER, true);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
+		curl_setopt($curl, CURLOPT_TIMEOUT, 5);
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 		$page = toUTF(trim(curl_exec($curl)));
 		$error = trim(curl_error($curl));
@@ -469,7 +470,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	}
 
 	// Find a gameplay video or screenshot image
-	$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Video_MP4_HI_QUAL";
+	#$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Video_MP4_HI_QUAL";
 	$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Snap";
 
 	// Find a wheel image
@@ -480,7 +481,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	while($setParts['assets' . $al]) {
 		$boxImgPaths[]  = ASSET_ROOT."/{$setParts['assets' . $al]}/Box";
 		$boxImgPaths[]  = ASSET_ROOT."/{$setParts['assets' . $al]}/Box_3D";
-		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Video_MP4_HI_QUAL";
+		#$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Video_MP4_HI_QUAL";
 		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Snap";
 		$logoImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Logos";
 		$al++;

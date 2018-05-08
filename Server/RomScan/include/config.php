@@ -18,7 +18,7 @@ define('ATTRACT_THEME', 'arcade');
 setlocale(LC_CTYPE, 'en_GB');
 chdir(RS_PATH);
 $userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36";
-$wgetLocal = "wget -q -U '{$userAgent}'";
+$wgetLocal = "wget -q -T 10 -t 2 -U '{$userAgent}'";
 ini_set('error_reporting', E_ALL & ~E_NOTICE);
 ini_set('display_errors', 1);
 $wosDelay = 20;
