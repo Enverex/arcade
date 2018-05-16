@@ -9,6 +9,7 @@ declare -A macArray
 macArray[home]="40:EF:4C:37:9D:FB"
 macArray[mobile]="30:21:B8:C7:2B:84"
 macArray[headphones]="6C:5A:B5:7B:0B:27"
+macArray[dongle]="00:02:5B:00:FF:02"
 
 ## List of usable onboard audio devices
 declare -A cardArray
@@ -92,7 +93,7 @@ disconnectAll
 
 
 ## Bluetooth devices
-if [[ $useDevice == 'home' ]] || [[ $useDevice == 'mobile' ]] || [[ $useDevice == 'headphones' ]]; then
+if [[ $useDevice == 'home' ]] || [[ $useDevice == 'mobile' ]] || [[ $useDevice == 'headphones' ]] || [[ $useDevice == 'dongle' ]]; then
 	## Wait for bluetooth disconnects to complete
 	sleep 3
 	echo "Trying to connect to ${useDevice} (${macArray[$useDevice]})..."

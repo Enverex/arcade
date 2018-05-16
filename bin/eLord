@@ -5,7 +5,7 @@
 #################################################################
 
 export DISPLAY=:0
-export WINEDEBUG=-all
+#export WINEDEBUG=-all
 
 cd ~
 
@@ -278,7 +278,7 @@ function smartWine {
 	## Use DXVK if requested
 	if ! [ -z "${useDxvk}" ]; then
 		doInfo "Activating DXVK"
-		export WINEDLLOVERRIDES="d3d11,dxgi=n,b"
+		export WINEDLLOVERRIDES="d3d11,dxgi=n"
 		unset useWineVk
 	fi
 
@@ -315,7 +315,8 @@ function smartWine {
 	cd "${WINEPREFIX}/drive_c/${reqDir}"
 
 	## If additional Pulse latency is required, add PULSE_LATENCY_MSEC=32 to the launcher script
-	wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
+	#wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
+	wine ${vDesktop} "${reqExe}" ${emuArgs}
 
 	## Fix potentially broken screen resolution on game exit
 	#fixResolution
@@ -330,14 +331,27 @@ function launchWiiUGame {
 	wiiFile="$(find * -iname "*.rpx" | head -n1)"
 	set +e
 	cd /mnt/store/Wine64/drive_c/Games/Cemu
-	WINEPREFIX="/mnt/store/Wine64" wine Cemu.exe -f -g "Z:\\mnt\\store\\Emulation\\Games\\Nintendo - Wii U\\${gameFolder}\\code\\${wiiFile}" >/dev/null 2>&1
+	wineauto Cemu.exe -f -g "Z:\\mnt\\store\\Emulation\\Games\\Nintendo - Wii U\\${gameFolder}\\code\\${wiiFile}" >/dev/null 2>&1
+	setAAMode off
+}
+
+function launchXboxGame {
+	setAAMode fxaa
+	gameFolder="$(basename "$emuGame")"
+	set -e
+	cd "${romRoot}/Microsoft - Xbox/${gameFolder}/"
+	## Find the name of the game binary to run
+	xboxFile="$(find * -iname "*.xbe" | head -n1)"
+	set +e
+	cd /mnt/store/Wine/drive_c/Games/Cxbx
+	wineauto Cxbx.exe "Z:\\mnt\\store\\Emulation\\Games\\Microsoft - Xbox\\${gameFolder}\\${xboxFile}" >/dev/null 2>&1
 	setAAMode off
 }
 
 function launchFuturePinball {
 	gameFile="$(basename "$emuGame")"
 	cd /mnt/store/Wine/drive_c/Games/FuturePinball
-	WINEPREFIX="/mnt/store/Wine" wine "Future Pinball.exe" /open "tables/${gameFile}" /play /exit
+	wineauto "Future Pinball.exe" /open "tables/${gameFile}" /play /exit
 }
 
 function launchPs2 {
@@ -446,8 +460,8 @@ case $emuPlatform in
 	pico8 ) pico8 -run "$emuGame" ;;
 	ps2 ) launchPs2 ;;
 	#ps3 ) rpcs3 "/mnt/store/Emulation/Games/Sony - Playstation 3/${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
-	ps3 ) rpcs3 "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
-	#ps3 ) ~/AppImage/rpcs3-v0.0.5-6498-7233640c_linux64.AppImage "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
+	#ps3 ) rpcs3 "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
+	ps3 ) ~/AppImage/rpcs3-v0.0.5-6694-25ec899c_linux64.AppImage "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
 	#psp ) raGame ppsspp ;;
 	psp ) ppsspp --fullscreen "$emuGame" ;;
 	psx ) raGame beetle_psx ;;
