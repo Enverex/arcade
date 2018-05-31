@@ -4,9 +4,6 @@
 ## Wrapper/handler for all emulation platforms
 #################################################################
 
-export DISPLAY=:0
-#export WINEDEBUG=-all
-
 cd ~
 
 emuPlatform="$1"
@@ -16,6 +13,12 @@ emuArgs="${@:3}"
 romRoot='/mnt/store/Emulation/Games'
 homeRoot='/home/arcade'
 messLb='~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+
+export DISPLAY=:0
+export WINEDEBUG=-all
+
+## Use a different shader cache per-game
+export __GL_SHADER_DISK_CACHE_PATH="/home/arcade/.nv/localCache/$(echo "${emuPlatform}-${emuGame}" | md5sum | awk '{print $1}')"
 
 function doMessage() { echo -e "\n\e[92m${messLb}\n ${1}\n${messLb}\n\e[0m"; }
 function doInfo() { echo -e "\n\e[96m${messLb}\n ${1}\n${messLb}\n\e[0m"; }
@@ -315,7 +318,6 @@ function smartWine {
 	cd "${WINEPREFIX}/drive_c/${reqDir}"
 
 	## If additional Pulse latency is required, add PULSE_LATENCY_MSEC=32 to the launcher script
-	#wine ${vDesktop} "${reqExe}" ${emuArgs} >/dev/null 2>&1
 	wine ${vDesktop} "${reqExe}" ${emuArgs}
 
 	## Fix potentially broken screen resolution on game exit

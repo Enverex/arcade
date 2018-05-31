@@ -1,8 +1,8 @@
 #!/bin/sh
 
 export DISPLAY=:0
-#vncProg='x11vnc'
-vncProg='x0vncserver'
+vncProg='x11vnc'
+#vncProg='x0vncserver'
 
 function vncLoop {
 	while true; do
@@ -28,4 +28,5 @@ function vncLoop {
 #export -f vncLoop
 #flock -w 5 -x -n /tmp/vncLock -c vncLoop
 
-while true; do ${vncProg} -SecurityTypes VncAuth -rfbauth /home/arcade/.config/x11vnc/passwd >/dev/null 2>&1; done
+#while true; do ${vncProg} -SecurityTypes VncAuth -rfbauth /home/arcade/.config/x11vnc/passwd >/dev/null 2>&1; done
+while true; do ${vncProg} -noxfixes -noxdamage -noxinerama -noipv6 -rfbportv6 -1 -rfbauth /home/arcade/.config/x11vnc/passwd >/dev/null 2>&1; sleep 5; done
