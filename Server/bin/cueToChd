@@ -1,0 +1,27 @@
+#!/bin/bash
+## Convert all CUE based discs in the current folder to CHD files
+## Ignores if a matching CHD file already exists.
+
+## Custom extension requested, use that instead
+if [[ "${1}" ]]; then
+	convExt="${1}"
+else
+	convExt="cue"
+fi
+
+for thisCue in *.${convExt}; do
+	## No files, ignore fake glob
+	if [ "${thisCue}" = "*.${convExt}" ]; then
+		continue
+	fi
+
+	newChd="$(basename "${thisCue}" .${convExt}).chd"
+
+	## Already exists, skip
+	if [ -f "${newChd}" ]; then
+		continue
+	fi
+
+	echo -e "\n\n==== Processing ${thisCue}\n"
+	/usr/lib/mame/chdman createcd -np 4 -i "${thisCue}" -o "${newChd}"
+done

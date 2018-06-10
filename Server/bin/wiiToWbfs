@@ -1,0 +1,12 @@
+#!/bin/bash
+## Convert Wii disc to WBFS format
+## Needs wit (Wiimms ISO Tools)
+
+if [[ -z $2 ]]; then
+	echo "Usage: wiiToWbfs <Original File> <Target Game Name>"
+	exit 1
+fi
+
+ls -lh "${1}"
+wit COPY "${1}" --psel data --trunc -d "/mnt/store/Emulation/Games/Nintendo - Wii/${2}.wbfs"
+ls -lh "/mnt/store/Emulation/Games/Nintendo - Wii/${2}.wbfs"
