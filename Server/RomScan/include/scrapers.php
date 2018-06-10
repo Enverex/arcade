@@ -1,5 +1,102 @@
 <?php
 
+function igdbScraper($dbGameName, $gameName, $platformName, $assetFolder, $igdbid) {
+	// Platform not supported by IGDB, abort
+	if(!$igdbid) return;
+	global $extraAssetRoot, $romImage, $romWheelImage, $romSnapImage;
+
+	$dataJson = getPage("https://api-2445582011268.apicast.io/games/?search=".rawurlencode($gameName)."&fields=*&filter[release_dates.platform][eq]={$igdbid}");
+	if($dataJson) $gamesArray = json_decode($dataJson, 1);
+
+	if($gamesArray) {
+		// Convert single result into array to save on code
+		if(isset($gamesArray['name'])) {
+			$arrayTemp = $gamesArray;
+			unset($gamesArray);
+			$gamesArray[0] = $arrayTemp;
+			unset($arrayTemp);
+		}
+
+		// Build a confidence list
+		$nameMatchArray = array();
+		foreach($gamesArray as $thisGameArray) {
+			$matchPercent = nameCompare($dbGameName, $thisGameArray['name'], 1);
+			if($matchPercent) {
+				if(DEBUG) echo "\n[IGDB API Scraper] [{$gameName}] {$thisGameArray['name']} matches with {$matchPercent}% confidence.\n";
+				$nameMatchArray[$matchPercent] = $thisGameArray;
+				// We have a 100% match, no point carrying on
+				if($matchPercent == 100) break;
+			}
+		}
+
+		// No matches, exit
+		if(!isset($nameMatchArray)) return;
+
+		// Sort by order of confidence and select the top game
+		arsort($nameMatchArray);
+		reset($nameMatchArray);
+		$gameArray = current($nameMatchArray);
+		unset($nameMatchArray);
+		if(DEBUG) echo "\n[IGDB API Scraper] {$gameName} found.\n";
+
+		## Publishers, Developers, Genres and Release Dates are always multidimensional arrays, even when they're single entries.
+		## Images (covers, screenshots) aren't. They flatten down into a single array.
+		if($gameArray) {
+			// Score is out of 100
+			if(is_numeric($gameArray['total_rating'])) $score = round($gameArray['total_rating'] / 20, 1);
+
+			// Description is a single large block
+			$description = trim($gameArray['summary']);
+
+			// Publisher needs to be looked up as it only provides an ID
+			if($gameArray['publishers'][0]) {
+				$dataJson = getPage("https://api-2445582011268.apicast.io/companies/{$gameArray['publishers'][0]}");
+				$publisher = json_decode($dataJson, 1)[0]['name'];
+			}
+
+			// Developer needs to be looked up as it only provides an ID
+			if($gameArray['developers'][0]) {
+				$dataJson = getPage("https://api-2445582011268.apicast.io/companies/{$gameArray['developers'][0]}");
+				$developer = json_decode($dataJson, 1)[0]['name'];
+			}
+
+			// Genre(s) need to be looked up as it only provides an ID (doing one lookup per ID with caching should actually use less API calls in the long-run)
+			if($gameArray['genres'][0]) {
+				$genreArray = array();
+				foreach($gameArray['genres'] as $thisGenreId) { $genreArray[] = json_decode(getPage("https://api-2445582011268.apicast.io/genres/{$thisGenreId}"), 1)[0]['name']; }
+				if($genreArray) $genres = implode(', ', $genreArray);
+			}
+
+			// Find the release date by cycling through the listed platforms till we find the right one
+			if($gameArray['release_dates'][0]) {
+				foreach($gameArray['release_dates'] as $thisReleaseArray) {
+					if($thisReleaseArray['platform'] == $igdbid) {
+						if($thisReleaseArray['date']) {
+							// Date is unixtime with miliseconds
+							$releasedate = round($thisReleaseArray['date'] / 1000);
+							break;
+						}
+					}
+				}
+			}
+
+			// Find the images based on array type
+			if($gameArray['cover']['url']) { $coverImage = $gameArray['cover']['cloudinary_id']; }else{ $coverImage = $gameArray['cover'][0]['cloudinary_id']; }
+			if($gameArray['screenshots']['url']) { $screenshotImage = $gameArray['screenshots']['cloudinary_id']; }else{ $screenshotImage = $gameArray['screenshots'][0]['cloudinary_id']; }
+
+			// Get box art
+			if(!$romImage && isset($coverImage)) $romImage = getImage($gameName, "https://images.igdb.com/igdb/image/upload/t_original/{$coverImage}.jpg", $assetFolder);
+			// Get the screenshot/snap art
+			if(!$romSnapImage && isset($screenshotImage)) $romSnapImage = getImage($gameName, "https://images.igdb.com/igdb/image/upload/t_original/{$coverImage}.jpg", $assetFolder, 'Snap');
+			## (doesn't support wheel art)
+
+			if(DEBUG) echo "\n[IGDB Scraper] [{$gameName}] Info found. Adding to database";
+			updateGameDetails('IGDB', $gameName, $dbGameName, $platformName, $releasedate, $genres, $description, $score, $developer, $publisher);
+			return true;
+		}
+	}
+}
+
 function launchboxDbScraper($dbGameName, $platformName, $gameName, $launchboxPlatforms, $assetFolder) {
 	// Unsupported platform, abort
 	if(!$launchboxPlatforms) return;
@@ -63,7 +160,7 @@ function mobyLocalScrape($dbGameName, $gameName, $platformName, $mgids) {
 
 function mobyScrape($dbGameName, $platformName, $gameName, $mgids, $assetFolder, $getImageOnly = null) {
 	if(!$mgids) return;
-	global $extraAssetRoot, $romImage;
+	global $romImage;
 
 	$mgids = explode('|', $mgids);
 	foreach($mgids as $mgid) {

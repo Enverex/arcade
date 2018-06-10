@@ -15,6 +15,8 @@
 
 $systemArr = array();
 
+/*
+
 // Systems Array. One for each system.
 $systemArr['Nintendo SNES'] = array(
 	'folder' => "{$configFile['romBase']}/Nintendo - Super Nintendo Entertainment System",
@@ -398,8 +400,6 @@ $systemArr['Sony PSP'] = array(
 	'nointroname' => 'Sony - PlayStation Portable'
 );
 
-
-/*
 $systemArr['SNK Neo Geo CD'] = array(
 	'folder' => "{$configFile['romBase']}/SNK - Neo Geo CD",
 	'extensions' => 'iso|cue',
@@ -415,7 +415,6 @@ $systemArr['SNK Neo Geo CD'] = array(
 	'ovgdb' => '',
 	'nointroname' => 'SNK - Neo Geo CD'
 );
-*/
 
 $systemArr['SNK Neo Geo Pocket Color'] = array(
 	'folder' => "{$configFile['romBase']}/SNK - Neo Geo Pocket Color",
@@ -435,7 +434,6 @@ $systemArr['SNK Neo Geo Pocket Color'] = array(
 	'nointroname' => 'SNK - Neo Geo Pocket Color'
 );
 
-/*
 $systemArr['Amstrad CPC'] = array(
 	'folder' => "{$configFile['romBase']}/Amstrad - CPC",
 	'extensions' => 'dsk',
@@ -452,7 +450,6 @@ $systemArr['Amstrad CPC'] = array(
 	'ovgdb' => '',
 	'nointroname' => ''
 );
-*/
 
 $systemArr['Amstrad GX4000'] = array(
 	'folder' => "{$configFile['romBase']}/Amstrad - GX4000",
@@ -568,7 +565,6 @@ $systemArr['Atari Lynx'] = array(
 	'nointroname' => 'Atari - Lynx'
 );
 
-/*
 $systemArr['Atari ST'] = array(
 	'folder' => "{$configFile['romBase']}/Atari - ST",
 	'extensions' => 'st',
@@ -585,7 +581,6 @@ $systemArr['Atari ST'] = array(
 	'ovgdb' => '',
 	'nointroname' => 'Atari - ST'
 );
-*/
 
 $systemArr['Coleco ColecoVision'] = array(
 	'folder' => "{$configFile['romBase']}/Coleco - ColecoVision",
@@ -625,7 +620,6 @@ $systemArr['Commodore 64'] = array(
 	'nointroname' => 'Commodore - 64'
 );
 
-/*
 $systemArr['Commodore 64GS'] = array(
 	'folder' => "{$configFile['romBase']}/Commodore - 64GS",
 	'extensions' => 'crt',
@@ -644,7 +638,6 @@ $systemArr['Commodore 64GS'] = array(
 	'ovgdb' => '',
 	'nointroname' => 'Commodore - 64GS'
 );
-*/
 
 $systemArr['GCE Vectrex'] = array(
 	'folder' => "{$configFile['romBase']}/GCE - Vectrex",
@@ -877,8 +870,6 @@ $systemArr['Nintendo Wii'] = array(
 	'nointroname' => 'Nintendo - Wii'
 );
 
-
-/*
 $systemArr['Nintendo Wii VCN64'] = array(
 	'folder' => "{$configFile['romBase']}/Nintendo - Wii VC N64",
 	'extensions' => 'wad',
@@ -896,7 +887,6 @@ $systemArr['Nintendo Wii VCN64'] = array(
 	'ovgdb' => '',
 	'nointroname' => ''
 );
-*/
 
 $systemArr['Panasonic 3DO'] = array(
 	'folder' => "{$configFile['romBase']}/Panasonic - 3DO",
@@ -917,7 +907,6 @@ $systemArr['Panasonic 3DO'] = array(
 	'nointroname' => ''
 );
 
-/*
 $systemArr['Philips CD-i'] = array(
 	'folder' => "{$configFile['romBase']}/Philips - CD-i",
 	'extensions' => 'iso|cue',
@@ -935,7 +924,6 @@ $systemArr['Philips CD-i'] = array(
 	'ovgdb' => '',
 	'nointroname' => 'Philips - Videopac+'
 );
-*/
 
 $systemArr['Sega 32X'] = array(
 	'folder' => "{$configFile['romBase']}/Sega - 32X",
@@ -1070,7 +1058,6 @@ $systemArr['Sega Saturn'] = array(
 	'nointroname' => 'Sega - Saturn'
 );
 
-/*
 $systemArr['Sinclair ZX Spectrum'] = array(
 	'folder' => "{$configFile['romBase']}/Sinclair - ZX Spectrum",
 	'extensions' => 'z80',
@@ -1088,12 +1075,8 @@ $systemArr['Sinclair ZX Spectrum'] = array(
 	'ovgdb' => '',
 	'nointroname' => 'Sinclair - ZX Spectrum +3'
 );
-*/
-
-
 
 // Clone of PC specifically for Touhou Project games
-/*
 $systemArr['Touhou Project'] = array(
 	'folder' => "{$configFile['romBase']}/Team Shanghai Alice - Touhou Project",
 	'extensions' => 'bat',
@@ -1110,7 +1093,6 @@ $systemArr['Touhou Project'] = array(
 	'ovgdb' => '',
 	'nointroname' => ''
 );
-*/
 
 $systemArr['NEC PC-FX'] = array(
 	'folder' => "{$configFile['romBase']}/NEC - PC-FX",
@@ -1172,7 +1154,6 @@ $systemArr['NEC TurboGrafx-CD'] = array(
 	'nointroname' => 'NEC - PC Engine CD - TurboGrafx CD'
 );
 
-/*
 $systemArr['Doom'] = array(
 	'folder' => "{$configFile['romBase']}/Doom",
 	'extensions' => 'wad',
@@ -1188,7 +1169,6 @@ $systemArr['Doom'] = array(
 	'ovgdb' => '',
 	'nointroname' => 'DOOM'
 );
-*/
 
 $systemArr['Bandai WonderSwan'] = array(
 	'folder' => "{$configFile['romBase']}/Bandai - WonderSwan",
@@ -1227,5 +1207,87 @@ $systemArr['Bandai WonderSwan Color'] = array(
 );
 
 ksort($systemArr);
+
+foreach($systemArr as $systemName => $thisSystem) {
+	DBSimple("
+		INSERT IGNORE INTO systems
+			(
+				system_name,
+				system_folder,
+				system_extension,
+				system_assets,
+				system_amname,
+				system_lbname,
+				system_tgdbname,
+				system_dbname,
+				system_gbid,
+				system_mobyid,
+				system_ignname,
+				system_allgamename,
+				system_archivevgname,
+				system_gamefaqsname,
+				system_rfgenid,
+				system_ovgdbname,
+				system_nointroname,
+				system_igdbid
+			)
+		VALUES
+			(
+				?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+			)
+		",
+		array(
+			$systemName,
+			$thisSystem['folder'],
+			$thisSystem['extensions'],
+			$thisSystem['assets'],
+			$thisSystem['amid'],
+			$thisSystem['lbid'],
+			$thisSystem['tgdbid'],
+			$thisSystem['dbname'],
+			$thisSystem['gbid'],
+			$thisSystem['mobyid'],
+			$thisSystem['ignname'],
+			$thisSystem['allgamename'],
+			$thisSystem['archivevgname'],
+			$thisSystem['gamefaqsid'],
+			$thisSystem['rfgenid'],
+			$thisSystem['ovgdb'],
+			$thisSystem['nointroname'],
+			$thisSystem['igdbid']
+		)
+	);
+
+}
+
+die();
+
+*/
+
+// Create systems array
+foreach(DBAssoc("SELECT * FROM systems WHERE system_enabled = 1 ORDER BY system_name ASC") as $thisDbSystem) {
+	$thisSystem['folder'] = $thisDbSystem['system_folder'];
+	$thisSystem['extensions'] = $thisDbSystem['system_extension'];
+	$thisSystem['forceinclude'] = $thisDbSystem['system_forceinc'];
+	$thisSystem['assets'] = $thisDbSystem['system_assets'];
+	$thisSystem['assets2'] = $thisDbSystem['system_assets2'];
+	$thisSystem['assets3'] = $thisDbSystem['system_assets3'];
+	$thisSystem['amid'] = $thisDbSystem['system_amname'];
+	$thisSystem['lbid'] = $thisDbSystem['system_lbname'];
+	$thisSystem['tgdbid'] = $thisDbSystem['system_tgdbname'];
+	$thisSystem['dbname'] = $thisDbSystem['system_dbname'];
+	$thisSystem['gbid'] = $thisDbSystem['system_gbid'];
+	$thisSystem['mobyid'] = $thisDbSystem['system_mobyid'];
+	$thisSystem['ignname'] = $thisDbSystem['system_ignname'];
+	$thisSystem['allgamename'] = $thisDbSystem['system_allgamename'];
+	$thisSystem['archivevgname'] = $thisDbSystem['system_archivevgname'];
+	$thisSystem['gamefaqsid'] = $thisDbSystem['system_gamefaqsname'];
+	$thisSystem['rfgenid'] = $thisDbSystem['system_rfgenid'];
+	$thisSystem['ovgdb'] = $thisDbSystem['system_ovgdbname'];
+	$thisSystem['nointroname'] = $thisDbSystem['system_nointroname'];
+	$thisSystem['igdbid'] = $thisDbSystem['system_igdbid'];
+
+	$systemArr[$thisDbSystem['system_name']] = $thisSystem;
+}
 
 ?>

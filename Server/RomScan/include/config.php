@@ -24,6 +24,7 @@ ini_set('display_errors', 1);
 $wosDelay = 20;
 $wosPause = 1;
 $wosTotal = 0;
+$igdbScraperFailed = 0;
 $timeNow = time();
 $romCount = null;
 $gamefaqTimer = null;

@@ -93,7 +93,7 @@ function cleanShell($cmd) {
 }
 
 function getPage($pageURL) {
-	global $userAgent;
+	global $userAgent, $igdbScraperFailed;
 
 	$pageKey = md5($pageURL);
 	## Try the new cache
@@ -103,8 +103,12 @@ function getPage($pageURL) {
 
 	// Page not in cache, go get it
 	if(!$page) {
+		// Auto-generate referrer to make the site like us more
+		$targetDomain = parse_url($pageURL)['host'];
+		$referrer = "http://{$targetDomain}";
+
 		// Throttle calls to WoS because they block you after X connections
-		if(stristr($pageURL, 'worldofspectrum.org')) {
+		if(strstr($targetDomain, 'worldofspectrum.org')) {
 			global $wosTimer, $wosTotal, $wosDelay, $wosPause;
 			$wosTotal++;
 			$wosTR = (time() - $wosTimer);
@@ -117,9 +121,8 @@ function getPage($pageURL) {
 			$wosTimer = time();
 		}
 
-		// Auto-generate referrer to make the site like us more
-		$targetDomain = parse_url($pageURL)['host'];
-		$referrer = "http://{$targetDomain}";
+		// Don't do IGDB lookups if it's been marked as failed
+		if(strstr($targetDomain, 'apicast.io') && $igdbScraperFailed) return;
 
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $pageURL);
@@ -132,11 +135,24 @@ function getPage($pageURL) {
 		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 5);
 		curl_setopt($curl, CURLOPT_TIMEOUT, 5);
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+
+		// Custom per-site headers
+		if(strstr($targetDomain, 'apicast.io')) curl_setopt($curl, CURLOPT_HTTPHEADER, array('Accept: application/json', 'user-key: ' . KEY_IGDB));
+
+		// Decode and store result
 		$page = toUTF(trim(curl_exec($curl)));
 		$error = trim(curl_error($curl));
 		curl_close($curl);
 
-		// Report any errors
+		// IGDB limits hit
+		if(strstr($targetDomain, 'apicast.io') && $page == 'Authentication failed') {
+			unset($page);
+			$igdbScraperFailed = true;
+			echo("\n[Page Grabber] IGDB refusing lookups. Disabling.\n");
+			return;
+		}
+
+		// Report any general errors
 		if(
 			$error ||
 			stristr($page, 'Internal Server Error') ||
@@ -166,7 +182,7 @@ function getPage($pageURL) {
 			return;
 		}
 
-		if($page) DBSimple("INSERT INTO pageCache SET cachePath = ?, cachePage = ?, cacheTime = ?, cacheKey = ?", array($pageURL, $page, time(), $pageKey));
+		DBSimple("INSERT INTO pageCache SET cachePath = ?, cachePage = ?, cacheTime = ?, cacheKey = ?", array($pageURL, $page, time(), $pageKey));
 	}
 
 	if($page) return $page;
@@ -379,7 +395,7 @@ function detailsComplete($romSafeName, $platform) {
 	if(!$array['gameGenre']) return false;
 	if(!$array['gameReleaseDate']) return false;
 	if(!$array['gameRating']) return false;
-	if(!$array['gamePlayers']) return false;
+	#if(!$array['gamePlayers']) return false;
 	if($platform == 'mame' && !$array['gamePlayers']) return false;
 	if($platform == 'mame' && !$array['gameMameState']) return false;
 
@@ -395,7 +411,7 @@ function missingCount($romSafeName, $platform) {
 	if(!$thisGame['gameGenre']) $failCount++;
 	if(!$thisGame['gameDeveloper']) $failCount++;
 	if(!$thisGame['gamePublisher']) $failCount++;
-	if(!$thisGame['gamePlayers']) $failCount++;
+	#if(!$thisGame['gamePlayers']) $failCount++;
 
 	return $failCount;
 }
@@ -470,7 +486,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	}
 
 	// Find a gameplay video or screenshot image
-	#$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Video_MP4_HI_QUAL";
+	$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Video_MP4_HI_QUAL";
 	$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Snap";
 
 	// Find a wheel image
@@ -481,7 +497,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	while($setParts['assets' . $al]) {
 		$boxImgPaths[]  = ASSET_ROOT."/{$setParts['assets' . $al]}/Box";
 		$boxImgPaths[]  = ASSET_ROOT."/{$setParts['assets' . $al]}/Box_3D";
-		#$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Video_MP4_HI_QUAL";
+		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Video_MP4_HI_QUAL";
 		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Snap";
 		$logoImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Logos";
 		$al++;
@@ -534,6 +550,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 		#if(needsScan($thisRom, $setParts)) openvgdbScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['ovgdb'], $setParts['assets']);
 		if(needsScan($thisRom, $setParts)) thegamesdbScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['tgdbid'], $setParts['assets']);
 		if(needsScan($thisRom, $setParts) && !$skipMoby) mobyLocalScrape($thisRom['safeName'], $thisRom['niceName'], $setParts['dbname'], $setParts['mobyid']);
+		if(needsScan($thisRom, $setParts)) igdbScraper($thisRom['safeName'], $thisRom['niceName'], $setParts['dbname'], $setParts['assets'], $setParts['igdbid']);
 		#if(needsScan($thisRom, $setParts)) archivevgScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['archivevgname'], $setParts['assets']);
 		#if(needsScan($thisRom, $setParts) && !$skipMoby) mobyScrape($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['mobyid'], $setParts['assets']);
 		#if(needsScan($thisRom, $setParts)) allgamecomScraper($thisRom['safeName'], $setParts['dbname'], $thisRom['niceName'], $setParts['allgamename'], $setParts['assets']);
