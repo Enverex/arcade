@@ -64,11 +64,12 @@ foreach($gameArray as $thisGame) {
 
 
 	// Check for reversions e.g. (Rev 2) or (Rev A)
-	preg_match('%\(Rev (\d|[A-Za-z])\)%', $thisGame, $revNum);
-	if(is_numeric($revNum[1])) {
-		$revNum = intval($revNum[1]);
-	}else{
-		$revNum = ord($revNum[1]);
+	if(preg_match('%\(Rev (\d|[A-Za-z])\)%', $thisGame, $revNum)) {
+		if(is_numeric($revNum[1])) {
+			$revNum = intval($revNum[1]);
+		}else{
+			$revNum = ord($revNum[1]);
+		}
 	}
 
 	$otherVersions = trim(shell_exec("ls -1 \"{$niceName} (\"*\"(Rev \"* 2>/dev/null"));
@@ -82,7 +83,7 @@ foreach($gameArray as $thisGame) {
 				$thisRev = ord($thisRev[1]);
 			}
 
-			if($revNum < $thisRev) {
+			if(isset($revNum) && $revNum < $thisRev) {
 				// Other version is newer, bin ours
 				echo "Inferior version [{$revNum} VS. {$thisRev}] - {$thisGame}\n";
 				shell_exec("mv \"{$thisGame}\" Bad/");
@@ -92,8 +93,7 @@ foreach($gameArray as $thisGame) {
 	}
 
 	// Check for reversions e.g. (v1.01)
-	preg_match('%\(v(\d\.\d)\)%', $thisGame, $revNum);
-	$revNum = $revNum[1];
+	if(preg_match('%\(v(\d\.\d)\)%', $thisGame, $revNum)) $revNum = $revNum[1];
 
 	$otherVersions = trim(shell_exec("ls -1 \"{$niceName} (\"*\"(v\"* 2>/dev/null"));
 	if($otherVersions) {
@@ -102,7 +102,7 @@ foreach($gameArray as $thisGame) {
 			preg_match('%\(v(\d\.\d)\)%', $otherGame, $thisRev);
 			$thisRev = $thisRev[1];
 
-			if($revNum < $thisRev) {
+			if(isset($revNum) && $revNum < $thisRev) {
 				// Other version is newer, bin ours
 				echo "Inferior version [{$revNum} VS. {$thisRev}] - {$thisGame}\n";
 				shell_exec("mv \"{$thisGame}\" Bad/");
