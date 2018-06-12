@@ -76,11 +76,12 @@ foreach($gameArray as $thisGame) {
 	if($otherVersions) {
 		$otherVersionArray = explode("\n", $otherVersions);
 		foreach($otherVersionArray as $otherGame) {
-			preg_match('%\(Rev (\d|[A-Za-z])\)%', $otherGame, $thisRev);
-			if(is_numeric($thisRev[1])) {
-				$thisRev = intval($thisRev[1]);
-			}else{
-				$thisRev = ord($thisRev[1]);
+			if(preg_match('%\(Rev (\d|[A-Za-z])\)%', $otherGame, $thisRev)) {
+				if(is_numeric($thisRev[1])) {
+					$thisRev = intval($thisRev[1]);
+				}else{
+					$thisRev = ord($thisRev[1]);
+				}
 			}
 
 			if(isset($revNum) && $revNum < $thisRev) {
