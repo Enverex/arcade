@@ -10,6 +10,7 @@ macArray[home]="40:EF:4C:37:9D:FB"
 macArray[mobile]="30:21:B8:C7:2B:84"
 macArray[headphones]="6C:5A:B5:7B:0B:27"
 macArray[dongle]="00:02:5B:00:FF:02"
+macArray[mini]="FC:58:FA:60:0A:88"
 
 ## List of usable onboard audio devices
 declare -A cardArray
@@ -93,11 +94,12 @@ disconnectAll
 
 
 ## Bluetooth devices
-if [[ $useDevice == 'home' ]] || [[ $useDevice == 'mobile' ]] || [[ $useDevice == 'headphones' ]] || [[ $useDevice == 'dongle' ]]; then
+if [ ${macArray[$useDevice]+abc} ]; then
 	## Wait for bluetooth disconnects to complete
 	sleep 3
 	echo "Trying to connect to ${useDevice} (${macArray[$useDevice]})..."
-	doBtConnect ${macArray[$useDevice]} && trySwitchSink "bluez_card.$(echo ${macArray[$useDevice]} | sed 's/:/_/g') a2dp_sink" "bluez_sink.$(echo ${macArray[$useDevice]} | sed 's/:/_/g').a2dp_sink"
+	doBtConnect ${macArray[$useDevice]}
+	trySwitchSink "bluez_card.$(echo ${macArray[$useDevice]} | sed 's/:/_/g') a2dp_sink" "bluez_sink.$(echo ${macArray[$useDevice]} | sed 's/:/_/g').a2dp_sink"
 	switched=1
 
 ## Nvidia GPU HDMI output

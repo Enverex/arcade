@@ -1,2 +1,0 @@
-// Make anything that may be an executable, executable
-find -type f -iname "*x86*" -or -iname "*x64*" -or -iname "*.sh" -or -iname "*.bin" -exec chmod -c +x "{}" \;

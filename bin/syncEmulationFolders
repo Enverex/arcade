@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
-rsyncVars=(-zavOS --no-motd --no-perms --no-owner --no-group --delete --force -e 'ssh -p 222 -T -c aes128-gcm@openssh.com -x')
-rsyncVarsNd=(-zavOS --no-motd --no-perms --no-owner --no-group --force -e 'ssh -p 222 -T -c aes128-gcm@openssh.com -x')
+rsyncVars=(-zaOS --info=progress2 --no-i-r --no-motd --no-perms --no-owner --no-group --delete --force -e 'ssh -p 222 -T -c aes128-gcm@openssh.com -x')
+rsyncVarsNd=(-zaOS --info=progress2 --no-i-r --no-motd --no-perms --no-owner --no-group --force -e 'ssh -p 222 -T -c aes128-gcm@openssh.com -x')
 
 function doMessage {
 	echo -e "\n\e[92m${1}\e[0m"
@@ -31,7 +31,7 @@ rsync "${rsyncVarsNd[@]}" root@10.2:/mnt/store/Files/RomScan/generated/ES/.emula
 
 ## Sync the Emulation Media Assets
 doMessage "== Syncing Assets"
-rsync -L "${rsyncVars[@]}" root@10.2:/mnt/store/Emulation/Assets/Live /mnt/store/Emulation/Assets/
+rsync -L "${rsyncVars[@]}" root@10.2:/mnt/store/Emulation/Assets/Live/ /home/arcade/.attract/Assets/
 rsync "${rsyncVars[@]}" root@10.2:/mnt/store/Emulation/Misc /mnt/store/Emulation/
 
 ## Sync Game Content

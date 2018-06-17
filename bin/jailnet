@@ -1,0 +1,2 @@
+## Disable a program's access to the internet
+firejail --noprofile --net=none "$@"

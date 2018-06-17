@@ -4,7 +4,12 @@
 ## Wrapper/handler for all emulation platforms
 #################################################################
 
+exec >/tmp/elord.log
+exec 2>&1
+
 cd ~
+
+source /etc/environment
 
 emuPlatform="$1"
 emuGame="$2"
@@ -14,8 +19,15 @@ romRoot='/mnt/store/Emulation/Games'
 homeRoot='/home/arcade'
 messLb='~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 
+## Don't wrap ourselves
+if [ "${emuPlatform}" = 'pc' ]; then
+	"$emuGame"
+	exit
+fi
+
 export DISPLAY=:0
 export WINEDEBUG=-all
+export XDG_RUNTIME_DIR=/run/user/$UID
 
 ## Use a different shader cache per-game
 export __GL_SHADER_DISK_CACHE_PATH="/home/arcade/.nv/localCache/$(echo "${emuPlatform}-${emuGame}" | md5sum | awk '{print $1}')"
@@ -41,6 +53,10 @@ echo -en "Launching Game - Please Wait" | osd_cat -Acenter -pmiddle -cwhite -s2 
 
 function cleanName() { echo "${1//[^a-zA-Z0-9.]/_}"; }
 
+function spinDown() {
+	sudo hdparm -y /dev/disk/by-label/ArcadeStore &
+}
+
 function genVectrexConfig {
 	if [ -z "$1" ]; then exit 255; fi
 
@@ -58,6 +74,7 @@ function setAAMode {
 
 ## RetroArch Multi-System Emulator (takes 1 argument: the core name)
 function raGame {
+	cpuMax
 	gameFile=$(basename "${emuGame}")
 	gameSafeName=$(cleanName "${gameFile}")
 
@@ -123,6 +140,9 @@ function launchGem {
 }
 
 function doLights {
+	## Disable for now
+	exit
+
 	## This is a supervisor, don't do anything
 	if [ "$emuPlatform" = 'pc' ]; then return; fi
 
@@ -136,6 +156,7 @@ function doLights {
 }
 
 function launchDolphin {
+	cpuMax
 	gameFile=$(basename "${emuGame}")
 
 	case ${1} in
@@ -285,10 +306,9 @@ function smartWine {
 		unset useWineVk
 	fi
 
-	wine32Loc="/mnt/store/Wine"
-	wine64Loc="/mnt/store/Wine64"
-
 	## Auto-detect the arch based on where the game is
+	#wine32Loc="/mnt/store/Wine"
+	#wine64Loc="/mnt/store/Wine64"
 	#if [ -d "${wine32Loc}/drive_c/${reqDir}" ]; then
 	#	doMessage "Running 32bit Wine"
 	#	#export WINEARCH='win32'
@@ -315,7 +335,13 @@ function smartWine {
 	#if [ -z "${NOKOKU}" ]; then export LD_PRELOAD="/usr/lib/koku-xinput-wine.so /usr/lib/koku-xinput-wine64.so"; fi
 
 	## Switch to the EXE's actual directory
-	cd "${WINEPREFIX}/drive_c/${reqDir}"
+	if [ -d "${WINEPREFIX}/drive_c/${reqDir}" ]; then
+		cd "${WINEPREFIX}/drive_c/${reqDir}"
+	elif [ -d "${WINEPREFIX}/drive_c/Games/${reqDir}" ]; then
+		cd "${WINEPREFIX}/drive_c/Games/${reqDir}"
+	else
+		doError "Cannot find the Windows program directory for ${reqDir}"
+	fi
 
 	## If additional Pulse latency is required, add PULSE_LATENCY_MSEC=32 to the launcher script
 	wine ${vDesktop} "${reqExe}" ${emuArgs}
@@ -325,16 +351,19 @@ function smartWine {
 }
 
 function launchWiiUGame {
-	setAAMode fxaa
+	cpuMax
+	#setAAMode fxaa
 	gameFolder="$(basename "$emuGame")"
 	set -e
 	cd "${romRoot}/Nintendo - Wii U/${gameFolder}/code"
 	## Find the name of the game binary to run
 	wiiFile="$(find * -iname "*.rpx" | head -n1)"
 	set +e
-	cd /mnt/store/Wine64/drive_c/Games/Cemu
-	wineauto Cemu.exe -f -g "Z:\\mnt\\store\\Emulation\\Games\\Nintendo - Wii U\\${gameFolder}\\code\\${wiiFile}" >/dev/null 2>&1
-	setAAMode off
+	cd /mnt/store/WineBottles/Cemu/drive_c/Cemu
+	#export WINEDLLOVERRIDES="mscoree=;mshtml=;dbghelp.dll=n,b"
+	export WINEDLLOVERRIDES="dbghelp.dll=n,b"
+	wineauto Cemu.exe -f -g "Z:\\mnt\\store\\Emulation\\Games\\Nintendo - Wii U\\${gameFolder}\\code\\${wiiFile}"
+	#setAAMode off
 }
 
 function launchXboxGame {
@@ -357,27 +386,32 @@ function launchFuturePinball {
 }
 
 function launchPs2 {
-	PCSX2 --nogui --noguiprompt --fullscreen "$emuGame"
+	PCSX2 --nogui --noguiprompt --fullscreen "$emuGame" 2>&1 >/dev/null
+}
+
+function launchPs3 {
+	cpuMax
+	rpcs3 "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null
 }
 
 function smartLinux {
 	reqDir=${emuGame%/*}
 	reqExe=${emuGame##*/}
-	steamDir="${HOME}/.steam/steam"
 	baseGameDir="${HOME}/Games"
 
 	## Auto-locate the game we're trying to launch.
 	if [ -d "${baseGameDir}/${reqDir}" ]; then
 		gameDir="${baseGameDir}/${reqDir}"
+		## Power down the other disk, it's not needed
+		spinDown
+
 	elif [ -d "/mnt/store/Games/${reqDir}" ]; then
 		gameDir="/mnt/store/Games/${reqDir}"
-	elif [ -d "${baseGameDir}/Steam1/${reqDir}" ]; then
-		gameDir="${baseGameDir}/Steam1/${reqDir}"
-	elif [ -d "${baseGameDir}/Steam2/${reqDir}" ]; then
-		gameDir="${baseGameDir}/Steam2/${reqDir}"
+
 	else
 		doError "Cannot find the game directory for ${reqDir}"
 		return
+
 	fi
 
 	## Switch to the EXE's actual directory
@@ -394,27 +428,28 @@ function smartLinux {
 	## Determine if 32 or 64bit (if it's a script then chances are it sets paths itself anyway)
 	#bitCheck=$(file "${reqExe}"  | grep 'ELF 32-bit')
 
-	## Include relevant libraries, Steam bypass comes first
-	#if ! [ -z "${bitCheck}" ]; then
-	#	export LD_LIBRARY_PATH="${homeDir}/Games/CRK32:.:../:./lib:./bin:./lib32:./i386:./x86:${homeDir}/.config/lib32:${steamDir}/ubuntu12_32/steam-runtime/i386/lib/i386-linux-gnu:${steamDir}/ubuntu12_32/steam-runtime/i386/usr/lib:${steamDir}/ubuntu12_32/steam-runtime/i386/usr/lib/i386-linux-gnu:/usr/lib32:$LD_LIBRARY_PATH"
-	#else
-	#	export LD_LIBRARY_PATH="${homeDir}/Games/CRK64:.:../:./lib:./bin:./lib64:./amd64:./x86_64:${homeDir}/.config/lib64:${steamDir}/ubuntu12_32/steam-runtime/amd64/lib/x86_64-linux-gnu:${steamDir}/ubuntu12_32/steam-runtime/amd64/usr/lib:${steamDir}/ubuntu12_32/steam-runtime/amd64/usr/lib/x86_64-linux-gnu:/usr/lib:$LD_LIBRARY_PATH"
-	#fi
-
 	## Make sure it's executable
 	chmod +x "${reqExe}"
 
 	## Silence the program as we won't see the output anyway
-	./"${reqExe}" $emuArgs >/dev/null 2>&1
+	./"${reqExe}" $emuArgs 2>&1 >/dev/null
 
 	## Fix potentially broken screen resolution on game exit
 	#fixResolution
 }
 
+## Put CPU in performance mode
+function cpuMax() {
+	sudo cpupower frequency-set -g performance 2>&1 >/dev/null
+}
+
+function cpuMin() {
+	sudo cpupower frequency-set -g powersave 2>&1 >/dev/null
+}
+
 #doLights game
-doLights cracktro
+doLights cracktro &
 #sudo systemctl stop mycroft &
-sudo cpupower frequency-set -g performance >/dev/null
 
 ## Main Input Request Handling
 case $emuPlatform in
@@ -457,13 +492,10 @@ case $emuPlatform in
 	nes ) raGame nestopia ;;
 	ngpc ) raGame mednafen_ngp ;;
 	odyssey2 ) raGame o2em ;;
-	pc ) "$emuGame" ;;
 	pcfx ) raGame mednafen_pcfx ;;
 	pico8 ) pico8 -run "$emuGame" ;;
 	ps2 ) launchPs2 ;;
-	#ps3 ) rpcs3 "/mnt/store/Emulation/Games/Sony - Playstation 3/${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
-	#ps3 ) rpcs3 "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
-	ps3 ) ~/AppImage/rpcs3-v0.0.5-6694-25ec899c_linux64.AppImage "${emuGame}/PS3_GAME/USRDIR/EBOOT.BIN" 2>&1 >/dev/null ;;
+	ps3 ) launchPs3 ;;
 	#psp ) raGame ppsspp ;;
 	psp ) ppsspp --fullscreen "$emuGame" ;;
 	psx ) raGame beetle_psx ;;
@@ -489,6 +521,6 @@ esac
 
 ## Put lights back in epilepsy mode
 doLights attract &
-sudo cpupower frequency-set -g powersave >/dev/null
+cpuMin
 
 doMessage "eLord Finished"

@@ -1,8 +1,7 @@
 #!/bin/sh
 
 ## Set Spindown Timeout
-hdparm -S 241 /dev/sda &
-hdparm -S 241 /dev/sdb &
+hdparm -S 241 /dev/disk/by-label/ArcadeStore &
 
 ## CPU to On-Demand
 cpupower frequency-set -g powersave &

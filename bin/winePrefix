@@ -8,7 +8,12 @@ fi
 
 gamePath="$(ls -1 /mnt/store/{Wine,Wine64,WineBottles/*}/drive_c/"$1" 2>/dev/null | head -n1)"
 
-case "$gamePath" in
+## No patch match, try game folders specifically
+if [ -z "${gamePath}" ]; then
+	gamePath="$(ls -1 /mnt/store/{Wine,Wine64,WineBottles/*}/drive_c/Games/"$1" 2>/dev/null | head -n1)"
+fi
+
+case "${gamePath}" in
 	## Game Specific Prefixes
 	/mnt/store/WineBottles/*)
 		bottleName="$(echo $gamePath | cut -d'/' -f5)"
