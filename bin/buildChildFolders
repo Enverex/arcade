@@ -32,9 +32,9 @@ function doBuilds {
 	done
 }
 
-cd /mnt/store/Build/pkg-autobuild-deps
-doBuilds
-cd /mnt/store/Build/pkg-autobuild
+#cd /mnt/store/Build/pkg-autobuild-deps
+#doBuilds
+cd /mnt/store/Build/Custom
 doBuilds
 
 echo -e "\n\n=== Failed builds...\n"

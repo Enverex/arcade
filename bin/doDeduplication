@@ -1,0 +1,11 @@
+#!/bin/sh
+## Deduplicate Main Data Folders
+
+## Dedupe System Drive
+duperemove -dhrx -b 16k --lookup-extents=yes /
+
+## Dedupe Native Games
+duperemove -dhrx -b 64k --lookup-extents=yes --hashfile=/mnt/store/.dedupe-native /mnt/store/Games
+
+## Dedupe Wine Games
+duperemove -dhrx -b 64k --lookup-extents=yes --hashfile=/mnt/store/.dedupe-wine /mnt/store/Wine*

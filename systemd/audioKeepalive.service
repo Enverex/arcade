@@ -1,0 +1,9 @@
+[Unit]
+Description=Audio Keepalive
+Requires=pulse.service
+
+[Service]
+Type=oneshot
+User=arcade
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+ExecStart=/usr/bin/aplay -qN /home/arcade/Stuff/silent.wav

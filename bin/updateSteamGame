@@ -24,4 +24,5 @@ if [ "$1" == 'validate' ]; then
 	doVal="validate"
 fi
 
+echo "Running ~/.steam/steamcmd.sh $winVar +login enverex +force_install_dir '${gameFolder}' +app_update ${gameId} ${doVal} +quit"
 ~/.steam/steamcmd.sh $winVar +login enverex +force_install_dir "${gameFolder}" +app_update ${gameId} ${doVal} +quit

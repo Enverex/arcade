@@ -1,0 +1,11 @@
+[Unit]
+Description=Audio Device Setup
+After=sound.target bluetooth.target
+
+[Service]
+ExecStart=/home/arcade/.bin/switchAudio
+Type=oneshot
+User=arcade
+
+[Install]
+WantedBy=multi-user.target

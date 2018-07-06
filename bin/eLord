@@ -49,7 +49,7 @@ if [ -z "$emuGame" ]; then
 fi
 
 ## Show OSD confirmation
-echo -en "Launching Game - Please Wait" | osd_cat -Acenter -pmiddle -cwhite -s2 -O6 -ublack -l1 -d3 -f"PacFontGood 36" &
+#echo -en "Launching Game - Please Wait" | osd_cat -Acenter -pmiddle -cwhite -s2 -O6 -ublack -l1 -d3 -f"PacFontGood 36" &
 
 function cleanName() { echo "${1//[^a-zA-Z0-9.]/_}"; }
 
@@ -359,7 +359,7 @@ function launchWiiUGame {
 	## Find the name of the game binary to run
 	wiiFile="$(find * -iname "*.rpx" | head -n1)"
 	set +e
-	cd /mnt/store/WineBottles/Cemu/drive_c/Cemu
+	cd /mnt/store/Wine64/drive_c/Cemu
 	#export WINEDLLOVERRIDES="mscoree=;mshtml=;dbghelp.dll=n,b"
 	export WINEDLLOVERRIDES="dbghelp.dll=n,b"
 	wineauto Cemu.exe -f -g "Z:\\mnt\\store\\Emulation\\Games\\Nintendo - Wii U\\${gameFolder}\\code\\${wiiFile}"
@@ -469,7 +469,7 @@ case $emuPlatform in
 	doom ) gzdoom -iwad "$emuGame" $emuArgs ;;
 	dos ) "$emuGame" ;;
 	dosbox ) launchDosGame ;;
-	dreamcast ) raGame reicast ;;
+	dreamcast ) raGame reicast_oit ;;
 	futurepinball ) launchFuturePinball ;;
 	gamegear ) raGame genesis_plus_gx ;;
 	gb ) raGame gambatte ;;

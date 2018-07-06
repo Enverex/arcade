@@ -65,8 +65,8 @@ if [ -z "${KILLED}" ]; then
 fi
 
 ## Start AttractMode if it's not already running
-attractPid=$(pidof attract)
-if [ -z "${attractPid}" ]; then
-	attract &
+frontendPid=$(pidof emulationstation)
+if [ -z "${frontendPid}" ]; then
+	es &
 fi
 

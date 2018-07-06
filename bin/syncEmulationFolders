@@ -31,7 +31,7 @@ rsync "${rsyncVarsNd[@]}" root@10.2:/mnt/store/Files/RomScan/generated/ES/.emula
 
 ## Sync the Emulation Media Assets
 doMessage "== Syncing Assets"
-rsync -L "${rsyncVars[@]}" root@10.2:/mnt/store/Emulation/Assets/Live/ /home/arcade/.attract/Assets/
+rsync -L "${rsyncVars[@]}" root@10.2:/mnt/store/Emulation/Assets/Live/ /home/arcade/Documents/Assets/
 rsync "${rsyncVars[@]}" root@10.2:/mnt/store/Emulation/Misc /mnt/store/Emulation/
 
 ## Sync Game Content
