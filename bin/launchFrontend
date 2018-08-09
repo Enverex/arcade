@@ -1,0 +1,25 @@
+#!/bin/bash
+
+## Play the intro video until the drive is mounted
+## then start the frontend program
+
+## Wait for the storage disk to complete mounting
+until grep -qs '/mnt/store ' /proc/mounts; do
+	## Only start the video if it hasn't already been started
+	if [ -z "$vidPid" ]; then
+		echo "Starting Loading Video..."
+		mpv --fs --really-quiet --no-audio ~/Documents/LoadingScreen.mp4 &
+		vidPid=$!
+	fi
+	sleep 2
+done
+
+## Kill the video if we started it
+if [ ! -z "$vidPid" ]; then
+	echo "Closing Loading video..."
+	kill -9 "$vidPid"
+fi
+
+## Start the actual frontend
+pkill emulationstation
+emulationstation --gamelist-only --no-splash --vsync on

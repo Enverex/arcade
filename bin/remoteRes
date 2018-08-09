@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## Wanted Res "Width Height"
+RES="1792 1008"
+
+## Autogen Needed Info
+DP="$(xrandr | grep ' connected ' | awk '{print $1}')"
+# Modeline "1792x1008_60.00"  150.19  1792 1904 2096 2400  1008 1009 1012 1043  -HSync +Vsync
+MODELINE="$(gtf ${RES} 60 | grep Modeline | sed 's/Modeline //g' | tr -d '"' | sed 's/_60.00//g')"
+MODENAME=$(echo ${MODELINE} | awk '{print $1}')
+
+## Force add res and then switch
+xrandr --newmode ${MODELINE}
+xrandr --addmode ${DP} ${MODENAME}
+xrandr --output ${DP} --mode ${MODENAME}

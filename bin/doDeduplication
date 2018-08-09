@@ -9,3 +9,11 @@ duperemove -dhrx -b 64k --lookup-extents=yes --hashfile=/mnt/store/.dedupe-nativ
 
 ## Dedupe Wine Games
 duperemove -dhrx -b 64k --lookup-extents=yes --hashfile=/mnt/store/.dedupe-wine /mnt/store/Wine*
+
+## Dedupe Emulation Misc
+duperemove -dhrx -b 64k --lookup-extents=yes --hashfile=/mnt/store/.dedupe-emumisc /mnt/store/EmuSystem
+
+## Dedupe Emulation
+for FOLDER in /mnt/store/Emulation/Games; do
+	duperemove -dhrx -b 128k --lookup-extents=yes --hashfile=/mnt/store/.dedupe-emulation "${FOLDER}"
+done

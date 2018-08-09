@@ -1,15 +1,15 @@
 #!/bin/sh
 
 ## Set Spindown Timeout
-hdparm -S 241 /dev/disk/by-label/ArcadeStore &
+hdparm -S 245 /dev/disk/by-label/ArcadeStore &
 
 ## CPU to On-Demand
-cpupower frequency-set -g powersave &
+#cpupower frequency-set -g powersave &
 
 ## Mount Late Drives
 mount /mnt/store &
-mount /mnt/emerald &
+#mount /mnt/emerald &
 
 ## Overclock GPU
-nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=205' &
-nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=1492' &
+#nvidia-settings -a '[gpu:0]/GPUGraphicsClockOffset[3]=205' &
+#nvidia-settings -a '[gpu:0]/GPUMemoryTransferRateOffset[3]=1492' &

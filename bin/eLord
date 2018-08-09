@@ -27,10 +27,10 @@ fi
 
 export DISPLAY=:0
 export WINEDEBUG=-all
+export TERM=xterm
+export LC_ALL=C
+export LANG=C
 export XDG_RUNTIME_DIR=/run/user/$UID
-
-## Use a different shader cache per-game
-export __GL_SHADER_DISK_CACHE_PATH="/home/arcade/.nv/localCache/$(echo "${emuPlatform}-${emuGame}" | md5sum | awk '{print $1}')"
 
 function doMessage() { echo -e "\n\e[92m${messLb}\n ${1}\n${messLb}\n\e[0m"; }
 function doInfo() { echo -e "\n\e[96m${messLb}\n ${1}\n${messLb}\n\e[0m"; }
@@ -66,8 +66,16 @@ function genVectrexConfig {
 
 function setAAMode {
 	case $1 in
-		msaa )	nvidia-settings --assign=FSAA=10 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0 ;;
-		fxaa )	nvidia-settings --assign=FXAA=1 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0 ;;
+		on )	export pp_jimenezmlaa=4 ;;
+		def )	nvidia-settings --assign=FXAA=1 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0 ;;
+		off )	unset pp_jimenezmlaa ;;
+	esac
+}
+
+function setAAModeNvidia {
+	case $1 in
+		on )	nvidia-settings --assign=FSAA=10 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0 ;;
+		def )	nvidia-settings --assign=FXAA=1 --assign=FSAAAppControlled=0 --assign=FSAAAppEnhanced=0 ;;
 		off )	nvidia-settings --assign=FSAA=0 --assign=FXAA=0 --assign=FSAAAppControlled=1 --assign=FSAAAppEnhanced=1 ;;
 	esac
 }
@@ -329,7 +337,7 @@ function smartWine {
 	export WINEPREFIX="${usePrefix}"
 
 	## Kill any old processes
-	wineserver -k
+	#wineserver -k
 
 	## KoKu xInput Override (not needed as native XInput support now seems to work)
 	#if [ -z "${NOKOKU}" ]; then export LD_PRELOAD="/usr/lib/koku-xinput-wine.so /usr/lib/koku-xinput-wine64.so"; fi
@@ -367,7 +375,7 @@ function launchWiiUGame {
 }
 
 function launchXboxGame {
-	setAAMode fxaa
+	setAAMode def
 	gameFolder="$(basename "$emuGame")"
 	set -e
 	cd "${romRoot}/Microsoft - Xbox/${gameFolder}/"
@@ -403,7 +411,7 @@ function smartLinux {
 	if [ -d "${baseGameDir}/${reqDir}" ]; then
 		gameDir="${baseGameDir}/${reqDir}"
 		## Power down the other disk, it's not needed
-		spinDown
+		#spinDown
 
 	elif [ -d "/mnt/store/Games/${reqDir}" ]; then
 		gameDir="/mnt/store/Games/${reqDir}"
@@ -418,8 +426,6 @@ function smartLinux {
 	cd "${gameDir}"
 
 	## Help deal with shit games
-	export LC_ALL=C
-	export LANG=C
 
 	#############################################################################################
 	## Don't do any of this anymore, games seem to work fine with their own or system libraries.
@@ -498,7 +504,7 @@ case $emuPlatform in
 	ps3 ) launchPs3 ;;
 	#psp ) raGame ppsspp ;;
 	psp ) ppsspp --fullscreen "$emuGame" ;;
-	psx ) raGame beetle_psx ;;
+	psx ) raGame mednafen_psx_hw ;;
 	quake ) launchQuakeGame ;;
 	saturn ) raGame mednafen_saturn ;;
 	#saturn ) raGame yabause ;;

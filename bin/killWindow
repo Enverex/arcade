@@ -67,6 +67,6 @@ fi
 ## Start AttractMode if it's not already running
 frontendPid=$(pidof emulationstation)
 if [ -z "${frontendPid}" ]; then
-	es &
+	sudo systemctl restart frontend &
 fi
 

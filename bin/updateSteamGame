@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/bin/bash -e
 
 gameId=$(echo -ne $(cat steam_appid.txt 2>/dev/null))
 gameFolder="$(pwd)"
 timeNow=$(date +%y%m%d%H%M)
 backupFolder="PreUpdate/${timeNow}"
+#export http_proxy=xnode.org:8000
 
 if [ -z "${gameId}" ]; then
 	echo "Missing steam_appid.txt. Put the game's Steam ID into this file and run again."
@@ -11,8 +12,8 @@ if [ -z "${gameId}" ]; then
 fi
 
 ## Backup any possible pre-existing cracks
-mkdir -p "${backupFolder}"
-find -name "libsteam_api.so" ! -path "./PreUpdate/*" -exec cp --parents {} ${backupFolder}/ \;
+#mkdir -p "${backupFolder}"
+#find -name "libsteam_api*.so" ! -path "./PreUpdate/*" -exec cp --parents {} ${backupFolder}/ \;
 
 echo "==== Updating game ID ${gameId}"
 
@@ -20,9 +21,10 @@ if [ "$1" == 'win' ]; then
 	winVar="+@sSteamCmdForcePlatformType windows"
 fi
 
-if [ "$1" == 'validate' ]; then
+if [ "$2" == 'val' ]; then
 	doVal="validate"
 fi
 
-echo "Running ~/.steam/steamcmd.sh $winVar +login enverex +force_install_dir '${gameFolder}' +app_update ${gameId} ${doVal} +quit"
-~/.steam/steamcmd.sh $winVar +login enverex +force_install_dir "${gameFolder}" +app_update ${gameId} ${doVal} +quit
+#~/.steam/steamcmd.sh $winVar +login enverex +force_install_dir "${gameFolder}" +app_update ${gameId} ${doVal} +quit
+sudo steamcmd $winVar +login enverex +force_install_dir "${gameFolder}" +app_update ${gameId} ${doVal} +quit
+sudo chown -Rc arcade:arcade .

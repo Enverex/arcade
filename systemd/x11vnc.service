@@ -4,12 +4,13 @@ After=display-manager.service
 
 [Service]
 EnvironmentFile=/etc/environment
-ExecStart=/bin/x11vnc -q -noxfixes -noxdamage -noxrecord -nodpms -nossl -forever -noxinerama -no6 -nolookup -noipv6 -rfbportv6 -1 -rfbauth /home/arcade/.config/x11vnc/passwd
+ExecStart=/bin/x11vnc -q -nolookup -cursor_drag -clear_mods -clear_keys -xwarppointer -nodpms -nossl -noxinerama -no6 -nolookup -noipv6 -rfbportv6 -1 -rfbauth /home/arcade/.config/x11vnc/passwd
 WorkingDirectory=/home/arcade
 User=arcade
 Group=arcade
 Type=simple
-Restart=on-failure
+Restart=always
+RestartSec=5
 KillMode=process
 
 [Install]

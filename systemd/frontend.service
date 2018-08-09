@@ -1,17 +1,16 @@
 [Unit]
 Description=Emulation Frontend
 Requires=pulse.service display-manager.service xboxdrv.service
-# Not needed now that media is stored on the SSD
-#After=mnt-store.mount
 
 [Service]
 EnvironmentFile=/etc/environment
-ExecStart=/home/arcade/.bin/es
+ExecStart=/home/arcade/.bin/launchFrontend
 WorkingDirectory=/home/arcade
 User=arcade
 Group=arcade
 Type=simple
-Restart=on-failure
+Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target

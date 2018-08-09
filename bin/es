@@ -1,3 +1,4 @@
 #!/bin/sh
 
+killall emulationstation -9
 emulationstation --gamelist-only --no-splash --vsync on

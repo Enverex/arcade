@@ -1,0 +1,17 @@
+#!/bin/sh
+## Turn SVG logos into PNG icons for AttractMode system logos
+
+cd /home/arcade/.attract/layouts/arcade/logo
+
+if ! [ -z "$1" ]; then
+	thisSvg="$1"
+	CNAME=$(basename "${thisSvg}" .svg)
+	convert -density 600 -background none "${CNAME}.svg" -thumbnail 800x45 +repage "${CNAME}.png"
+	optipng -o7 "${CNAME}.png"
+else
+	for thisSvg in *.svg; do
+		CNAME=$(basename "${thisSvg}" .svg)
+		convert -density 600 -background none "${CNAME}.svg" -thumbnail 800x45 +repage "${CNAME}.png"
+		optipng -o7 "${CNAME}.png"
+	done
+fi
