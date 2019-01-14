@@ -301,7 +301,7 @@ function getImage($gameName, $imageURL, $assetFolder, $imgFolder = 'Box') {
 
 	// Check it downloaded ok
 	if(file_exists($tempFile)) {
-		if(isImage($tempFile) && filesize($tempFile) > 5000) {
+		if(isImage($tempFile) && filesize($tempFile) > 100) {
 			// Find the real filetype
 			$fileExt = image_type_to_extension(exif_imagetype($tempFile), false);
 			#$fileReport = cleanShell("file \"{$tempFile}\"");
@@ -326,13 +326,12 @@ function getImage($gameName, $imageURL, $assetFolder, $imgFolder = 'Box') {
 			if(DEBUG) echo "\n[Image Manager] Image too small. Probably garbage ({$imageURL}).\n";
 			blacklistUrl($imageURL);
 		}
-	}else{
-		if(DEBUG) echo "\n[Image Manager] Image failed to download ({$imageURL}).\n";
-		blacklistUrl($imageURL);
 	}
 
 	// Delete the temp file as we only reach this point if it failed
-	unlink($tempFile);
+	echo "\n[Image Manager] Image failed to download ({$imageURL}).\n";
+	blacklistUrl($imageURL);
+	if(file_exists($tempFile)) unlink($tempFile);
 	return false;
 }
 
@@ -455,7 +454,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 
 	// Mark game as already scanned on slow scrapers to speed up future scanning
 	if($gameDBOArr['gameMobyChecked']) $skipMoby = true;
-	
+
 
 	##### Start Existing Image Location Assignment #############################
 
@@ -481,12 +480,12 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 
 	// Find a snap video or image using MAME's own Extras
 	if($setParts['assets'] == 'MAME') {
-		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}-Extra/videosnaps";
+		#$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}-Extra/videosnaps";
 		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}-Extra/snap";
 	}
 
 	// Find a gameplay video or screenshot image
-	$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Video_MP4_HI_QUAL";
+	#$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Video_MP4_HI_QUAL";
 	$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets']}/Snap";
 
 	// Find a wheel image
@@ -497,7 +496,7 @@ function getGameInfo($thisRom, $setParts, $thisSet) {
 	while($setParts['assets' . $al]) {
 		$boxImgPaths[]  = ASSET_ROOT."/{$setParts['assets' . $al]}/Box";
 		$boxImgPaths[]  = ASSET_ROOT."/{$setParts['assets' . $al]}/Box_3D";
-		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Video_MP4_HI_QUAL";
+		#$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Video_MP4_HI_QUAL";
 		$snapImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Snap";
 		$logoImgPaths[] = ASSET_ROOT."/{$setParts['assets' . $al]}/Logos";
 		$al++;
@@ -636,7 +635,7 @@ function romScan($romFile, $thisSet, $setParts, $mameGameArr) {
 
 	$thisRom['file'] = trim($romFile);
 
-	// This is a folder (and not a symlink) - abort
+	// This is a pseudo folder - abort
 	if($thisRom['file'] == '.' || $thisRom['file'] == '..') return;
 	#if(is_dir("{$setParts['folder']}/{$thisRom['file']}") && !is_link("{$setParts['folder']}/{$thisRom['file']}")) return;
 
@@ -660,6 +659,9 @@ function romScan($romFile, $thisSet, $setParts, $mameGameArr) {
 	if($setParts['assets'] == 'MAME') {
 		// Only add wanted files
 		if(!isset($mameGameArr[$thisRom['name']])) return;
+
+		// Don't duplicate CHD entries (some have associated ZIP files, others don't). Skip if this is the folder of an existing ZIP file.
+		if($thisRom['ext'] != 'zip' && file_exists("{$setParts['folder']}/{$thisRom['name']}.zip")) return;
 
 		// Game appears to be non-English, note and skip
 		if(strstr($mameArray[$thisRom['name']], '(Japan')) {
@@ -688,17 +690,59 @@ function romScan($romFile, $thisSet, $setParts, $mameGameArr) {
 	$thisRom['niceName'] = tidyRomName($thisRom['realName']);
 	$thisRom['safeName'] = safeName($thisRom['niceName']);
 
-	// Set the real path to the game
-	$thisRom['fullPath'] = "{$setParts['folder']}/{$thisRom['file']}";
-
 	// Go get info about the game and perform lookups if needed
 	$thisRom['gameID'] = getGameInfo($thisRom, $setParts, $thisSet);
 
 	// Set the emulator system name to the Database name unless it's explicitly overriden
 	if(!isset($setParts['esname'])) $setParts['esname'] = $setParts['dbname'];
 
+	// Set the real path to the game
+	$thisRom['fullPath'] = "{$setParts['folder']}/{$thisRom['file']}";
+
+	// Get file hash (if it's actually a file)
+	#if(!DBSingle("SELECT gameFilePath FROM gameHash WHERE gameFilePath = ? LIMIT 1", array($thisRom['fullPath'])) && is_file($thisRom['fullPath'])) {
+	#	$thisRom['gameHash'] = md5_file($thisRom['fullPath']);
+	#	DBSimple("INSERT IGNORE INTO gameHash SET gameFilePath = ?, gameHash = ?", array($thisRom['fullPath'], $thisRom['gameHash']));
+	#}
+
 	// Store raw info about the file in the DB (File + Platform is the key)
-	DBSimple("INSERT IGNORE INTO gameFiles SET gameFile = ?, gameFileUpdateTime = ?, gameFilePath = ?, gameFilePlatform = ?, gameID = ?", array($thisRom['file'], $timeNow, $thisRom['fullPath'], $setParts['esname'], $thisRom['gameID']));
+	DBSimple(
+		"INSERT IGNORE INTO gameFiles SET gameFile = ?, gameFileUpdateTime = ?, gameFilePath = ?, gameFilePlatform = ?, gameID = ?",
+		array($thisRom['file'], $timeNow, $thisRom['fullPath'], $setParts['esname'], $thisRom['gameID'])
+	);
+
+	unset($thisRom);
+}
+
+function genCompositeImage($setParts, $gameArray, $boxArt, $snapArt, $wheelArt) {
+	echo "\n[CGen] [{$setParts['dbname']}] Creating artwork for {$gameArray['gameName']}.";
+
+	// Vars
+	$x = 640;
+	$y = 480;
+
+	// Run X processes where X is logical cores + 20% rounded up
+	$p = ceil(MACHINE_CORES * 1.2);
+
+	// Auto-calc sizes
+	$sx = round($x * 0.9);
+	$sy = round($y * 0.85);
+	$mx = round($x * 0.5);
+	$my = round($y * 0.5);
+	$dx = round($x * 0.1);
+	$bx = round($x * 0.01);
+	$by = round($y * 0.01);
+
+	## Only composite parts that exist
+	if($snapArt) $snapCode = "\( \"{$snapArt}\" -resize {$sx}x{$sy} \) -gravity North -composite";
+	if($boxArt) $boxCode = "\( -bordercolor Black -border 4x4 \"{$boxArt}\" -resize {$mx}x{$my} \( +clone -background black -shadow {$dx}x5+5+5 \) +swap -background none -layers merge +repage \) -gravity SouthWest -geometry +0+0 -composite";
+	if($wheelArt) $wheelCode = "\( \"{$wheelArt}\" -trim +repage -resize {$mx}x{$my} \( +clone -background black -shadow {$dx}x2+3+3 \) +swap -background none -layers merge +repage \) -gravity SouthEast -geometry +0+0 -composite";
+
+	## Wait for less than X processes to be running
+	while(cleanShell("pgrep -x convert | wc -l") > $p) usleep(100000);
+
+	## Generate the image (use 8bit colour as it doesn't appear to affect quality and cuts size to 1/4)
+	shell_exec("convert -size {$x}x{$y} xc:none {$snapCode} {$boxCode} {$wheelCode} -depth 8 \"".ASSET_ROOT."/Composite/{$setParts['assets']}/{$gameArray['gameMatchName']}.png\" >/dev/null 2>&1 &");
 }
 
 // Take a name and turn it into a clean, normalised string
@@ -975,8 +1019,12 @@ function cleanUnixtime($dateString) {
 	}
 }
 
-function dateToES($dateString) {
-	if($dateString) return date('Ymd\T000000', cleanUnixtime($dateString));
+function dateToES($dateString = false) {
+	if($dateString) {
+		return date('Ymd\T000000', $dateString);
+	}else{
+		return '';
+	}
 }
 
 ?>

@@ -4,7 +4,7 @@
 ## http://thegamesdb.net/api/GetPlatformsList.php (name)
 ## http://www.giantbomb.com/api/platforms/?api_key={$gbKey} (id)
 ## http://www.mobygames.com/codes/c,1/platformId,3/ (hover, it's the last number which is the id)
-## http://uk.ign.com/search?q=dragon%27s%20lair&page=0&count=10&filter=games (end of url before "-#####")
+## http://uk.ign.com/search?q=contra&page=0&count=10&filter=games (end of url before "-#####")
 ## http://allgame.com/platforms.php (name) ## Site now dead
 ## http://api.archive.vg/2.0/Archive.getSystems/xml/{$archivevgKey}/ (short)
 ## http://www.gamefaqs.com/search/index.html?platform=38&game=Bubble (short system name in URL)

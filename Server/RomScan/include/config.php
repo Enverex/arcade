@@ -17,7 +17,7 @@ define('ATTRACT_THEME', 'arcade');
 // Static Vars
 setlocale(LC_CTYPE, 'en_GB');
 chdir(RS_PATH);
-$userAgent = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36";
+$userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
 $wgetLocal = "wget -q -T 10 -t 2 -U '{$userAgent}'";
 ini_set('error_reporting', E_ALL & ~E_NOTICE);
 ini_set('display_errors', 1);
@@ -38,6 +38,9 @@ $cliWidth = round(exec('tput cols') - (exec('tput cols') * 0.2)) - 10;
 // API Keys
 require_once('include/keys.php');
 
+// Machine Info
+define('MACHINE_CORES',	trim(shell_exec("grep vendor_id /proc/cpuinfo | wc -l")));
+
 // Scraper Resources
 define('MAME_WANT',	RS_PATH.'/resources/mame.want');
 define('MAME_SKIP',	RS_PATH.'/resources/mame.skipped');
@@ -50,6 +53,7 @@ define('ATTRACT_SKEL',		RS_PATH.'/resources/attract.skel');
 define('ATTRACT_VARS',		RS_PATH.'/resources/attract-system.skel');
 define('ATTRACT_GPATH',		RS_PATH.'/generated/AM');
 define('ESTATION_GPATH',	RS_PATH.'/generated/ES');
+define('SKY_GPATH',			RS_PATH.'/generated/SKY');
 define('ESTATION_SKEL',		RS_PATH.'/resources/emustation-theme.skel');
 define('RETROXMB_GPATH',	RS_PATH.'/generated/XMB');
 

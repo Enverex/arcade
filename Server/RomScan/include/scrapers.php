@@ -87,7 +87,7 @@ function igdbScraper($dbGameName, $gameName, $platformName, $assetFolder, $igdbi
 			// Get box art
 			if(!$romImage && isset($coverImage)) $romImage = getImage($gameName, "https://images.igdb.com/igdb/image/upload/t_original/{$coverImage}.jpg", $assetFolder);
 			// Get the screenshot/snap art
-			if(!$romSnapImage && isset($screenshotImage)) $romSnapImage = getImage($gameName, "https://images.igdb.com/igdb/image/upload/t_original/{$coverImage}.jpg", $assetFolder, 'Snap');
+			if(!$romSnapImage && isset($screenshotImage)) $romSnapImage = getImage($gameName, "https://images.igdb.com/igdb/image/upload/t_original/{$screenshotImage}.jpg", $assetFolder, 'Snap');
 			## (doesn't support wheel art)
 
 			if(DEBUG) echo "\n[IGDB Scraper] [{$gameName}] Info found. Adding to database";
@@ -102,7 +102,7 @@ function launchboxDbScraper($dbGameName, $platformName, $gameName, $launchboxPla
 	if(!$launchboxPlatforms) return;
 	global $romImage, $romWheelImage, $romSnapImage;
 
-	$lbImagePath = 'http://images.launchbox-app.com/';
+	$lbImagePath = 'https://images.launchbox-app.com/';
 
 	// Handle multiple lookup platforms
 	$launchboxPlatforms = explode('|', $launchboxPlatforms);

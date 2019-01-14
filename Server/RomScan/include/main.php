@@ -20,6 +20,7 @@ require_once('include/init.php');
 $configFile = parse_ini_file("resources/config-{$genPlatform}.ini");
 if(!$configFile) die("Unable to find configuration file.");
 define('START_TIME', time());
+define('ASSET_PATH', $configFile['assetPath']);
 define('ASSET_ROOT', $configFile['assetRoot']);
 define('EXTRAASSET_ROOT', $configFile['extraAssetRoot']);
 define('MESS_PATH', $configFile['messPath']);
@@ -37,8 +38,11 @@ if($mode == 'scan') {
 	doScan();
 }elseif($mode == 'generate') {
 	doGenerate();
-}else{
+}elseif($mode == 'composite') {
+	doImageGen();
+}elseif($mode == '') {
 	doScan();
+	doImageGen();
 	doGenerate();
 }
 
@@ -110,7 +114,7 @@ function doScan() {
 					echo "[MAME ROM Verification] Parent ROM ({$parentName}) does not exist.".PHP_EOL;
 				}
 			}else{
-				echo "[MAME ROM Verification] ROM ({$parentName}) does not exist and has no parent!".PHP_EOL;
+				echo "[MAME ROM Verification] ROM ({$parentName}) DOES NOT EXIST and has no parent!".PHP_EOL;
 			}
 		}
 	}
@@ -185,14 +189,29 @@ function doScan() {
 	*/
 }
 
+function doImageGen() {
+	global $configFile, $systemArr;
+	foreach($systemArr as $thisSet => $setParts) {
+		// We have a system that uses another systems artwork, switch the selection
+		if(isset($setParts['esname'])) { $dbPlatform = $setParts['esname']; }else{ $dbPlatform = $setParts['esname'] = $setParts['dbname']; }
+		@mkdir(ASSET_ROOT."/Composite/{$setParts['assets']}/", 0777, true);
+
+		// Loop through the games
+		foreach(DBAssoc("SELECT * FROM gameFiles NATURAL JOIN games WHERE gameDisabled IS NULL AND gameFilePlatform = ? ORDER BY gameName+0<>0 DESC, gameName+0, gameName", array($dbPlatform)) as $gameArray) {
+			// Create composite image
+			if(!file_exists(ASSET_ROOT."/Composite/{$setParts['assets']}/{$gameArray['gameMatchName']}.png")) genCompositeImage($setParts, $gameArray, $gameArray['gameImage'], $gameArray['gameSnapImage'], $gameArray['gameWheelImage']);
+		}
+	}
+}
+
 function doGenerate() {
 	global $configFile, $systemArr, $windowsTranslation;
 	$systemListEs = $systemListAm = '';
 	if(isset($configFile['linuxTrPath'])) $windowsTranslation = array($configFile['linuxTrPath'] => $configFile['windowsTrPath']);
 
 	// Nuke the existing live links
-	echo "\n\n=============================\nClearing Existing Live Links\n=============================\n";
-	cleanShell("rm -rf /mnt/store/Emulation/Assets/Live");
+	#echo "\n\n=============================\nClearing Existing Live Links\n=============================\n";
+	#cleanShell("rm -rf /mnt/store/Emulation/Assets/Live");
 
 	echo "\n\n=============================\nFinal Content Generation\n=============================\n";
 	foreach($systemArr as $thisSet => $setParts) {
@@ -201,9 +220,9 @@ function doGenerate() {
 
 		echo "\n[{$thisSet}] [{$setParts['dbname']}] Creating game lists and asset links.";
 
-		@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Box", 0777, true);
-		@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Snap", 0777, true);
-		@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Wheel", 0777, true);
+		#@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Box", 0777, true);
+		#@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Snap", 0777, true);
+		#@mkdir(ASSET_ROOT."/Live/{$setParts['assets']}/Wheel", 0777, true);
 
 		// Set emulator, use RetroArch if a core has been set
 		if(isset($setParts['retrocore'])) {
@@ -246,6 +265,11 @@ function doGenerate() {
 		// We have a system that uses another systems artwork, switch the selection
 		if(isset($setParts['esname'])) { $dbPlatform = $setParts['esname']; }else{ $dbPlatform = $setParts['esname'] = $setParts['dbname']; }
 
+		@mkdir(SKY_GPATH."/import/{$setParts['esname']}/covers", 0777, true);
+		@mkdir(SKY_GPATH."/import/{$setParts['esname']}/screenshots", 0777, true);
+		@mkdir(SKY_GPATH."/import/{$setParts['esname']}/wheels", 0777, true);
+		@mkdir(SKY_GPATH."/import/{$setParts['esname']}/textual", 0777, true);
+
 		// Create the list of games
 		foreach(DBAssoc("SELECT * FROM gameFiles NATURAL JOIN games WHERE gameDisabled IS NULL AND gameFilePlatform = ? ORDER BY gameName+0<>0 DESC, gameName+0, gameName", array($dbPlatform)) as $gameArray) {
 			// Don't add games that are missing descriptions unless forced (likely to be obscure or really bad)
@@ -263,6 +287,7 @@ function doGenerate() {
 			);
 
 			// Make the live links for the images
+			/*
 			foreach($linkValuesArray as $linkType => $linkImage) {
 				if(!$linkImage || empty($gameArray['gameName'])) continue;
 				$linkExtension = pathinfo($linkImage)['extension'];
@@ -271,6 +296,7 @@ function doGenerate() {
 					echo "\nFailed to create symlink for $linkImage";
 				}
 			}
+			*/
 
 			// Trim game description
 			$gameArray['gameDescription'] = cutText($gameArray['gameDescription'], 350);
@@ -281,10 +307,40 @@ function doGenerate() {
 				$gameArray['gameImage'] = translateWinPath($gameArray['gameImage']);
 			}
 
-			$gameListEs .= "<game>\n\t<name>".xmlSafe($gameArray['gameName'])."</name>\n\t<path>{$gameArray['gameFilePath']}</path>\n\t<desc>".xmlSafe($gameArray['gameDescription'])."</desc>\n\t<publisher>".xmlSafe($gameArray['gamePublisher'])."</publisher>\n\t<developer>".xmlSafe($gameArray['gameDeveloper'])."</developer>\n\t<releasedate>".($gameArray['gameReleaseDate'] ? dateToES($gameArray['gameReleaseDate']) : '')."</releasedate>\n\t<image>".str_replace('Emulation/Assets', 'Emulation/Assets/Live', $gameArray['gameImage'])."</image>\n\t<genre>".xmlSafe($gameArray['gameGenre'])."</genre>\n\t<rating>".numToFloat($gameArray['gameRating'])."</rating>\n\t<players>{$gameArray['gamePlayers']}</players>\n</game>\n\n";
+			// ES only supports one image so create a var for just the name to use later
+			$gameFileName = pathinfo($gameArray['gameFile'])['filename'];
+
+			/*
+			if($gameArray['gameImage']) {
+				$imageExtension = pathinfo($gameArray['gameImage'])['extension'];
+				$gameArray['gameImageFile'] = "Box/{$gameFileName}.{$imageExtension}";
+			}elseif($gameArray['gameSnapImage']){
+				$imageExtension = pathinfo($gameArray['gameSnapImage'])['extension'];
+				$gameArray['gameImageFile'] = "Snap/{$gameFileName}.{$imageExtension}";
+			}
+
+			$esGameImage = '';
+			if($gameArray['gameImageFile']) {
+				$esGameImage = xmlSafe(ASSET_PATH."/{$setParts['assets']}/{$gameArray['gameImageFile']}");
+			}
+			*/
+
+			$esGameImage = xmlSafe(ASSET_PATH."/{$setParts['assets']}/{$gameArray['gameMatchName']}.png");
+
+			// The "per-game" line for each game in the ES file list
+			$gameListEs .= "<game>\n\t<name>".xmlSafe($gameArray['gameName'])."</name>\n\t<path>{$gameArray['gameFilePath']}</path>\n\t<desc>".xmlSafe($gameArray['gameDescription'])."</desc>\n\t<publisher>".xmlSafe($gameArray['gamePublisher'])."</publisher>\n\t<developer>".xmlSafe($gameArray['gameDeveloper'])."</developer>\n\t<releasedate>".dateToES($gameArray['gameReleaseDate'])."</releasedate>\n\t<image>{$esGameImage}</image>\n\t<genre>".xmlSafe($gameArray['gameGenre'])."</genre>\n\t<rating>".numToFloat($gameArray['gameRating'])."</rating>\n\t<players>{$gameArray['gamePlayers']}</players>\n</game>\n\n";
 
 			// #Name;Title;Emulator;CloneOf;Year;Manufacturer;Category;Players;Rotation;Control;Status;DisplayCount;DisplayType;AltRomname;AltTitle;Extra
 			$gameListAm .= pathinfo($gameArray['gameFilePath'], PATHINFO_FILENAME).";{$gameArray['gameName']};{$setParts['esname']};;".($gameArray['gameReleaseDate'] ? date('Y', $gameArray['gameReleaseDate']) : '').";{$gameArray['gameDeveloper']};{$gameArray['gameGenre']};{$gameArray['gamePlayers']};;;;;;;".pathinfo($gameArray['gameImage'], PATHINFO_FILENAME).";".makeAttractSafe($gameArray['gameDescription'])."\n";
+
+			// Skyscraper Import Generator - Per Game XML
+			$gameListSkyscraper = "<game>\n  <title>".xmlSafe($gameArray['gameName'])."</title>\n  <description>".xmlSafe($gameArray['gameDescription'])."</description>\n  <developer>".xmlSafe($gameArray['gameDeveloper'])."</developer>\n  <publisher>".xmlSafe($gameArray['gamePublisher'])."</publisher>\n  <players>{$gameArray['gamePlayers']}</players>\n  <rating>{$gameArray['gameRating']}</rating>\n  <ages></ages>\n  <genre>".xmlSafe($gameArray['gameGenre'])."</genre>\n  <releasedate>".date('Y-m-d', $gameArray['gameReleaseDate'])."</releasedate>\n</game>";
+			file_put_contents(SKY_GPATH."/import/{$setParts['esname']}/textual/{$gameFileName}.xml", $gameListSkyscraper);
+
+			// Skyscraper - Create image symlinks
+			@symlink($gameArray['gameImage'], SKY_GPATH."/import/{$setParts['esname']}/covers/{$gameFileName}." . pathinfo($gameArray['gameImage'])['extension']);
+			@symlink($gameArray['gameSnapImage'], SKY_GPATH."/import/{$setParts['esname']}/screenshots/{$gameFileName}." . pathinfo($gameArray['gameSnapImage'])['extension']);
+			@symlink($gameArray['gameWheelImage'], SKY_GPATH."/import/{$setParts['esname']}/wheels/{$gameFileName}." . pathinfo($gameArray['gameWheelImage'])['extension']);
 
 			// Full Game Path, Game Name, Full Core Path, System Name, CRC/Detect, Playlist Name
 			if(isset($setParts['nointroname'])) $gameListRa .= "{$gameArray['gameFilePath']}\n{$gameArray['gameName']}\nDETECT\n{$thisSet}\n0|crc\n{$setParts['nointroname']}.lpl\n";
@@ -294,16 +350,18 @@ function doGenerate() {
 		// Generate game list
 		@mkdir(ESTATION_GPATH, 0777, true);
 		$emulatorArgsEs = str_replace('ROMGOESHERE', '%ROM_RAW%', $emulatorArgsEs);
-		$systemListEs .= "<system>\n\t<name>{$setParts['esname']}</name>\n\t<fullname>{$thisSet}</fullname>\n\t<path>{$esRomPath}</path>\n\t<extension>{$platformExtList}</extension>\n\t<command>eLord {$setParts['dbname']} \"%ROM_RAW%\"</command>\n\t<platform>{$setParts['dbname']}</platform>\n\t<theme>{$setParts['dbname']}</theme>\n</system>\n\n";
+		#$systemListEs .= "<system>\n\t<name>{$setParts['esname']}</name>\n\t<fullname>{$thisSet}</fullname>\n\t<path>{$esRomPath}</path>\n\t<extension>{$platformExtList}</extension>\n\t<command>eLord {$setParts['dbname']} \"%ROM_RAW%\"</command>\n\t<platform>{$setParts['dbname']}</platform>\n\t<theme>{$setParts['dbname']}</theme>\n</system>\n\n";
+		$systemListEs .= "<system>\n\t<name>{$setParts['esname']}</name>\n\t<fullname>{$thisSet}</fullname>\n\t<path>{$esRomPath}</path>\n\t<extension>IGNORE</extension>\n\t<command>eLord {$setParts['dbname']} \"%ROM_RAW%\"</command>\n\t<platform>{$setParts['dbname']}</platform>\n\t<theme>{$setParts['dbname']}</theme>\n</system>\n\n";
 		@mkdir(ESTATION_GPATH."/.emulationstation/gamelists/{$setParts['esname']}", 0777, true);
 		file_put_contents(ESTATION_GPATH."/.emulationstation/gamelists/{$setParts['esname']}/gamelist.xml", "<?xml version='1.0' encoding='UTF-8'?>\n\n<gameList>\n\n{$gameListEs}</gameList>\n");
+
 		// Generate theme file
 		$systemName = $thisSet;
 		$esThemeXml = file_get_contents(ESTATION_SKEL);
 		$systemCompanyName = strtok($systemName, ' ');
 		$systemName = substr(strstr($systemName, ' '), 1);
-		$esThemeXml = str_replace('REPLACE_SYSTEMNAME1', $systemCompanyName, $esThemeXml);
-		$esThemeXml = str_replace('REPLACE_SYSTEMNAME2', $systemName, $esThemeXml);
+		$esThemeXml = str_replace('REPLACE_SYSTEMNAME1', $systemName, $esThemeXml);
+		$esThemeXml = str_replace('REPLACE_SYSTEMNAME2', $systemCompanyName, $esThemeXml);
 		@mkdir(ESTATION_GPATH."/.emulationstation/themes/romscan/{$setParts['esname']}", 0777, true);
 		file_put_contents(ESTATION_GPATH."/.emulationstation/themes/romscan/{$setParts['esname']}/theme.xml", $esThemeXml);
 
@@ -319,6 +377,9 @@ function doGenerate() {
 		## RETROARCH ##
 		@mkdir(RETROXMB_GPATH, 0777, true);
 		if(isset($setParts['nointroname'])) file_put_contents(RETROXMB_GPATH."/{$setParts['nointroname']}.lpl", $gameListRa);
+
+		## SkyScraper
+
 	}
 
 	echo "\n\n[All] Creating emulator system files.\n";

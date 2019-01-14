@@ -60,6 +60,7 @@ while($pageNumber <= 10) {
 		$gameName = str_replace('\\', ' - ', $gameName);
 		$gameName = str_replace(':', ' - ', $gameName);
 		$gameName = str_replace('!', '', $gameName);
+		$gameName = str_replace('"', '', $gameName);
 		$gameName = trim($gameName);
 
 		// Strip trailing numbers, chances are they are version numbers
