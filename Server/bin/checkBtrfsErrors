@@ -1,0 +1,20 @@
+#!/bin/bash
+
+##########################################################################################
+## Check for BTRFS errors and report which files are affected if the file still exists. ##
+##########################################################################################
+
+diskVolume="/mnt/store"
+
+IFS=$'\n'
+echo -e "\n==!== Starting BTRFS Error Scan\n"
+
+for thisError in $(journalctl -t kernel --output short | grep -i 'unable to fixup'); do
+	checkRes="$(btrfs inspect-internal logical-resolve "$(echo $thisError | awk '{print $17}')" $diskVolume 2>&1)"
+	delCheck="$(echo $checkRes | grep 'No such file or directory')"
+	if [[ ! $delCheck ]]; then
+		echo -e "== $thisError\n$checkRes\n"
+	fi
+done
+
+unset IFS
